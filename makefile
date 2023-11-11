@@ -1,13 +1,15 @@
 
 t:
-	sudo nixos-rebuild test --flake .#$$HOSTNAME && nix fmt && bash
-test: t
-
-s:
+	git add .
 	sudo nixos-rebuild test --flake .#$$HOSTNAME
 	nix fmt
-	git add .
-	git commit
-	sudo nixos-rebuild switch --flake .#$$HOSTNAME && bash
-switch: s
 
+s:
+	git add .
+	sudo nixos-rebuild test --flake .#$$HOSTNAME
+	nix fmt
+	git commit
+	sudo nixos-rebuild switch --flake .#$$HOSTNAME
+
+switch: s
+test: t

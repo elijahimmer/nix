@@ -53,7 +53,5 @@
       };
     };
     initrd.secrets = {"/luks.key" = /luks.key;};
-
-    plymouth = {enable = true;};
   };
 }

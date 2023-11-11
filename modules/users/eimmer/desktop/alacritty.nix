@@ -1,4 +1,21 @@
-{home-manager, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
+  environment.systemPackages = [
+    (
+      pkgs.writeShellScriptBin "xdg-terminal-exec" ''
+        if [ -z "$@" ]
+          then
+          ${lib.getBin pkgs.alacritty}/bin/alacritty
+          else
+          ${lib.getBin pkgs.alacritty}/bin/alacritty -e "$@"
+        fi
+      ''
+    )
+  ];
+
   home-manager.users.eimmer = {
     pkgs,
     stylix,

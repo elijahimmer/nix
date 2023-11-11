@@ -1,6 +1,7 @@
 {home-manager, ...}: {
   imports = [
     ./alacritty.nix
+    ./displayManager.nix
     ./hyprland.nix
     ./music.nix
     ./programs.nix

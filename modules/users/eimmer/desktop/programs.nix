@@ -15,7 +15,7 @@
   };
 
   environment.sessionVariables = rec {
-    EDITOR = "hx";
+    EDITOR = "nvim";
     VISUAL = EDITOR;
     BROWSER = "librewolf";
     DEFAULT_BROWSER = BROWSER;
@@ -45,10 +45,10 @@
             "x-scheme-handler/unknown"
           ];
         };
-        helix = {
-          name = "Helix Text Editor";
+        neovim = {
+          name = "Neovim Text Editor";
           genericName = "Text Editor";
-          exec = "hx %U";
+          exec = "nvim %U";
           type = "Application";
           terminal = true;
           icon = "terminal";

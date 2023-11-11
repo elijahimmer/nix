@@ -1,8 +1,15 @@
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   services.btrfs.autoScrub.enable = true;
 
-  tmp2.enable = true;
-  protectKernalImage = true;
+  security = {
+    tpm2.enable = true;
+    protectKernelImage = true;
+    polkit.enable = true;
+  };
 
   hardware = {
     enableAllFirmware = true;

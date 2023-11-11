@@ -1,3 +1,4 @@
+# a nice module utility to make all the modules dynamically
 {lib}: let
   inherit (builtins) filter map readDir toString mapAttrs attrNames listToAttrs;
   inherit (lib) removeSuffix nameValuePair zipListsWith filterAttrs hasSuffix;

@@ -7,22 +7,32 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    utils = {
-      url = "github:gytis-ivaskevicius/flake-utils-plus";
-    };
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
   outputs = {
     self,
     home-manager,
     nixpkgs,
     agenix,
+    nixvim,
     nixos-hardware,
+    stylix,
     utils,
-  } @ inputs: {
+  } @ inputs: let
+    stateVersion = "23.11";
+  in {
     formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".alejandra;
     nixosModules = import ./modules {lib = nixpkgs.lib;};
     nixosConfigurations = {
@@ -33,7 +43,11 @@
 
           utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager
-          agenix.nixosModules.age
+
+          #agenix.nixosModules.age
+
+          nixvim.nixosModules.nixvim
+          stylix.nixosModules.stylix
 
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-gpu-intel
@@ -41,8 +55,9 @@
           nixos-hardware.nixosModules.common-pc-laptop-ssd
         ];
         specialArgs = {
-          inherit inputs;
-          hostname = "lv14";
+          inherit inputs stateVersion;
+          hostName = "lv14";
+          headless = false;
         };
       };
     };

@@ -1,19 +1,30 @@
 {
   pkgs,
   inputs,
+  hostName,
+  stateVersion,
   ...
 }: {
   # just some default needed to make a system work. I will not use nano if avoidable.
   environment.systemPackages = with pkgs; [
-    vim
     git
   ];
+  nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
       trusted-users = ["@wheel" "root"];
       auto-optimise-store = true;
-      exprimental-features = ["nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes"];
     };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 8 days";
+      persistent = true;
+    };
+
+    daemonIOSchedClass = "best-effort";
+    daemonCPUSchedPolicy = "batch";
 
     package = pkgs.nixUnstable;
 
@@ -25,10 +36,8 @@
     '';
     registry.nixpkgs.flake = inputs.nixpkgs;
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
   };
+
+  networking = {inherit hostName;};
+  system = {inherit stateVersion;};
 }

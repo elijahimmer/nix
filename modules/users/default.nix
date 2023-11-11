@@ -1,3 +1,0 @@
-{
-  eimmer = import ./eimmer;
-}

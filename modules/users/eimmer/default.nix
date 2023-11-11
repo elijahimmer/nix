@@ -3,12 +3,17 @@
   lib,
   pkgs,
   inputs,
+  headless,
   ...
 }: {
-  home = rec {
-    username = "eimmer";
-    homeDirectory = "/home/${username}";
-  };
+  imports = [] ++ lib.optional (!headless) ./desktop;
 
-  home.stateVersion = "23.11";
+  home-manager.users.eimmer = {...}: {
+    home = rec {
+      username = "eimmer";
+      homeDirectory = lib.mkDefault "/home/${username}";
+    };
+
+    home.stateVersion = "23.11";
+  };
 }

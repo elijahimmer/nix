@@ -2,7 +2,6 @@
   config,
   pkgs,
   inputs,
-  hostname,
   ...
 }: {
   imports = with inputs.self.nixosModules; [
@@ -11,32 +10,21 @@
     ./packages.nix
 
     users.eimmer
-    users.eimmer.desktop
 
-    profiles.tailscale
-    profiles.fail2ban
-    profiles.wireless
-    profiles.pipewire
-    profiles.avahi
+    env.common
+    env.coding
 
-    misc.environment
-    misc.v4l2loopback
+    misc.tailscale
+    misc.mullvad
+    misc.networkmanager
+    misc.pipewire
+
     misc.bluetooth
+    misc.upgrade
     misc.common
-    misc.gc
   ];
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users = import "${inputs.self}/users";
-    extraSpecialArgs = {
-      inherit inputs;
-      headless = false;
-    };
-  };
-
-  users.users.eimmer.extraGroups = ["video"];
+  nixpkgs.config.allowUnfree = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "America/Los_Angelese";
@@ -47,11 +35,6 @@
     generateNixPathFromInputs = true;
     generateRegistryFromInputs = true;
     linkInputs = true;
-  };
-
-  networking = {
-    inherit hostname;
-    wireless.enable = true;
   };
 
   boot = {
@@ -70,9 +53,9 @@
       };
     };
     initrd.secrets = {"/luks.key" = /luks.key;};
-    plymouth.enable = true;
-  };
-  polkit.enable = true;
 
-  system.stateVersion = "23.11";
+    plymouth = {
+      enable = true;
+    };
+  };
 }

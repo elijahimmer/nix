@@ -4,6 +4,10 @@ t:
 test: t
 
 s:
-	git add . && git commit && nix fmt && sudo nixos-rebuild switch --flake .#$$HOSTNAME && bash
+	sudo nixos-rebuild test --flake .#$$HOSTNAME
+	nix fmt
+	git add .
+	git commit
+	sudo nixos-rebuild switch --flake .#$$HOSTNAME && bash
 switch: s
 

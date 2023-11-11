@@ -12,12 +12,12 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = {
-      inherit inputs stateVersion;
-    };
+    extraSpecialArgs = {inherit inputs stateVersion;};
   };
 
-  home-manager.users.eimmer = {stateVersion, ...}: {home = {inherit stateVersion;};};
+  home-manager.users.eimmer = {stateVersion, ...}: {
+    home = {inherit stateVersion;};
+  };
 
   users.users.eimmer = {
     isNormalUser = true;

@@ -17,8 +17,10 @@
       l = "eza -al";
       ls = "eza";
       n = "nix-shell -p";
+      rm = "echo do you really wanna rm or cnc? (use \\rm)";
     };
   };
+
   programs.nixvim = {
     enable = true;
     clipboard.providers.wl-copy.enable = true;

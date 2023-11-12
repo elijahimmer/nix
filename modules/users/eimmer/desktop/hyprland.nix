@@ -40,7 +40,7 @@
             disable_while_typing = false;
             natural_scroll = true;
           };
-          kb_options = caps:escape;
+          kb_options = "caps:escape";
         };
         misc = {
           disable_hyprland_logo = true;
@@ -115,7 +115,7 @@
         bind = SUPER, A, submap, reset
         bind = SUPER, S, exec, ${pkgs.gamemode}/bin/gamemoderun gamescope -fe --force-grab-cursor --sharpness 0 -H 1080 -W 2560 -S integer -- steam
         bind = SUPER, S, submap, reset
-        bind = SUPER, H, exec, ${pkgs.webcord-vencord}/bin/webcord
+        bind = SUPER, H, exec, ${lib.getExe pkgs.webcord-vencord}
         bind = SUPER, H, submap, reset
         bind = SUPER, T, exec, $BROWSER
         bind = SUPER, T, submap, reset

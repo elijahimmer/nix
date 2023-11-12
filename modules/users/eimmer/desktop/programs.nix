@@ -1,8 +1,4 @@
-{
-  pkgs,
-  home-manager,
-  ...
-}: {
+{pkgs, ...}: {
   programs.firefox = {
     enable = true;
     package = pkgs.librewolf;
@@ -15,9 +11,6 @@
   };
 
   environment.sessionVariables = rec {
-    EDITOR = "nvim";
-    VISUAL = EDITOR;
-    PAGER = "page";
     BROWSER = "librewolf";
     DEFAULT_BROWSER = BROWSER;
     TERMINAL = "alacritty";

@@ -18,7 +18,7 @@
       ls = "eza";
       n = "nix-shell -p";
       rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
-      nr = pkgs.writeScriptBin "nr" ''
+      nr = pkgs.writeScript "nr" ''
         export NIX_SHELL_RUN_COMMAND=$@
         nix-shell -p "$1" --command ${pkgs.writeScript "nix-run-in-shell" ''
             $NIX_SHELL_RUN_COMMAND
@@ -27,10 +27,17 @@
       '';
     };
   };
+  environment.sessionVariables = rec {
+    EDITOR = "nvim";
+    VISUAL = EDITOR;
+    PAGER = "page";
+  };
 
   programs.nixvim = {
     enable = true;
-    clipboard.providers.wl-copy.enable = true;
+    clipboard.register = "unnamedplus";
+    # Make Neovim's Yank and Paste use the system clipboard
+    # This should not be an issue even on systems without clipboards
     colorschemes.rose-pine = {
       enable = true;
       transparentBackground = true;
@@ -41,6 +48,8 @@
       mouse = "";
       relativenumber = true;
       smartindent = true;
+      tabstop = 2;
+      shiftwidth = 2;
     };
   };
 }

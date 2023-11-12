@@ -7,6 +7,7 @@
     ./programs.nix
     ./services.nix
     ./stylix.nix
+    ./waybar.nix
   ];
 
   home-manager.users.eimmer = {...}: {

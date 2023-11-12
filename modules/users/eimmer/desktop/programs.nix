@@ -17,6 +17,7 @@
   environment.sessionVariables = rec {
     EDITOR = "nvim";
     VISUAL = EDITOR;
+    PAGER = "page";
     BROWSER = "librewolf";
     DEFAULT_BROWSER = BROWSER;
     TERMINAL = "alacritty";

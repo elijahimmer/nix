@@ -15,21 +15,17 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #agenix = {
+    #  url = "github:ryantm/agenix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
   };
   outputs = {
     self,
     home-manager,
     nixpkgs,
-    agenix,
-    nixvim,
-    nixos-hardware,
-    stylix,
-    utils,
+    ...
   } @ inputs: let
     stateVersion = "23.11";
   in {
@@ -41,18 +37,18 @@
         modules = [
           ./hosts/lv14/configuration.nix
 
-          utils.nixosModules.autoGenFromInputs
+          inputs.utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager
 
           #agenix.nixosModules.age
 
-          nixvim.nixosModules.nixvim
-          stylix.nixosModules.stylix
+          inputs.nixvim.nixosModules.nixvim
+          inputs.stylix.nixosModules.stylix
 
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-gpu-intel
-          nixos-hardware.nixosModules.common-pc-laptop
-          nixos-hardware.nixosModules.common-pc-laptop-ssd
+          inputs.nixos-hardware.nixosModules.common-cpu-intel
+          inputs.nixos-hardware.nixosModules.common-gpu-intel
+          inputs.nixos-hardware.nixosModules.common-pc-laptop
+          inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
         ];
         specialArgs = {
           inherit inputs stateVersion;

@@ -1,11 +1,5 @@
 {...}: {
   programs.nixvim = {
-    options = {
-      browsedir = "buffer";
-      mouse = "";
-      relativenumber = true;
-      smartindent = true;
-    };
     plugins = {
       telescope.enable = true;
       treesitter.enable = true;
@@ -19,7 +13,7 @@
       fugitive.enable = true;
       nix.enable = true;
       undotree.enable = true;
-      indent-blankline.enable = true;
+      #      indent-blankline.enable = true;
 
       lsp = {
         enable = true;

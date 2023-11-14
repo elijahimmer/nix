@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   services.btrfs.autoScrub.enable = true;
 
   security = {
@@ -25,10 +21,18 @@
     };
 
     cpu.intel.updateMicrocode = true;
-    bluetooth.enable = lib.mkDefault false;
   };
 
   services = {
+    logind = {
+      killUserProcesses = true;
+      powerKey = "suspend-then-hibernate";
+      powerKeyLongPress = "poweroff";
+
+      lidSwitch = "suspend-then-hibernate";
+      lidSwitchExternalPower = "suspend";
+      lidSwitchDocked = "suspend";
+    };
     thermald.enable = true;
     tlp = {
       enable = true;
@@ -52,16 +56,6 @@
 
         STOP_CHARGE_THRESH_BAT0 = "95";
       };
-    };
-
-    logind = {
-      killUserProcesses = true;
-      powerKey = "suspend-then-hibernate";
-      powerKeyLongPress = "poweroff";
-
-      lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "suspend";
-      lidSwitchDocked = "suspend";
     };
   };
 }

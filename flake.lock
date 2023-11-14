@@ -335,17 +335,18 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1699865226,
-        "narHash": "sha256-VfCh57Uoa1+Q099E9LS1AQDOCbYhnPjDJZQem3Bzd7I=",
-        "ref": "refs/heads/hyprland-move-to-programs-wayland",
-        "rev": "3587fe447086df89b47ac8176ad56f91f5fb74ec",
-        "revCount": 546902,
-        "type": "git",
-        "url": "file:///home/eimmer/src/nixpkgs"
+        "lastModified": 1699099776,
+        "narHash": "sha256-X09iKJ27mGsGambGfkKzqvw5esP1L/Rf8H3u3fCqIiU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "85f1ba3e51676fa8cc604a3d863d729026a6b8eb",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/eimmer/src/nixpkgs"
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-stable": {
@@ -374,11 +375,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1699721903,
-        "narHash": "sha256-ghsMr6EqRNCRJtzNokmqeyA3soMjl7bc+/TN7LX/Izc=",
+        "lastModified": 1699881763,
+        "narHash": "sha256-3oky/Ye5JPIsPj77A7XGXFkAlhAV70N1pGoEkfZKQyA=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "1286a0f41e37b2bb94f2eb87a7f4efde727f8e87",
+        "rev": "d748d9ea024c0ebe99996f71a534d2ebb12e5462",
         "type": "github"
       },
       "original": {

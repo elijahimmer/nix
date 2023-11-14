@@ -16,32 +16,18 @@
 
     misc.tailscale
     misc.mullvad
-    misc.networkmanager
 
     misc.upgrade
     misc.common
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  time.timeZone = "America/Los_Angelese";
-  location.provider = "geoclue2";
-
-  nix = {
-    # From flake-utils-plus
-    generateNixPathFromInputs = true;
-    generateRegistryFromInputs = true;
-    linkInputs = true;
-  };
-
   services.openssh = {
     enable = true;
     startWhenNeeded = true;
     # TODO: Add age nix or another secrets method and get the authorized keys here!
-    banner = ''===========================================
-      HERE BE DRAGONS; BEWARE OF WATERS AHEAD
-    ==========================================='';
+    banner = ''      ===========================================
+            HERE BE DRAGONS; BEWARE OF WATERS AHEAD
+            ==========================================='';
   };
 
   boot = {

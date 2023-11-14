@@ -1,7 +1,9 @@
 {
   description = "Elijah's Nixos Configs";
   inputs = {
-    nixpkgs.url = "/home/eimmer/src/nixpkgs/";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # For testing:
+    #nixpkgs.url = "/home/eimmer/src/nixpkgs/";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager";

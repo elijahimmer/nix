@@ -1,12 +1,16 @@
 {
   pkgs,
-  inputs,
   hostName,
   stateVersion,
   ...
 }: {
-  # just some default needed to make a system work. I will not use nano if avoidable.
+  # needed to get flakes to work
   environment.systemPackages = with pkgs; [git];
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = "America/Los_Angelese";
+  location.provider = "geoclue2";
+
   nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
@@ -26,16 +30,10 @@
 
     package = pkgs.nixUnstable;
 
-    extraOptions = let
-      empty_registry =
-        builtins.toFile "empty-flake-registry.json"
-        ''{"flakes":[],"version":2}'';
-    in ''
-      flake-registry = ${empty_registry}
-      builders-use-substitutes = true
-    '';
-    registry.nixpkgs.flake = inputs.nixpkgs;
-    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    # From flake-utils-plus
+    generateNixPathFromInputs = true;
+    generateRegistryFromInputs = true;
+    linkInputs = true;
   };
 
   networking = {inherit hostName;};

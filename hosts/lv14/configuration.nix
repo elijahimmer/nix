@@ -19,19 +19,6 @@
     misc.common
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  time.timeZone = "America/Los_Angelese";
-  location.provider = "geoclue2";
-
-  nix = {
-    # From flake-utils-plus
-    generateNixPathFromInputs = true;
-    generateRegistryFromInputs = true;
-    linkInputs = true;
-  };
-
   boot = {
     tmp.useTmpfs = true;
     loader = {

@@ -34,8 +34,8 @@
   };
   environment.sessionVariables = rec {
     EDITOR = "nvim";
-    VISUAL = EDITOR;
     PAGER = "page";
+    VISUAL = PAGER;
   };
 
   programs.nixvim = {
@@ -51,10 +51,13 @@
     options = {
       browsedir = "buffer";
       mouse = "";
+      number = true;
       relativenumber = true;
       smartindent = true;
       tabstop = 2;
       shiftwidth = 2;
+      list = true;
+      listchars = "tab:⇤–⇥,trail:·,precedes:⇠,extends:⇢,nbsp:×";
     };
   };
 }

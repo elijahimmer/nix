@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    element-desktop
+  ];
+
   programs.firefox = {
     enable = true;
     package = pkgs.librewolf;
@@ -15,10 +20,6 @@
     DEFAULT_BROWSER = BROWSER;
     TERMINAL = "alacritty";
   };
-
-  environment.systemPackages = with pkgs; [
-    wl-clipboard
-  ];
 
   home-manager.users.eimmer = {...}: {
     xdg = {

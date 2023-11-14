@@ -284,11 +284,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1699748018,
-        "narHash": "sha256-28rwXnxgscLkeII6wj44cuP6RuiynhzZSa424ZwGt/s=",
+        "lastModified": 1699783872,
+        "narHash": "sha256-4zTwLT2LL45Nmo6iwKB3ls3hWodVP9DiSWxki/oewWE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "50e582b9f91e409ffd2e134017445d376659b32e",
+        "rev": "280721186ab75a76537713ec310306f0eba3e407",
         "type": "github"
       },
       "original": {
@@ -335,18 +335,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1699099776,
-        "narHash": "sha256-X09iKJ27mGsGambGfkKzqvw5esP1L/Rf8H3u3fCqIiU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "85f1ba3e51676fa8cc604a3d863d729026a6b8eb",
-        "type": "github"
+        "lastModified": 1699865226,
+        "narHash": "sha256-VfCh57Uoa1+Q099E9LS1AQDOCbYhnPjDJZQem3Bzd7I=",
+        "ref": "refs/heads/hyprland-move-to-programs-wayland",
+        "rev": "3587fe447086df89b47ac8176ad56f91f5fb74ec",
+        "revCount": 546902,
+        "type": "git",
+        "url": "file:///home/eimmer/src/nixpkgs"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/eimmer/src/nixpkgs"
       }
     },
     "nixpkgs-stable": {

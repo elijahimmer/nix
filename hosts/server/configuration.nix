@@ -35,6 +35,15 @@
     linkInputs = true;
   };
 
+  services.openssh = {
+    enable = true;
+    startWhenNeeded = true;
+    # TODO: Add age nix or another secrets method and get the authorized keys here!
+    banner = ''===========================================
+      HERE BE DRAGONS; BEWARE OF WATERS AHEAD
+    ==========================================='';
+  };
+
   boot = {
     tmp.useTmpfs = true;
     loader = {

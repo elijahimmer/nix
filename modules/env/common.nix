@@ -12,6 +12,7 @@
       magic-wormhole
       skim
       wget
+      page
     ];
     shellAliases = {
       l = "eza -al";
@@ -26,6 +27,10 @@
         ''}
       '';
     };
+  };
+  programs.skim = {
+    fuzzyCompletion = true;
+    keybindings = true;
   };
   environment.sessionVariables = rec {
     EDITOR = "nvim";

@@ -9,7 +9,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "America/Los_Angelese";
-  location.provider = "geoclue2";
+  #  location.provider = "geoclue2";
 
   nixpkgs.config.allowUnfree = true;
   nix = {

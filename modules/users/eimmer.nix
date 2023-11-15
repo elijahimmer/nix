@@ -7,7 +7,7 @@
   lib,
   ...
 }: {
-  imports = [] ++ lib.optional (!headless) ./eimmer/desktop;
+  imports = [] ++ lib.optional (!headless) ./eimmer-desktop;
 
   home-manager = {
     useGlobalPkgs = true;
@@ -17,6 +17,11 @@
 
   home-manager.users.eimmer = {stateVersion, ...}: {
     home = {inherit stateVersion;};
+    programs.git = {
+      enable = true;
+      userEmail = "me@eimmer.me";
+      userName = "Elijah M. Immer";
+    };
   };
 
   users.users.eimmer = {

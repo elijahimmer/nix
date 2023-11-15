@@ -1,4 +1,10 @@
-{...}: {
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    raylib
+    gcc
+    cargo
+  ];
+
   programs.nixvim = {
     plugins = {
       telescope.enable = true;
@@ -19,6 +25,7 @@
         enable = true;
         servers = {
           bashls.enable = true;
+          clangd.enable = true;
           elixirls.enable = true;
           java-language-server.enable = true;
           # I swear Java is only for school, not my choice

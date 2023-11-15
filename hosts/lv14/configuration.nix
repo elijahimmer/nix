@@ -9,15 +9,17 @@
     env.common
     env.coding
 
+    misc.common
     misc.tailscale
     misc.mullvad
     misc.networkmanager
     misc.pipewire
-
     misc.bluetooth
     misc.upgrade
-    misc.common
   ];
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = "America/Los_Angelese";
 
   boot = {
     tmp.useTmpfs = true;

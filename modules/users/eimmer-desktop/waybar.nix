@@ -1,8 +1,9 @@
 {
-  pkgs,
   lib,
+  pkgs,
   ...
 }: {
+  programs.waybar.enable = true;
   home-manager.users.eimmer = {...}: {
     programs.waybar = {
       enable = true;
@@ -14,7 +15,7 @@
           output = ["eDP-1"];
           modules-left = ["hyprland/workspaces" "hyprland/submap"];
           modules-center = ["clock"];
-          modules-right = ["bluetooth" "network" "battery"];
+          modules-right = ["pulseaudio" "bluetooth" "network" "battery"];
 
           "hyprland/workspaces" = {
             disable-scroll = true;
@@ -48,9 +49,33 @@
             };
           };
 
+          pulseaudio = {
+            format = "{volume}% {icon}";
+            format-bluetooth = "{volume}% {icon}";
+            format-muted = "󰸈";
+            format-icons = {
+              headphone = "";
+              headset = "";
+              default = ["" "󰕾"];
+            };
+            scroll-step = 1;
+            on-click = lib.getExe pkgs.pavucontrol;
+            ignored-sinks = ["Dummy Output"];
+
+            reverse-scrolling = true;
+          };
+
+          network = {
+            format = "{icon}";
+            format-disconnected = "";
+            format-ethernet = "󰈁";
+            format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
+            tooltip-format = "{ifname} at {signalStrength}";
+          };
+
           bluetooth = {
             format-on = "󰂯";
-            format-off = "󰂲";
+            format-off = "";
             format-disabled = "󰂲";
             format-connected = "󰂱";
           };
@@ -76,16 +101,13 @@
 
   # TODO: Fix this service so that it actually restarts properly on rebuild.
   #       Currently it
-  systemd = {
-    user = let
-      p = "waybar";
-      c = lib.getExe pkgs.waybar;
-    in {
-      services.${p} = {
-        wantedBy = ["hyprland-session.target"];
-        script = c;
-        reloadIfChanged = true;
-      };
-    };
-  };
+  #  systemd = {
+  #    user = {
+  #      services.waybar = {
+  #        wantedBy = ["hyprland-session.target"];
+  #        script = lib.getExe pkgs.waybar;
+  #        reloadIfChanged = true;
+  #      };
+  #    };
+  #  };
 }

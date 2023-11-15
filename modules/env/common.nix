@@ -56,8 +56,8 @@
       smartindent = true;
       tabstop = 2;
       shiftwidth = 2;
-      list = true;
-      listchars = "tab:⇤–⇥,trail:·,precedes:⇠,extends:⇢,nbsp:×";
+      #list = true;
+      #      listchars = "tab:⇤–⇥,trail:·,precedes:⇠,extends:⇢,nbsp:×";
     };
   };
 }

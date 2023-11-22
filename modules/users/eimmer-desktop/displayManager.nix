@@ -3,12 +3,18 @@
     enable = true;
     settings = {
       default_session = {
+        #         command = "Hyprland";
+
         command = "${pkgs.greetd.greetd}/bin/agreety --cmd Hyprland";
-        #command = "Hyprland";
+        #user = "greetd";
       };
+      #initial_session = {
+      #command = "Hyprland";
+      # user = "eimmer";
+      #};
     };
   };
   services.getty = {
-    autologinUser = "eimmer";
+    #autologinUser = "eimmer";
   };
 }

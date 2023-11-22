@@ -4,8 +4,7 @@
   ...
 }: {
   systemd.user = {
-    services.playlist-updater = let
-    in {
+    services.playlist-updater = {
       serviceConfig = {
         WorkingDirectory = "/home/eimmer/Music";
       };

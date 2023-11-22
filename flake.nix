@@ -58,9 +58,20 @@
           headless = false;
         };
       };
-    };
-    server =
-      nixpkgs.lib.nixosSystem {
+      server = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/server/configuration.nix
+
+          inputs.utils.nixosModules.autoGenFromInputs
+          inputs.nixvim.nixosModules.nixvim
+        ];
+        specialArgs = {
+          inherit inputs stateVersion;
+          hostName = "server";
+          headless = false;
+        };
       };
+    };
   };
 }

@@ -5,8 +5,8 @@
   home-manager.users.eimmer = {...}: {
     services.wlsunset = {
       enable = true;
-      latitude = "46.8521";
-      longitude = "-121.7575";
+      latitude = "46";
+      longitude = "-121";
       temperature.day = 5500;
       temperature.night = 3500;
     };

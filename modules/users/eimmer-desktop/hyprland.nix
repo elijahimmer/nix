@@ -34,7 +34,7 @@
             enabled = false;
           };
         };
-        # animations.enabled = false;
+        #animations.enabled = false;
         input = {
           touchpad = {
             disable_while_typing = false;
@@ -62,13 +62,13 @@
           screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
             ${grim} -g "$(${slurp})" - \
             | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Screenshots/Screenshot-$(date +%F_%T).png
+            > ~/Pitures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of the region taken' -t 5000
           '';
           screenshot = pkgs.writeShellScript "screenshot" ''
             ${grim} - \
             | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Screenshots/Screenshot-$(date +%F_%T).png
+            > ~/Pitures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of whole screen taken' -t 5000
           '';
         in [

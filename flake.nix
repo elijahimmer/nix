@@ -64,12 +64,14 @@
           ./hosts/server/configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
+          home-manager.nixosModules.home-manager
+
           inputs.nixvim.nixosModules.nixvim
         ];
         specialArgs = {
           inherit inputs stateVersion;
           hostName = "server";
-          headless = false;
+          headless = true;
         };
       };
     };

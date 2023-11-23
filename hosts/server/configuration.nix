@@ -6,7 +6,6 @@
 }: {
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
-    ./hardware.nix
     ./packages.nix
 
     users.eimmer
@@ -25,9 +24,7 @@
     enable = true;
     startWhenNeeded = true;
     # TODO: Add age nix or another secrets method and get the authorized keys here!
-    banner = ''      ===========================================
-            HERE BE DRAGONS; BEWARE OF WATERS AHEAD
-            ==========================================='';
+    banner = ''===========================================\nHERE BE DRAGONS; BEWARE OF WATERS AHEAD\n===========================================\n'';
   };
 
   boot = {
@@ -44,6 +41,5 @@
         canTouchEfiVariables = true;
       };
     };
-    initrd.secrets = {"/luks.key" = /luks.key;};
   };
 }

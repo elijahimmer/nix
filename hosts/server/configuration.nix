@@ -7,6 +7,7 @@
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     ./packages.nix
+    ./services.nix
 
     users.eimmer
 
@@ -14,7 +15,6 @@
     env.coding
 
     misc.tailscale
-    misc.mullvad
 
     misc.upgrade
     misc.common
@@ -32,6 +32,7 @@
       '';
     };
     btrfs.autoScrub.enable = true;
+    tailscale.useRoutingFeatures = "both";
   };
 
   security = {

@@ -36,6 +36,5 @@
         canTouchEfiVariables = true;
       };
     };
-    initrd.secrets = {"/luks.key" = /luks.key;};
   };
 }

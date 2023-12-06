@@ -3,6 +3,11 @@
     raylib
     gcc
     cargo
+
+    elixir
+    elixir-ls
+
+    ghc
   ];
 
   programs.nixvim = {
@@ -33,9 +38,14 @@
           pylsp.enable = true;
           taplo.enable = true;
           texlab.enable = true;
-          rust-analyzer.enable = true;
           zls.enable = true;
           nil_ls.enable = true;
+
+          rust-analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
         };
       };
     };

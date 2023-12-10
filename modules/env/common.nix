@@ -13,6 +13,7 @@
       skim
       wget
       page
+      p7zip
     ];
     shellAliases = {
       l = "eza -al";

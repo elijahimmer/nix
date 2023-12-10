@@ -18,6 +18,7 @@
         master = {
           mfact = 0.5;
           no_gaps_when_only = 1;
+          orientation = "right";
         };
         general = {
           layout = "master";
@@ -26,6 +27,7 @@
           gaps_out = 0;
           border_size = 2;
           no_cursor_warps = 0;
+          resize_on_border = true;
         };
 
         decoration = {
@@ -41,6 +43,7 @@
             natural_scroll = true;
           };
           kb_options = "caps:escape";
+          follow_mouse = 2;
         };
         misc = {
           disable_hyprland_logo = true;
@@ -58,22 +61,29 @@
           slurp = lib.getExe pkgs.slurp;
           wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
           wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-          notify = "${pkgs.notify-desktop}/bin/notify-desktop";
+          notify = lib.getExe pkgs.notify-desktop;
           screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
             ${grim} -g "$(${slurp})" - \
             | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Pitures/Screenshots/Screenshot-$(date +%F_%T).png
+            > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of the region taken' -t 5000
           '';
           screenshot = pkgs.writeShellScript "screenshot" ''
             ${grim} - \
             | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Pitures/Screenshots/Screenshot-$(date +%F_%T).png
+            > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of whole screen taken' -t 5000
           '';
         in [
+          "SUPER, H, movefocus, l"
+          "SUPER, J, movefocus, u"
+          "SUPER, K, movefocus, d"
+          "SUPER, L, movefocus, r"
           "SUPER, A, cyclenext"
-          "SUPER SHIFT, A, swapnext"
+          "SUPER SHIFT, H, movewindow, l"
+          "SUPER SHIFT, J, movewindow, u"
+          "SUPER SHIFT, K, movewindow, d"
+          "SUPER SHIFT, L, movewindow, r"
           "SUPER, X, killactive"
           "SUPER SHIFT, G, exec, ${screenshotRegion}"
           "SUPER CTRL, G, exec, ${screenshot}"
@@ -99,11 +109,13 @@
           "SUPER SHIFT, 8, movetoworkspace, 8"
           "SUPER SHIFT, 9, movetoworkspace, 9"
           "SUPER SHIFT, 0, movetoworkspace, 10"
+          # These few are for when I have my alternate keyboard
           "SUPER SHIFT, Q, movetoworkspace, 6"
           "SUPER SHIFT, D, movetoworkspace, 7"
           "SUPER SHIFT, R, movetoworkspace, 8"
           "SUPER SHIFT, W, movetoworkspace, 9"
           "SUPER SHIFT, B, movetoworkspace, 10"
+
           "SUPER, T, submap, launcher"
           "SUPER, DELETE, submap, power"
         ];
@@ -113,15 +125,13 @@
         bind = , escape, submap, reset
         bind = SUPER, A, exec, alacritty
         bind = SUPER, A, submap, reset
-        bind = SUPER, S, exec, ${pkgs.gamemode}/bin/gamemoderun gamescope -fe --force-grab-cursor --sharpness 0 -H 1080 -W 2560 -S integer -- steam
-        bind = SUPER, S, submap, reset
         bind = SUPER, H, exec, ${lib.getExe pkgs.webcord-vencord}
         bind = SUPER, H, submap, reset
         bind = SUPER, T, exec, $BROWSER
         bind = SUPER, T, submap, reset
-        bind = SUPER, R, exec, ${pkgs.signal-desktop}/bin/signal-desktop
+        bind = SUPER, R, exec, ${lib.getExe pkgs.signal-desktop}
         bind = SUPER, R, submap, reset
-        bind = SUPER, B, exec, ${pkgs.bitwarden}/bin/bitwarden
+        bind = SUPER, B, exec, ${lib.getExe pkgs.bitwarden}
         bind = SUPER, B, submap, reset
         bind = SUPER, W, exec, thunar
         bind = SUPER, W, submap, reset

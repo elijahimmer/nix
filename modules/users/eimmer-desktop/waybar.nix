@@ -15,7 +15,7 @@
           output = ["eDP-1"];
           modules-left = ["hyprland/workspaces" "hyprland/submap"];
           modules-center = ["clock"];
-          modules-right = ["pulseaudio" "bluetooth" "network" "battery"];
+          modules-right = ["backlight" "pulseaudio" "bluetooth" "network" "battery"];
 
           "hyprland/workspaces" = {
             disable-scroll = true;
@@ -47,6 +47,14 @@
               on-scroll-up = "shift_up";
               on-scroll-down = "shift_down";
             };
+          };
+
+          backlight = {
+            device = "intel_backlight";
+            format = "{percent}% {icon}";
+            format-icons = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
+            on-scroll-up = "${lib.getExe pkgs.brightnessctl} s +1%";
+            on-scroll-down = "${lib.getExe pkgs.brightnessctl} s 1%-";
           };
 
           pulseaudio = {

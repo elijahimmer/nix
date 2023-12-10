@@ -4,6 +4,11 @@ t:
 	sudo nixos-rebuild test --flake .#$$HOSTNAME
 	nix fmt
 
+b:
+	git add .
+	sudo nixos-rebuild boot --flake .#$$HOSTNAME
+	nix fmt
+
 s:
 	git add .
 	sudo nixos-rebuild test --flake .#$$HOSTNAME

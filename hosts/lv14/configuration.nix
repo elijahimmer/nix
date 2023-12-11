@@ -18,6 +18,13 @@
     misc.upgrade
   ];
 
+# Not sure what uses this, but it is needed
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
+
+
+
   i18n.defaultLocale = "en_US.UTF-8";
   time.timeZone = "America/Los_Angelese";
 

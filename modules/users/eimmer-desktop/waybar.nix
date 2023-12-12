@@ -24,8 +24,8 @@
 
           clock = {
             format = "{:%H:%M}  ";
-            format-alt = "{:%A, %B %d, %Y (%R)}  ";
-            tooltip-format = "<tt><small>{calendar}</small></tt>";
+            format-alt = "{:%A, %B %d, %Y (%R)}  ";
+            tooltip-format = "<tt>{calendar}</tt>";
             calendar = {
               mode = "year";
               mode-mon-col = 3;
@@ -109,13 +109,13 @@
 
   # TODO: Fix this service so that it actually restarts properly on rebuild.
   #       Currently it
-  #  systemd = {
-  #    user = {
-  #      services.waybar = {
-  #        wantedBy = ["hyprland-session.target"];
-  #        script = lib.getExe pkgs.waybar;
-  #        reloadIfChanged = true;
-  #      };
-  #    };
-  #  };
+  systemd = {
+    user = {
+      services.waybar = {
+        wantedBy = ["hyprland-session.target"];
+        script = lib.getExe pkgs.waybar;
+        reloadIfChanged = true;
+      };
+    };
+  };
 }

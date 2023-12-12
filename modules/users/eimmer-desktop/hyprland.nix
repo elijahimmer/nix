@@ -3,6 +3,13 @@
   pkgs,
   ...
 }: {
+  programs.hyprland.enable = true;
+
+  systemd.user.services.swaybg = {
+    wantedBy = ["hyprland-session.target"];
+    script = "${lib.getExe pkgs.swaybg} --image ${./background.png} --mode fit --color '#191724'";
+  };
+
   home-manager.users.eimmer = {
     pkgs,
     lib,
@@ -27,14 +34,13 @@
           gaps_out = 0;
           border_size = 2;
           no_cursor_warps = 0;
-          resize_on_border = true;
+          # currently bugs to show angle resize cursor too much
+          ## resize_on_border = true;
         };
 
         decoration = {
           drop_shadow = false;
-          blur = {
-            enabled = false;
-          };
+          blur.enabled = false;
         };
         #animations.enabled = false;
         input = {
@@ -150,12 +156,5 @@
     };
 
     home.packages = with pkgs; [seatd xdg-utils swaylock];
-  };
-
-  programs.hyprland.enable = true;
-
-  systemd.user.services.swaybg = {
-    wantedBy = ["hyprland-session.target"];
-    script = "${lib.getExe pkgs.swaybg} --image ${./background.png} --mode fit --color '#191724'";
   };
 }

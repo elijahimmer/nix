@@ -24,6 +24,7 @@
   ];
 
   boot = {
+    initrd.secrets = {"/luks.key" = "/luks.key";};
     tmp.useTmpfs = true;
     loader = {
       grub = {

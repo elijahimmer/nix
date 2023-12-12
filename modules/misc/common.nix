@@ -8,8 +8,8 @@
   environment.systemPackages = with pkgs; [git];
 
   i18n.defaultLocale = "en_US.UTF-8";
-  time.timeZone = "America/Los_Angelese";
-  #  location.provider = "geoclue2";
+  time.timeZone = "America/Los_Angeles";
+  location.provider = "geoclue2";
 
   nixpkgs.config.allowUnfree = true;
   nix = {

@@ -33,10 +33,11 @@
     fuzzyCompletion = true;
     keybindings = true;
   };
-  environment.sessionVariables = rec {
+  environment.variables = rec {
     EDITOR = "nvim";
     PAGER = "page";
     VISUAL = PAGER;
+    GIT_PAGER = "nvim";
   };
 
   programs.nixvim = {
@@ -44,11 +45,13 @@
     clipboard.register = "unnamedplus";
     # Make Neovim's Yank and Paste use the system clipboard
     # This should not be an issue even on systems without clipboards
+
     colorschemes.rose-pine = {
       enable = true;
       transparentBackground = true;
       disableItalics = true;
     };
+
     options = {
       browsedir = "buffer";
       mouse = "";

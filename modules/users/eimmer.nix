@@ -14,14 +14,18 @@
     useUserPackages = true;
     extraSpecialArgs = {inherit inputs stateVersion;};
   };
-
+  programs.git = {
+    enable = true;
+    config = {
+      core.editor = "nvim";
+      user = {
+        Email = "me@eimmer.me";
+        Name = "Elijah M. Immer";
+      };
+    };
+  };
   home-manager.users.eimmer = {stateVersion, ...}: {
     home = {inherit stateVersion;};
-    programs.git = {
-      enable = true;
-      userEmail = "me@eimmer.me";
-      userName = "Elijah M. Immer";
-    };
   };
 
   users.users.eimmer = {

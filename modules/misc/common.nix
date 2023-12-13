@@ -11,6 +11,11 @@
   time.timeZone = "America/Los_Angeles";
   location.provider = "geoclue2";
 
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
+  };
+
   nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {

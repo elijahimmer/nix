@@ -1,4 +1,4 @@
-data="(box :class \"workspaces\" :orientation \"h\" :halign \"start\" :spacing 3 "
+data="(box :class \"workspaces\" :orientation \"h\" :halign \"start\" "
 
 active_workspace() {
 	echo "(button :onclick \"hyprctl dispatch workspace $1\" :class \"active-workspace workspace\" $1) "
@@ -8,10 +8,10 @@ workspace() {
 	echo "(button :onclick \"hyprctl dispatch workspace $1\" :class \"workspace\" $1) "
 }
 
-t=$(hyprctl workspaces | rg "\(\d+\)" -o)
+raw_arr=$(hyprctl workspaces | rg "\(\d+\)" -o)
 arr=()
 
-for i in $t
+for i in $raw_arr
 do
 	i=${i:1:$((${#i} - 2))}
 	arr+=($i)
@@ -34,4 +34,4 @@ done
 
 data="$data)"
 
-eww update workspaces="$data"
+eww -c /flakes/nix/modules/users/eimmer-desktop/eww/ update workspaces="$data"

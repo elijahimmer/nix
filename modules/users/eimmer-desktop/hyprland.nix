@@ -80,7 +80,7 @@
             > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of whole screen taken' -t 5000
           '';
-          eww_workspace_update = ./eww-update-workspace.sh;
+          eww_workspace_update = ./eww/scripts/eww-update-workspace.sh;
         in [
           "SUPER, H, movefocus, l"
           "SUPER, J, movefocus, u"

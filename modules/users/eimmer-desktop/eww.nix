@@ -1,9 +1,5 @@
 {...}: {
-  home-manager.users.eimmer = {
-    pkgs,
-    lib,
-    ...
-  }: {
+  home-manager.users.eimmer = {pkgs, ...}: {
     programs.eww = {
       enable = true;
       package = pkgs.eww-wayland;

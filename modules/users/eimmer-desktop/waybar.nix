@@ -20,6 +20,18 @@
           "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
+            format = "{icon}";
+            format-icons = {
+              "1" = "Α";
+              "2" = "Β";
+              "3" = "Γ";
+              "4" = "Δ";
+              "5" = "Ε";
+              "6" = "Ζ";
+              "7" = "Η";
+              "8" = "Θ";
+              "9" = "Ι";
+            };
           };
 
           clock = {
@@ -30,15 +42,15 @@
 
           backlight = {
             device = "intel_backlight";
-            format = "{percent}% {icon}";
+            format = "{icon}\n{percent}";
             format-icons = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
             on-scroll-up = "${lib.getExe pkgs.brightnessctl} s +1%";
             on-scroll-down = "${lib.getExe pkgs.brightnessctl} s 1%-";
           };
 
           pulseaudio = {
-            format = "{volume}% {icon}";
-            format-bluetooth = "{volume}% {icon}";
+            format = "{icon}\n{volume}";
+            format-bluetooth = "{volume} {icon}";
             format-muted = "󰸈";
             format-icons = {
               headphone = "";

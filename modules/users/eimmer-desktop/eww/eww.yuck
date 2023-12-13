@@ -1,0 +1,53 @@
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspace_widget)
+    (literal "")
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff"
+			 :orientation "h"
+			 :space-evenly false
+			 :halign "end"
+    "${formattime(EWW_TIME, "%H:%M:%S")}"))
+
+(defwidget workspace_widget []
+  		(literal :content workspaces))
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defvar workspaces "")
+
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "10px"
+                      :anchor "top center")
+	:exclusive true
+  (bar))
+
+;
+;(box
+;	:class \"works\"
+;	:orientation \"h\"
+;	:spacing 5
+;	:space-evenly \"false\" 
+;	(button 
+;		:onclick \"bspc desktop -f $ws1\"	
+;		:class	\"$un$o1$f1\"	\"$ic_1\")
+;	(button 
+;		:onclick \"bspc desktop -f $ws2\"
+;		:class \"$un$o2$f2\"	 \"$ic_2\"))
+
+

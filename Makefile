@@ -19,5 +19,6 @@ switch: test waybar
 waybar:
 	# Needed after build, nix starts it incorrectly for some reason.
 	# TODO! fix this issue
-	systemctl --user restart waybar.service
+	#systemctl --user restart waybar.service
+	# disable this while messing with eww
 

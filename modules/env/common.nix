@@ -14,6 +14,7 @@
       wget
       page
       p7zip
+      socat
     ];
     shellAliases = {
       l = "eza -al";

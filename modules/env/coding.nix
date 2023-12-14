@@ -3,6 +3,7 @@
     raylib
     gcc
     cargo
+    rustfmt
 
     elixir
     elixir-ls

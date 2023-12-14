@@ -25,7 +25,7 @@
            :value value
            :onchange onchange)))
 
-(defvar workspaces "")
+(deflisten workspaces "scripts/workspaces.sh")
 
 (defwindow bar
   :monitor 0

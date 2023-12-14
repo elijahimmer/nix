@@ -80,7 +80,6 @@
             > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
             ${notify} 'Screenshot of whole screen taken' -t 5000
           '';
-          eww_workspace_update = ./eww/scripts/eww-update-workspace.sh;
         in [
           "SUPER, H, movefocus, l"
           "SUPER, J, movefocus, u"
@@ -109,29 +108,12 @@
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
 
-          "SUPER, 1, exec, ${eww_workspace_update} 1"
-          "SUPER, 2, exec, ${eww_workspace_update} 2"
-          "SUPER, 3, exec, ${eww_workspace_update} 3"
-          "SUPER, 4, exec, ${eww_workspace_update} 4"
-          "SUPER, 5, exec, ${eww_workspace_update} 5"
-          "SUPER, 6, exec, ${eww_workspace_update} 6"
-          "SUPER, 7, exec, ${eww_workspace_update} 7"
-          "SUPER, 8, exec, ${eww_workspace_update} 8"
-          "SUPER, 9, exec, ${eww_workspace_update} 9"
-          "SUPER, 0, exec, ${eww_workspace_update} 10"
-
           # Alternate Keyboard buttons
           "SUPER, Q, workspace, 6"
           "SUPER, D, workspace, 7"
           "SUPER, R, workspace, 8"
           "SUPER, W, workspace, 9"
           "SUPER, B, workspace, 10"
-
-          "SUPER, Q, exec, ${eww_workspace_update} 6"
-          "SUPER, D, exec, ${eww_workspace_update} 7"
-          "SUPER, R, exec, ${eww_workspace_update} 8"
-          "SUPER, W, exec, ${eww_workspace_update} 9"
-          "SUPER, B, exec, ${eww_workspace_update} 10"
 
           "SUPER SHIFT, 1, movetoworkspace, 1"
           "SUPER SHIFT, 2, movetoworkspace, 2"
@@ -144,28 +126,12 @@
           "SUPER SHIFT, 9, movetoworkspace, 9"
           "SUPER SHIFT, 0, movetoworkspace, 10"
 
-          "SUPER SHIFT, 1, exec, ${eww_workspace_update} 1"
-          "SUPER SHIFT, 2, exec, ${eww_workspace_update} 2"
-          "SUPER SHIFT, 3, exec, ${eww_workspace_update} 3"
-          "SUPER SHIFT, 4, exec, ${eww_workspace_update} 4"
-          "SUPER SHIFT, 5, exec, ${eww_workspace_update} 5"
-          "SUPER SHIFT, 6, exec, ${eww_workspace_update} 6"
-          "SUPER SHIFT, 7, exec, ${eww_workspace_update} 7"
-          "SUPER SHIFT, 8, exec, ${eww_workspace_update} 8"
-          "SUPER SHIFT, 9, exec, ${eww_workspace_update} 9"
-          "SUPER SHIFT, 10, exec, ${eww_workspace_update} 10"
-
           # These few are for when I have my alternate keyboard
           "SUPER SHIFT, Q, movetoworkspace, 6"
           "SUPER SHIFT, D, movetoworkspace, 7"
           "SUPER SHIFT, R, movetoworkspace, 8"
           "SUPER SHIFT, W, movetoworkspace, 9"
           "SUPER SHIFT, B, movetoworkspace, 10"
-          "SUPER SHIFT, Q, exec, ${eww_workspace_update} 1"
-          "SUPER SHIFT, D, exec, ${eww_workspace_update} 2"
-          "SUPER SHIFT, R, exec, ${eww_workspace_update} 3"
-          "SUPER SHIFT, W, exec, ${eww_workspace_update} 4"
-          "SUPER SHIFT, B, exec, ${eww_workspace_update} 5"
 
           "SUPER, T, submap, launcher"
           "SUPER, DELETE, submap, power"

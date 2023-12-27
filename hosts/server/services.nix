@@ -25,6 +25,25 @@
       openFirewall = true;
       port = 8181;
     };
+
+    samba = {
+      enable = true;
+      enableWinbindd = true;
+      openFirewall = true;
+      shares = {
+        public = {
+          path = "/disks/";
+          "read only" = true;
+          browseable = "yes";
+          "guest ok" = "yes";
+          comment = "Public samba share.";
+        };
+      };
+      extraConfig = ''
+        guest account = nobody
+        map to guest = bad user
+      '';
+    };
   };
   #  systemd.services.tailscaled.script = ''mullvad-exclude tailscaled'';
 }

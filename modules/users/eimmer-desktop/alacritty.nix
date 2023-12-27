@@ -25,6 +25,16 @@
     programs.alacritty = {
       enable = true;
       settings = {
+        # TODO: Get Alacritty to actually use these keybindings 
+        #keyboard.bindings = [
+        #  {
+        #    key = "Enter";
+        #    mods = "Control";
+        #    mode = "~Vi|Search";
+        #    action = "SpawnNewInstance";
+        #  }
+        #];
+
         window.opacity = 0.90;
 
         colors = rec {

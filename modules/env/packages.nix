@@ -1,14 +1,10 @@
+### THIS FILE IS AUTO GENERATED
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    intel-gpu-tools
-    jdk11
-    acpi
-    firefox
-    google-java-format
-
     # AUTO GENERATED PACKAGE ADDER
     ### INSERT PACKAGES HERE
+    qFlipper
 
-    # END AUTO GENERATION
+    # END AUTO GENERATION   ### INSERT PACKAGES HERE
   ];
 }

@@ -100,13 +100,13 @@
 
   # TODO: Fix this service so that it actually restarts properly on rebuild.
   #       Currently it
-  systemd = {
-    user = {
-      services.waybar = {
-        wantedBy = ["hyprland-session.target"];
-        script = lib.getExe pkgs.waybar;
-        reloadIfChanged = true;
-      };
-    };
-  };
+  #  systemd = {
+  #    user = {
+  #      services.waybar = {
+  #        wantedBy = ["hyprland-session.target"];
+  #        script = lib.getExe pkgs.waybar;
+  #        reloadIfChanged = true;
+  #      };
+  #    };
+  #  };
 }

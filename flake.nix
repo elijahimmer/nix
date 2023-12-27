@@ -22,6 +22,12 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    # My Packages
+    eww-workspaces = {
+      url = "github:elijahimmer/eww-workspaces";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -33,9 +39,11 @@
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".alejandra;
     nixosModules = import ./modules {lib = nixpkgs.lib;};
-    nixosConfigurations = {
+    nixosConfigurations = let
+      system = "x86_64-linux";
+    in {
       lv14 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           ./hosts/lv14/configuration.nix
 
@@ -53,7 +61,7 @@
           inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
         ];
         specialArgs = {
-          inherit inputs stateVersion;
+          inherit inputs stateVersion system;
           hostName = "lv14";
           headless = false;
         };

@@ -9,6 +9,6 @@
     ./programs.nix
     ./services.nix
     ./stylix.nix
-    ./waybar.nix
+    #    ./waybar.nix
   ];
 }

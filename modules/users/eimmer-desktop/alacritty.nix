@@ -25,7 +25,7 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        # TODO: Get Alacritty to actually use these keybindings 
+        # TODO: Get Alacritty to actually use these keybindings
         #keyboard.bindings = [
         #  {
         #    key = "Enter";

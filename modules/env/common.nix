@@ -22,60 +22,15 @@
     shellAliases = {
       l = "eza -al";
       ls = "eza";
-      n = "nix-shell -p";
       rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
-      nr = pkgs.writeScript "nr" ''
-        export NIX_SHELL_RUN_COMMAND=$@
-        nix-shell -p "$1" --command ${pkgs.writeScript "nix-run-in-shell" ''
-          $NIX_SHELL_RUN_COMMAND
-          unset NIX_SHELL_RUN_COMMAND
-        ''}
-      '';
-      ns = pkgs.writeScript "ns" ''
-        nix search nixpkgs $@
-      '';
-      nse = pkgs.writeScript "nse" ''
-        nix search nixpkgs '\.$1$'
-      '';
-      ap = pkgs.writeScript "ap" ''
-        search_results=nse $1
-
-        if [ $? ]; then
-          return 0
-        fi
-
-        echo "is $(printf $search_results | head -n 1)"
-
-        match='    ### INSERT PACKAGES HERE'
-        file='/flakes/nix/hosts/$HOSTNAME/packages.nix'
-
-        sed -i "s/$match/$match\n$@/" $file
-      '';
-      apg = pkgs.writeScript "apg" ''
-        packages=nix search nixpkgs --json $@ | jq 'keys[]'
-
-        echo "Which package looks correct?"
-
-        arr=()
-        $packages | while read i
-        do
-          echo $i
-          arr+=("$i")
-        done
-
-
-        package=test
-
-        match='    ### INSERT PACKAGES HERE'
-        file='/flakes/nix/modules/env/packages.nix'
-        sed -i "s/$match/$match\n$package/" $file
-      '';
     };
   };
+
   programs.skim = {
     fuzzyCompletion = true;
     keybindings = true;
   };
+
   environment.variables = rec {
     EDITOR = "nvim";
     PAGER = "page";
@@ -88,7 +43,8 @@
     enable = true;
     clipboard.register = "unnamedplus";
     # Make Neovim's Yank and Paste use the system clipboard
-    # This should not be an issue even on systems without clipboards
+    # I think I should work on this at some point, always
+    #    using the clipboard is annoying.
 
     colorschemes.rose-pine = {
       enable = true;
@@ -104,8 +60,6 @@
       smartindent = true;
       tabstop = 2;
       shiftwidth = 2;
-      #list = true;
-      #      listchars = "tab:⇤–⇥,trail:·,precedes:⇠,extends:⇢,nbsp:×";
     };
   };
 }

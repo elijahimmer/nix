@@ -1,53 +1,133 @@
-(defwidget bar []
-  (centerbox :orientation "h"
-    (workspace_widget)
-    (literal "")
-    (sidestuff)))
 
-(defwidget sidestuff []
-  (box :class "sidestuff"
-			 :orientation "h"
-			 :space-evenly false
-			 :halign "end"
-    "${formattime(EWW_TIME, "%H:%M:%S")}"))
-
-(defwidget workspace_widget []
-  		(literal :content workspaces))
-
-(defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
+;;;;;;;;;;;;;;;;;;;;;;
+;;;; MAIN WIDGETS ;;;;
+;;;;;;;;;;;;;;;;;;;;;;
 
 (deflisten workspaces `eww-workspaces`)
 
+(defwidget left-wgt []
+    (box :class "left-wgt workspaces" (literal :content workspaces)))
+
+(defwidget center-wgt []
+	(box :class "center-wgt"
+			 :orientation "h"
+			 :space-evenly false
+			 (button :onclick ""
+		   		     (label :text "${formattime(EWW_TIME, "%H:%M:%S")}"))))
+
+
+(defwidget right-wgt []
+  (box :class "right-wgt"
+			 :orientation "h"
+			 :space-evenly false
+			 :halign "end"
+			 (ram-wgt)
+			 (disk-wgt)
+		   (battery-wgt)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; BATTERY WIDGET ;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+; This could be another way to show the battery, let's see if I like the 
+; pi chart first
+; (defvar battery_options '["󰂃", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]')
+
+(defvar bat_tt_polling false)
+(defpoll bat_tt 
+		:interval "1s"
+		:run-while bat_tt_polling 
+		`acpi`)
+
+(defwidget battery-wgt []
+			 (box :class "module battery-wgt"
+			 			:vexpand false
+						:hexpand false 
+            (circular-progress
+						  	:value {EWW_BATTERY.BAT0.capacity}
+              	:class "${EWW_BATTERY.BAT0.status == "Charging" ? "charging" :
+														   EWW_BATTERY.BAT0.capacity < 25 ? "warn" : ""} circ"
+              	:thickness 7
+								:width 25
+								:height 25
+								:tooltip bat_tt 
+								(eventbox :onhover "${EWW_CMD} update bat_tt_polling=true"
+													:onhoverlost "${EWW_CMD} update bat_tt_polling=false"
+													{EWW_BATTERY.BAT0.status == "Charging" ? "󱐋" : ""}))))
+
+
+;;;;;;;;;;;;;;;;;;;;
+;;;; RAM WIDGET ;;;;
+;;;;;;;;;;;;;;;;;;;;
+
+(defvar ram_tt_polling false)
+(defpoll ram_tt 
+		:interval "1s"
+		:run-while ram_tt_polling 
+		`cat /proc/meminfo`)
+
+
+(defwidget ram-wgt []
+			 (box :class "module ram-wgt"
+			 			:vexpand "false"
+						:hexpand "false"
+						:visible {EWW_RAM.used_mem_perc > 75}
+						"󰍛"
+            (circular-progress
+						  	:value {EWW_RAM.used_mem_perc}
+              	:thickness 7
+								:width 25
+								:height 25
+								:tooltip ram_tt 
+								(eventbox :onhover "${EWW_CMD} update ram_tt_polling=true"
+													:onhoverlost "${EWW_CMD} update ram_tt_polling=false"))))
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;;;; DISK WIDGET ;;;;
+;;;;;;;;;;;;;;;;;;;;;
+
+(defvar disk_tt_polling false)
+(defpoll disk_tt 
+		:interval "1s"
+		:run-while ram_tt_polling 
+		`lsblk`)
+
+
+(defwidget disk-wgt []
+	(box :class "module disk-wgt"
+			 :visible {EWW_DISK["/"].used / EWW_DISK["/"].total > 0.9}
+			 "󰨣"
+			 (circular-progress
+						:value {100 * EWW_DISK["/"].used / EWW_DISK["/"].total}
+						:thickness 7
+						:width 25
+						:height 25
+						:tooltip disk_tt 
+						(eventbox :onhover "${EWW_CMD} update disk_tt_polling=true"
+											:onhoverlost "${EWW_CMD} update disk_tt_polling=false"))))
+
+
+;;;;;;;;;;;;;;;;;
+;;;; WINDOWS ;;;;
+;;;;;;;;;;;;;;;;;
+
 (defwindow bar
   :monitor 0
-  :geometry (geometry :x "0%"
-                      :y "0%"
-                      :width "100%"
-                      :height "10px"
+  :geometry (geometry :width "100%"
+											:height "10px"
                       :anchor "top center")
 	:exclusive true
-  (bar))
+  (centerbox :orientation "h"
+		(left-wgt)
+		(center-wgt)
+    (right-wgt)))
 
-;
-;(box
-;	:class \"works\"
-;	:orientation \"h\"
-;	:spacing 5
-;	:space-evenly \"false\" 
-;	(button 
-;		:onclick \"bspc desktop -f $ws1\"	
-;		:class	\"$un$o1$f1\"	\"$ic_1\")
-;	(button 
-;		:onclick \"bspc desktop -f $ws2\"
-;		:class \"$un$o2$f2\"	 \"$ic_2\"))
-
+(defvar calender_open false)
+(defwindow calender
+	:monitor 0
+  :geometry (geometry :width "50%"
+                      :anchor "top center")
+	(literal ""))
 

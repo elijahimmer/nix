@@ -27,24 +27,26 @@ $iris: #c4a7e7;
 	* {
 		padding: 0px 5px;
 	}
+}
+
+.battery-wgt *:not(.Charging) {
+	color: $foam;
+	border-radius: 10px;
 	
 }
 
+.awe {
+	color: $rose;
+}
+
 .warn {
-  animation: blink-animation 1s linear infinite;
-  color: $love; 
-	* { color: $base; }
+  animation: blink-animation 1s alternate infinite;
+	background-color: $love;
 }
-
-.battery-wgt .circ {
-	color: $foam;
-	background-color: $surface;
-	border-radius: 10px;
-}
-
 
 @keyframes blink-animation {
   100% {
-		background-color: $muted;
+		color: $rose;
+		background-color: transparent;
   }
 }

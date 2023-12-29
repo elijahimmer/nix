@@ -1,4 +1,3 @@
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;;; MAIN WIDGETS ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -23,7 +22,8 @@
 			 :halign "end"
 			 (ram-wgt)
 			 (disk-wgt)
-		   (battery-wgt)))
+			 (wifi-wgt)
+		   (battery-wgt :battery {EWW_BATTERY.BAT0})))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,29 +32,54 @@
 
 ; This could be another way to show the battery, let's see if I like the 
 ; pi chart first
-; (defvar battery_options '["󰂃", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]')
+(defvar battery_icons '["󰂃", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]')
 
 (defvar bat_tt_polling false)
 (defpoll bat_tt 
-		:interval "1s"
+		:interval "5s"
 		:run-while bat_tt_polling 
 		`acpi`)
 
-(defwidget battery-wgt []
-			 (box :class "module battery-wgt"
+
+(defwidget battery-wgt [battery]
+			 (box :class "module battery-wgt ${battery.capacity < 25 ? "warn" : ""}"
 			 			:vexpand false
 						:hexpand false 
-            (circular-progress
-						  	:value {EWW_BATTERY.BAT0.capacity}
-              	:class "${EWW_BATTERY.BAT0.status == "Charging" ? "charging" :
-														   EWW_BATTERY.BAT0.capacity < 25 ? "warn" : ""} circ"
-              	:thickness 7
-								:width 25
-								:height 25
-								:tooltip bat_tt 
-								(eventbox :onhover "${EWW_CMD} update bat_tt_polling=true"
-													:onhoverlost "${EWW_CMD} update bat_tt_polling=false"
-													{EWW_BATTERY.BAT0.status == "Charging" ? "󱐋" : ""}))))
+						:tooltip bat_tt
+						(eventbox :onhover "${EWW_CMD} update bat_tt_polling=true"
+											:onhoverlost "${EWW_CMD} update bat_tt_polling=false"
+											(overlay
+													{battery_icons[
+															round(battery.capacity / (100 / arraylength(battery_icons)),0) - 1]}
+													(box :class "awe"
+													     {battery.status == "Charging" ? "󱐋" : "󱐋" })))))
+
+;;;;;;;;;;;;;;;;;;;;
+;;; WIFI WIDGET ;;;;
+;;;;;;;;;;;;;;;;;;;;
+
+(defvar wifi_icons '["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]')
+
+(defvar wifi_strength_polling true)
+(defpoll wifi_strength
+	:interval "15s"
+	:initial 100
+	:run-while wifi_strength_polling
+	"nmcli -f IN-USE,SIGNAL,SSID device wifi | awk '/^\*/{if (NR!=1) {print $2}}'")
+
+(defvar wifi_tt_polling false)
+(defpoll wifi_tt 
+		:interval "1s"
+		:run-while wifi_tt_polling 
+		`nmcli device`)
+
+(defwidget wifi-wgt []
+	(box :class "module wifi-wgt"
+			 :visible true
+			 (eventbox :onhover "${EWW_CMD} update wifi_tt_polling=true"
+			 					 :onhoverlost "${EWW_CMD} update wifi_tt_polling=false"
+ 
+ 								 "${wifi_icons[round(wifi_strength / (100 / arraylength(wifi_icons)) ,0) - 1]}  ")))
 
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -72,16 +97,16 @@
 			 (box :class "module ram-wgt"
 			 			:vexpand "false"
 						:hexpand "false"
-						:visible {EWW_RAM.used_mem_perc > 75}
-						"󰍛"
+						:visible {EWW_RAM.used_mem_perc < 75}
             (circular-progress
 						  	:value {EWW_RAM.used_mem_perc}
-              	:thickness 7
+              	:thickness 3
 								:width 25
 								:height 25
 								:tooltip ram_tt 
 								(eventbox :onhover "${EWW_CMD} update ram_tt_polling=true"
-													:onhoverlost "${EWW_CMD} update ram_tt_polling=false"))))
+													:onhoverlost "${EWW_CMD} update ram_tt_polling=false"
+													))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -97,17 +122,16 @@
 
 (defwidget disk-wgt []
 	(box :class "module disk-wgt"
-			 :visible {EWW_DISK["/"].used / EWW_DISK["/"].total > 0.9}
-			 "󰨣"
+			 :visible {EWW_DISK["/"].used / EWW_DISK["/"].total < 0.9}
 			 (circular-progress
 						:value {100 * EWW_DISK["/"].used / EWW_DISK["/"].total}
-						:thickness 7
+						:thickness 3
 						:width 25
 						:height 25
 						:tooltip disk_tt 
 						(eventbox :onhover "${EWW_CMD} update disk_tt_polling=true"
-											:onhoverlost "${EWW_CMD} update disk_tt_polling=false"))))
-
+											:onhoverlost "${EWW_CMD} update disk_tt_polling=false"
+											"󰨣 "))))
 
 ;;;;;;;;;;;;;;;;;
 ;;;; WINDOWS ;;;;

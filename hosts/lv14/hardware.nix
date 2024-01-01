@@ -4,7 +4,6 @@
   security = {
     tpm2.enable = true;
     protectKernelImage = true;
-    polkit.enable = true;
   };
 
   hardware = {

@@ -1,4 +1,4 @@
-t: test waybar
+t: test
 s: switch
 b: boot
 
@@ -12,13 +12,8 @@ boot:
 	sudo nixos-rebuild boot --flake .#$$HOSTNAME
 	nix fmt
 
-switch: test waybar
+switch: test
 	git commit
 	sudo nixos-rebuild switch --flake .#$$HOSTNAME
 
-waybar:
-	# Needed after build, nix starts it incorrectly for some reason.
-	# TODO! fix this issue
-	#systemctl --user restart waybar.service
-	# disable this while messing with eww
 

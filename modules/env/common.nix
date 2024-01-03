@@ -18,6 +18,7 @@
       p7zip
       socat
       jq
+      gh
     ];
     shellAliases = {
       l = "eza -al";
@@ -38,7 +39,6 @@
     GIT_PAGER = "nvim";
   };
 
-  stylix.targets.nixvim.enable = false;
   programs.nixvim = {
     enable = true;
     clipboard.register = "unnamedplus";

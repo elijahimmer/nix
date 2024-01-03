@@ -57,6 +57,7 @@
         logo = ./background-small.png;
         logoAnimated = false;
       };
+      nixvim.enable = false;
     };
     fonts = {
       serif = {

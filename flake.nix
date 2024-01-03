@@ -24,8 +24,8 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # My Packages
-    eww-workspaces = {
-      url = "github:elijahimmer/eww-workspaces";
+    bar-rs = {
+      url = "github:elijahimmer/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

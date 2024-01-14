@@ -46,6 +46,7 @@
         inherit system;
         modules = [
           ./hosts/lv14/configuration.nix
+	  ./hardware-configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager
@@ -70,6 +71,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/server/configuration.nix
+	  ./hardware-configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager

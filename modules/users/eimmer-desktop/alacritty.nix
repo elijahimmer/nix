@@ -3,6 +3,7 @@
   lib,
   ...
 }: {
+  environment.sessionVariables.TERMINAL = "alacritty";
   environment.systemPackages = [
     (
       pkgs.writeShellScriptBin "xdg-terminal-exec" ''

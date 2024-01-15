@@ -3,6 +3,7 @@
     ./alacritty.nix
     ./bar-rs.nix
     ./displayManager.nix
+    ./firefox/firefox.nix
     ./hyprland.nix
     ./music.nix
     ./packages.nix

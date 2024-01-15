@@ -11,20 +11,9 @@
     )
   ];
 
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts.packages = with pkgs; [tridactyl-native];
-  };
-
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
-  };
-
-  environment.sessionVariables = rec {
-    BROWSER = "librewolf";
-    DEFAULT_BROWSER = BROWSER;
-    TERMINAL = "alacritty";
   };
 
   home-manager.users.eimmer = {...}: {

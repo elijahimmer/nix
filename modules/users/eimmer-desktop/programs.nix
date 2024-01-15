@@ -13,7 +13,6 @@
 
   programs.firefox = {
     enable = true;
-    package = pkgs.librewolf;
     nativeMessagingHosts.packages = with pkgs; [tridactyl-native];
   };
 

@@ -2,24 +2,6 @@
   imports = [./packages.nix];
 
   environment = {
-    systemPackages = with pkgs; [
-      btop
-      conceal
-      eza
-      fd
-      git
-      gnumake
-      pciutils
-      ripgrep
-      magic-wormhole
-      skim
-      wget
-      page
-      p7zip
-      socat
-      jq
-      gh
-    ];
     shellAliases = {
       l = "eza -al";
       ls = "eza";

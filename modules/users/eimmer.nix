@@ -1,19 +1,18 @@
 {
-  home-manager,
-  config,
   inputs,
-  headless,
+  headfull,
   stateVersion,
   lib,
   ...
 }: {
-  imports = [] ++ lib.optional (!headless) ./eimmer-desktop;
+  imports = [] ++ lib.optional headfull ./eimmer-desktop;
 
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {inherit inputs stateVersion;};
   };
+
   programs.git = {
     enable = true;
     config = {

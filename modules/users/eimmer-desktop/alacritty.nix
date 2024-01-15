@@ -103,35 +103,34 @@
 
           bright = normal // {black = "#6e6a86";};
           dim = bright;
+        };
 
-          key_bindings = [
-            {
-              key = "Return";
-              mods = "Control|Shift";
-              action = "SpawnNewInstance";
-            }
-          ];
-          font = let
-            font = "FiraCode Nerd Font";
-          in {
-            size = 20;
-            normal = {
-              family = font;
-              style = "Regular";
-            };
-            bold = {
-              family = font;
-              style = "Bold";
-            };
-            italic = {
-              family = font;
-              style = "Italic";
-            };
+        keyboard.bindings = [
+          {
+            key = "Return";
+            mods = "Control|Shift";
+            action = "SpawnNewInstance";
+          }
+        ];
+        font = let
+          font = "FiraCode Nerd Font";
+        in {
+          normal = {
+            family = font;
+            style = "Regular";
+          };
+          bold = {
+            family = font;
+            style = "Bold";
+          };
+          italic = {
+            family = font;
+            style = "Italic";
+          };
 
-            bold_italic = {
-              family = font;
-              style = "Bold Italic";
-            };
+          bold_italic = {
+            family = font;
+            style = "Bold Italic";
           };
         };
       };

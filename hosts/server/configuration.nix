@@ -5,6 +5,7 @@
   ...
 }: {
   imports = with inputs.self.nixosModules; [
+    ./hardware-configuration.nix
     ./packages.nix
     ./services.nix
 

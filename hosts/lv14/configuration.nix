@@ -4,6 +4,7 @@
   ...
 }: {
   imports = with inputs.self.nixosModules; [
+    ./hardware-configuration.nix
     ./hardware.nix
     ./packages.nix
 
@@ -21,11 +22,6 @@
     misc.upgrade
   ];
 
-  # Not sure what uses this, but it is needed
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
-
   security.polkit.enable = true;
   # Let video group access backlight
   services.udev.extraRules = ''
@@ -36,7 +32,7 @@
   systemd.coredump.enable = true;
 
   boot = {
-    initrd.secrets = {"/luks.key" = "/luks.key";};
+    initrd.secrets = {"/luks" = "/luks";};
     tmp.useTmpfs = true;
     loader = {
       grub = {

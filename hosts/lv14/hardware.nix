@@ -3,7 +3,6 @@
 
   security = {
     tpm2.enable = true;
-    protectKernelImage = true;
   };
 
   hardware = {

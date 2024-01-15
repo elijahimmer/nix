@@ -35,18 +35,15 @@
     nixpkgs,
     ...
   } @ inputs: let
-    stateVersion = "23.11";
+    stateVersion = "24.05";
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".alejandra;
     nixosModules = import ./modules {lib = nixpkgs.lib;};
-    nixosConfigurations = let
-      system = "x86_64-linux";
-    in {
-      lv14 = nixpkgs.lib.nixosSystem {
-        inherit system;
+    nixosConfigurations = {
+      lv14 = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
         modules = [
           ./hosts/lv14/configuration.nix
-	  ./hardware-configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager
@@ -64,14 +61,13 @@
         specialArgs = {
           inherit inputs stateVersion system;
           hostName = "lv14";
-          headless = false;
+          headfull = true;
         };
       };
-      server = nixpkgs.lib.nixosSystem {
+      server = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [
           ./hosts/server/configuration.nix
-	  ./hardware-configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
           home-manager.nixosModules.home-manager
@@ -79,9 +75,9 @@
           inputs.nixvim.nixosModules.nixvim
         ];
         specialArgs = {
-          inherit inputs stateVersion;
+          inherit inputs stateVersion system;
           hostName = "server";
-          headless = true;
+          headfull = false;
         };
       };
     };

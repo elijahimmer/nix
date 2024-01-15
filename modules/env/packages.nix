@@ -3,7 +3,23 @@
   environment.systemPackages = with pkgs; [
     # AUTO GENERATED PACKAGE ADDER
     ### INSERT PACKAGES HERE
-    qFlipper
+    btop
+    conceal
+    eza
+    fd
+    git
+    just
+    pciutils
+    ripgrep
+    magic-wormhole
+    skim
+    wget
+    page
+    p7zip
+    socat
+    jq
+    gh
+
     dialog
     killall
     # END AUTO GENERATION

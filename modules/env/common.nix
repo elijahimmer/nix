@@ -1,10 +1,11 @@
-{pkgs, ...}: {
+{...}: {
   imports = [./packages.nix];
 
   environment = {
     shellAliases = {
       l = "eza -al";
       ls = "eza";
+      la = "eza -a";
       rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
     };
   };
@@ -16,9 +17,9 @@
 
   environment.variables = rec {
     EDITOR = "nvim";
+    GIT_PAGER = EDITOR;
     PAGER = "page";
     VISUAL = PAGER;
-    GIT_PAGER = "nvim";
   };
 
   programs.nixvim = {

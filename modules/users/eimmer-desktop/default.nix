@@ -10,5 +10,6 @@
     ./programs.nix
     ./services.nix
     ./stylix.nix
+    ./xdg.nix
   ];
 }

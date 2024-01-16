@@ -45,4 +45,28 @@
       shiftwidth = 2;
     };
   };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      format = ''
+        $directory$git_branch$git_state$nix_shell
+        $username$hostname $status$character '';
+      directory = {
+        format = "[$path ]($style)";
+      };
+      git_branch = {
+        format = "[$symbol$branch(:$remote_branch) ]($style)";
+      };
+      git_state = {
+        format = "\($state($progress_current/$progress_total)\)]($style) ";
+      };
+      username = {
+        format = "[$user]($style)";
+      };
+      hostname = {
+        format = "[@$hostname]($style)";
+      };
+    };
+  };
 }

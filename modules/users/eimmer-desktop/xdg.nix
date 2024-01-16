@@ -8,7 +8,7 @@
         createDirectories = true;
       };
       desktopEntries = {
-        /*        
+        /*
         librewolf = {
           name = "LibreWolf";
           genericName = "Web Browser";
@@ -25,7 +25,8 @@
             "x-scheme-handler/about"
             "x-scheme-handler/unknown"
           ];
-        };*/
+        };
+        */
         neovim = {
           name = "Neovim Text Editor";
           genericName = "Text Editor";

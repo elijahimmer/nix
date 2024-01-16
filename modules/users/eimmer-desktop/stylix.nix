@@ -31,9 +31,11 @@
   home-manager.users.eimmer = {config, ...}: {
     gtk = lib.mkForce {
       enable = true;
-/*      gtk2 = {
+      /*
+        gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      };*/
+      };
+      */
       theme = {
         name = "rose-pine";
         package = pkgs.rose-pine-gtk-theme;

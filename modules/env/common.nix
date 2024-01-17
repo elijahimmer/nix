@@ -1,4 +1,4 @@
-{...}: {
+{headfull, ...}: {
   imports = [./packages.nix];
 
   environment = {
@@ -24,7 +24,10 @@
 
   programs.nixvim = {
     enable = true;
-    clipboard.register = "unnamedplus";
+    clipboard.register =
+      if headfull
+      then "unnamedplus"
+      else "";
     # Make Neovim's Yank and Paste use the system clipboard
     # I think I should work on this at some point, always
     #    using the clipboard is annoying.

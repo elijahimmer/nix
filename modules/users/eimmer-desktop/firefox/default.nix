@@ -43,6 +43,18 @@
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@hm" "@home-manager"];
               };
+              "Crates.io" = {
+                urls = [{template = "https://crates.io/search?q={searchTerms}";}];
+                iconUpdateURL = "https://crates.io/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@rsc" "@rust-crates"];
+              };
+              "Docs.rs" = {
+                urls = [{template = "https://docs.rs/releases/search?query={searchTerms}";}];
+                iconUpdateURL = "https://docs.rs/favicon.png";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@rsd" "@rust-docs"];
+              };
               "D&D Beyond" = {
                 urls = [{template = "https://www.dndbeyond.com/search?q={searchTerms}";}];
                 iconUpdateURL = "https://www.dndbeyond.com/favicon.png";

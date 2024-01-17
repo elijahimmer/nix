@@ -59,7 +59,10 @@
         format = "[$symbol$branch(:$remote_branch) ]($style)";
       };
       git_state = {
-        format = "\($state($progress_current/$progress_total)\)]($style) ";
+        format = "\\($state($progress_current/$progress_total)\\)]($style) ";
+      };
+      nix_shell = {
+        format = "[$state\\($name\\)]($style) ";
       };
       username = {
         format = "[$user]($style)";

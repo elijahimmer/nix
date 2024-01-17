@@ -15,6 +15,7 @@
           userContent = builtins.readFile ./userContent.css;
           search = {
             default = "DuckDuckGo";
+            force = true;
             engines = let
               icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
             in {

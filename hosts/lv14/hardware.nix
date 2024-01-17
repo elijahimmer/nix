@@ -21,6 +21,7 @@
     cpu.intel.updateMicrocode = true;
   };
 
+  systemd.sleep.extraConfig = "HibernateDelaySec=5m";
   services = {
     logind = {
       killUserProcesses = true;

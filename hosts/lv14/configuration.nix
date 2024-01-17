@@ -41,6 +41,7 @@
         timeoutStyle = "hidden";
         efiSupport = true;
         device = "nodev";
+        extraConfig = "GRUB_TIMEOUT=1";
       };
       efi = {
         efiSysMountPoint = "/boot/efi";

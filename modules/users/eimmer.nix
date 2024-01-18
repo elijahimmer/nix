@@ -31,5 +31,6 @@
     isNormalUser = true;
     hashedPassword = "$y$j9T$6Plp2pMTkOghQgFYm7bav/$AOKB9bEhkSk22Jdacq6cpP0kWu7ad35DhmgHJnJCE98";
     extraGroups = ["wheel" "video" "networkmanager"];
+    useDefaultShell = true;
   };
 }

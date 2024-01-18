@@ -45,19 +45,19 @@
               };
               "Crates.io" = {
                 urls = [{template = "https://crates.io/search?q={searchTerms}";}];
-                iconUpdateURL = "https://crates.io/favicon.png";
+                iconUpdateURL = "https://crates.io/assets/cargo.png";
                 updateInterval = 24 * 60 * 60 * 1000;
-                definedAliases = ["@rsc" "@rust-crates"];
+                definedAliases = ["@crs" "@rsc" "@rust-crates"];
               };
               "Docs.rs" = {
                 urls = [{template = "https://docs.rs/releases/search?query={searchTerms}";}];
-                iconUpdateURL = "https://docs.rs/favicon.png";
+                iconUpdateURL = "https://docs.rs/favicon.ico";
                 updateInterval = 24 * 60 * 60 * 1000;
-                definedAliases = ["@rsd" "@rust-docs"];
+                definedAliases = ["@drs" "@rsd" "@rust-docs"];
               };
               "D&D Beyond" = {
                 urls = [{template = "https://www.dndbeyond.com/search?q={searchTerms}";}];
-                iconUpdateURL = "https://www.dndbeyond.com/favicon.png";
+                iconUpdateURL = "https://media.dndbeyond.com/images/web/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@dnd"];
               };
@@ -73,6 +73,8 @@
               "NixOS Options"
               "NixOS Wiki"
               "Home Manager Options"
+              "Crates.io"
+              "Docs.rs"
               "D&D Beyond"
               "Wikipedia (en)"
               "Google"

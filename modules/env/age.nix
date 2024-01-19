@@ -1,12 +1,12 @@
 {
   inputs,
   system,
-  config,
+  hostName,
   ...
 }: {
-  age.identityPaths = ["/etc/ssh/lv14_ed25519_key"];
+  age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   age.secrets = {
-    lv14-ssh.file = inputs.self + /secrets/lv14-ssh.age;
+    "${hostName}-ssh".file = inputs.self + /secrets/${hostName}-ssh.age;
     eimmer-passwd.file = inputs.self + /secrets/eimmer-passwd.age;
   };
   environment.systemPackages = [inputs.agenix.packages.${system}.default];

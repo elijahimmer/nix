@@ -17,11 +17,11 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #agenix = {
-    #  url = "github:ryantm/agenix";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+/*    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };*/
 
     # My Packages
     bar-rs = {
@@ -31,7 +31,6 @@
   };
   outputs = {
     self,
-    home-manager,
     nixpkgs,
     ...
   } @ inputs: let
@@ -46,12 +45,11 @@
           ./hosts/lv14/configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
-          home-manager.nixosModules.home-manager
-
-          #agenix.nixosModules.age
+          inputs.home-manager.nixosModules.home-manager
 
           inputs.nixvim.nixosModules.nixvim
           inputs.stylix.nixosModules.stylix
+          #inputs.sops-nix.nixosModules.sops
 
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-intel
@@ -70,9 +68,10 @@
           ./hosts/server/configuration.nix
 
           inputs.utils.nixosModules.autoGenFromInputs
-          home-manager.nixosModules.home-manager
+          inputs.home-manager.nixosModules.home-manager
 
           inputs.nixvim.nixosModules.nixvim
+          #inputs.sops-nix.nixosModules.sops
         ];
         specialArgs = {
           inherit inputs stateVersion system;

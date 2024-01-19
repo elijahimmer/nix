@@ -18,10 +18,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-/*    sops-nix = {
-      url = "github:Mic92/sops-nix";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };*/
+    };
 
     # My Packages
     bar-rs = {
@@ -49,7 +49,7 @@
 
           inputs.nixvim.nixosModules.nixvim
           inputs.stylix.nixosModules.stylix
-          #inputs.sops-nix.nixosModules.sops
+          inputs.agenix.nixosModules.default
 
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-intel

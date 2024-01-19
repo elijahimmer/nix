@@ -1,6 +1,7 @@
 {
-  inputs,
+  config,
   headfull,
+  inputs,
   stateVersion,
   lib,
   ...
@@ -27,9 +28,16 @@
     home = {inherit stateVersion;};
   };
 
+  services.openssh.hostKeys = [
+    {
+      path = "/etc/ssh/lv14_ed25519_key";
+      type = "ed25519";
+    }
+  ];
+
   users.users.eimmer = {
     isNormalUser = true;
-    hashedPassword = "$y$j9T$6Plp2pMTkOghQgFYm7bav/$AOKB9bEhkSk22Jdacq6cpP0kWu7ad35DhmgHJnJCE98";
+    hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
   };

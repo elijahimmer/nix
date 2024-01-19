@@ -71,7 +71,7 @@
           inputs.home-manager.nixosModules.home-manager
 
           inputs.nixvim.nixosModules.nixvim
-          #inputs.sops-nix.nixosModules.sops
+          inputs.agenix.nixosModules.default
         ];
         specialArgs = {
           inherit inputs stateVersion system;

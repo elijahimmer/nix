@@ -1,5 +1,5 @@
 {headfull, ...}: {
-  imports = [./packages.nix ./ssh.nix];
+  imports = [./packages.nix ./ssh.nix ./age.nix];
 
   environment = {
     shellAliases = {

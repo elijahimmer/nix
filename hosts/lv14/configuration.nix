@@ -12,7 +12,6 @@
 
     env.common
     env.coding
-    env.age
 
     misc.common
     misc.tailscale

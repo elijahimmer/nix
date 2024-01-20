@@ -17,7 +17,10 @@
       which-key.enable = true;
       telescope.enable = true;
       treesitter.enable = true;
-      typst-vim.enable = true;
+      typst-vim = {
+        enable = true;
+        concealMath = true;
+      };
       gitsigns = {
         enable = true;
         attachToUntracked = true;

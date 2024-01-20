@@ -1,5 +1,8 @@
 {...}: {
   home-manager.users.eimmer = {pkgs, ...}: {
-    home.packages = [pkgs.notify-desktop];
+    home.packages = with pkgs; [
+      notify-desktop
+      evince
+    ];
   };
 }

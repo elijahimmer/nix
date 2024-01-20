@@ -1,6 +1,7 @@
 {
   config,
   headfull,
+  hostName,
   inputs,
   stateVersion,
   lib,
@@ -30,7 +31,7 @@
 
   services.openssh.hostKeys = [
     {
-      path = "/etc/ssh/lv14_ed25519_key";
+      path = config.age.secrets."${hostName}-ssh".file;
       type = "ed25519";
     }
   ];
@@ -38,6 +39,7 @@
   users.users.eimmer = {
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
+    openssh.authorizedKeys.keys = "";
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
   };

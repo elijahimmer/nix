@@ -1,6 +1,6 @@
-t: test
-s: switch
-b: boot
+alias t := test
+alias s := switch
+alias b := boot
 
 test:
 	git add .

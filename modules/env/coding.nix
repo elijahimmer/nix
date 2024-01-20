@@ -1,20 +1,23 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    raylib
+    typst
+    typst-live
+    typstfmt
+
     gcc
-    cargo
     rustfmt
 
     elixir
     elixir-ls
-
     ghc
   ];
 
   programs.nixvim = {
     plugins = {
+      which-key.enable = true;
       telescope.enable = true;
       treesitter.enable = true;
+      typst-vim.enable = true;
       gitsigns = {
         enable = true;
         attachToUntracked = true;
@@ -38,6 +41,7 @@
           hls.enable = true;
           pylsp.enable = true;
           taplo.enable = true;
+          typst-lsp.enable = true;
           texlab.enable = true;
           zls.enable = true;
           nil_ls.enable = true;

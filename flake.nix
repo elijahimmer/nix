@@ -35,6 +35,7 @@
     ...
   } @ inputs: let
     stateVersion = "24.05";
+    flakeAbsoluteDir = "/home/eimmer/src/nix";
   in {
     formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".alejandra;
     nixosModules = import ./modules {lib = nixpkgs.lib;};
@@ -57,7 +58,7 @@
           inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
         ];
         specialArgs = {
-          inherit inputs stateVersion system;
+          inherit inputs stateVersion system flakeAbsoluteDir;
           hostName = "lv14";
           headfull = true;
         };

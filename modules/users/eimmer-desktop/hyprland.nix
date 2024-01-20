@@ -34,8 +34,7 @@
           gaps_out = 0;
           border_size = 2;
           no_cursor_warps = 0;
-          # currently bugs to show angle resize cursor too much
-          ## resize_on_border = true;
+          resize_on_border = true;
         };
 
         decoration = {

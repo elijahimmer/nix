@@ -44,15 +44,13 @@
   border: none !important;
 }
 
-/*
- * I removed these
 #back-button {
   list-style-image: url("left-arrow.svg") !important;
 }
 
 #forward-button {
   list-style-image: url("right-arrow.svg") !important;
-}*/
+}
 
 /* Options with pixel amounts could need to be adjusted, as this only works for my laptop's display */
 #titlebar {

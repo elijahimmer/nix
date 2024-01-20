@@ -20,12 +20,12 @@
               icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
             in {
               "Nix Packages" = {
-                urls = [{template = "https://search.nixos.org/packages?query={searchTerms}";}];
+                urls = [{template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";}];
                 icon = "${icons}/nix-snowflake.svg";
                 definedAliases = ["@np" "@nix-packages"];
               };
               "NixOS Options" = {
-                urls = [{template = "https://search.nixos.org/options?query={searchTerms}";}];
+                urls = [{template = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";}];
                 icon = "${icons}/nix-snowflake-white.svg";
                 definedAliases = ["@no" "@nix-options"];
               };
@@ -60,6 +60,12 @@
                 iconUpdateURL = "https://media.dndbeyond.com/images/web/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@dnd"];
+              };
+              "GitHub" = {
+                urls = [{template = "https://github.com/search?q={searchTerms}&type=repositories";}];
+                iconUpdateURL = "https://github.com/favicon.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@gh"];
               };
               "Google".metaData.alias = "@g";
               "Wikipedia (en)".metaData.alias = "@w";

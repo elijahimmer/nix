@@ -14,7 +14,53 @@
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    run-in-place = command: let
+      current-workspace = "hyprctl activeworkspace | rg \\d+ -o | head --lines=1";
+    in "hyprctl dispatch -- exec [workspace $(${current-workspace}) silent] ${command}";
+
+    grim = lib.getExe pkgs.grim;
+    slurp = lib.getExe pkgs.slurp;
+    wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+    wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+    notify = lib.getExe pkgs.notify-desktop;
+
+    screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
+      ${grim} -g "$(${slurp})" - \
+      | ${wl-copy} -t image/png && ${wl-paste} \
+      > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+      ${notify} 'Screenshot of the region taken' -t 5000
+    '';
+    screenshot = pkgs.writeShellScript "screenshot" ''
+      ${grim} - \
+      | ${wl-copy} -t image/png && ${wl-paste} \
+      > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+      ${notify} 'Screenshot of whole screen taken' -t 5000
+    '';
+
+    mk-key-bind = desc: cmd: {
+      inherit desc;
+      cmd = run-in-place cmd;
+    };
+    launch-wlr-wk = name: cfg: "${lib.getExe pkgs.wlr-which-key} ${
+      pkgs.writeText "launch-wlr-wk-${name}.yaml"
+      (builtins.toJSON ({
+          background = "#1f1d2e";
+          color = "#e0def4";
+          border = "#ebbcba";
+          separator = " ➜ ";
+          border_width = 2;
+          corner_r = 10;
+          padding = 15;
+          anchor = "center";
+          margin_right = 0;
+          margin_bottom = 0;
+          margin_left = 0;
+          margin_top = 0;
+        }
+        // cfg))
+    }";
+  in {
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -61,25 +107,7 @@
           vrr = 2;
           disable_autoreload = true;
         };
-        bind = let
-          grim = lib.getExe pkgs.grim;
-          slurp = lib.getExe pkgs.slurp;
-          wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-          wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
-          notify = lib.getExe pkgs.notify-desktop;
-          screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
-            ${grim} -g "$(${slurp})" - \
-            | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
-            ${notify} 'Screenshot of the region taken' -t 5000
-          '';
-          screenshot = pkgs.writeShellScript "screenshot" ''
-            ${grim} - \
-            | ${wl-copy} -t image/png && ${wl-paste} \
-            > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
-            ${notify} 'Screenshot of whole screen taken' -t 5000
-          '';
-        in [
+        bind = [
           "SUPER, H, movefocus, l"
           "SUPER, J, movefocus, u"
           "SUPER, K, movefocus, d"
@@ -132,39 +160,47 @@
           "SUPER SHIFT, W, movetoworkspace, 9"
           "SUPER SHIFT, B, movetoworkspace, 10"
 
-          "SUPER, T, submap, launcher"
-          "SUPER, DELETE, submap, power"
+          "SUPER, DELETE, exec, ${launch-wlr-wk "power" {
+            menu = {
+              q = mk-key-bind "Exit" "hyprctl dispatch exit";
+              a = mk-key-bind "Poweroff" "systemctl poweroff";
+              s = mk-key-bind "Suspend" "systemctl suspend-then-hibernate";
+              h = mk-key-bind "Hibernate" "systemctl hibernate";
+              l = mk-key-bind "Lock" "lock";
+            };
+          }}"
         ];
       };
-      extraConfig = ''
-        submap = launcher
-        bind = , escape, submap, reset
-        bind = SUPER, A, exec, alacritty
-        bind = SUPER, A, submap, reset
-        bind = SUPER, H, exec, ${lib.getExe pkgs.webcord-vencord}
-        bind = SUPER, H, submap, reset
-        bind = SUPER, T, exec, $BROWSER
-        bind = SUPER, T, submap, reset
-        bind = SUPER, R, exec, ${lib.getExe pkgs.signal-desktop}
-        bind = SUPER, R, submap, reset
-        bind = SUPER, B, exec, ${lib.getExe pkgs.bitwarden}
-        bind = SUPER, B, submap, reset
-        bind = SUPER, W, exec, thunar
-        bind = SUPER, W, submap, reset
-        submap = power
-        bind = , escape, submap, reset
-        bind = , Q, exit
-        bind = , A, exec, systemctl poweroff
-        bind = , S, exec, systemctl suspend-then-hibernate
-        bind = , S, submap, reset
-        bind = , H, exec, systemctl hibernate
-        bind = , H, submap, reset
-        bind = , L, exec, lock
-        bind = , L, submap, reset
-        submap = reset
+      extraConfig = let
+        end-key = key: ''
+          bind=SUPER, ${key}, exec, killall wlr-which-key
+          bind=SUPER, ${key}, submap, reset
+        '';
+      in ''
+        bind=SUPER, T, exec, ${launch-wlr-wk "launcher" {
+          menu = {
+            w = mk-key-bind "Nautilus" "${pkgs.gnome.nautilus}/bin/nautilus";
+            b = mk-key-bind "Bitwarden" (lib.getExe pkgs.bitwarden);
+            r = mk-key-bind "Signal" (lib.getExe pkgs.signal-desktop);
+            t = mk-key-bind "Firefox" "$BROWSER";
+            a = mk-key-bind "Alacritty" "alacritty";
+          };
+        }}
+        submap=launcher
+        bind=SUPER, W, exec, ${run-in-place "${pkgs.gnome.nautilus}/bin/nautilus"}
+        ${end-key "W"}
+        bind=SUPER, B, exec, ${run-in-place (lib.getExe pkgs.bitwarden)}
+        ${end-key "B"}
+        bind=SUPER, R, exec, ${run-in-place (lib.getExe pkgs.signal-desktop)}
+        ${end-key "R"}
+        bind=SUPER, T, exec, ${run-in-place "$BROWSER"}
+        ${end-key "T"}
+        bind=SUPER, A, exec, ${run-in-place "alacritty"}
+        ${end-key "A"}
+        ${end-key "ESCAPE"}
+        submap=reset
       '';
     };
-
     home.packages = with pkgs; [seatd xdg-utils swaylock];
   };
 }

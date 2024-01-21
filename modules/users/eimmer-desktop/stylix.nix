@@ -31,17 +31,14 @@
   home-manager.users.eimmer = {config, ...}: {
     gtk = lib.mkForce {
       enable = true;
-      /*
-        gtk2 = {
-        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-      };
-      */
+      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
       theme = {
         name = "rose-pine";
         package = pkgs.rose-pine-gtk-theme;
       };
       iconTheme = {
-        name = "Rose-Pine";
+        #name = "oomox-rose-pine";
+        name = "rose-pine-icons";
         package = pkgs.rose-pine-icon-theme;
       };
     };
@@ -67,17 +64,14 @@
         package = pkgs.nerdfonts;
         name = "Fira Go";
       };
-
       sansSerif = {
         package = pkgs.nerdfonts;
         name = "Fira Go";
       };
-
       monospace = {
         package = pkgs.nerdfonts;
         name = "FiraCode Nerd Font";
       };
-
       emoji = {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";

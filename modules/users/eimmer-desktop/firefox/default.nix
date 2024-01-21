@@ -18,9 +18,10 @@
             force = true;
             engines = let
               icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
+              nixSearch = "https://search.nixos.org";
             in {
               "Nix Packages" = {
-                urls = [{template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";}];
+                urls = [{template = "${nixSearch}/packages?channel=unstable&query={searchTerms}";}];
                 icon = "${icons}/nix-snowflake.svg";
                 definedAliases = ["@np" "@nix-packages"];
               };
@@ -79,6 +80,7 @@
               "NixOS Options"
               "NixOS Wiki"
               "Home Manager Options"
+              "GitHub"
               "Crates.io"
               "Docs.rs"
               "D&D Beyond"

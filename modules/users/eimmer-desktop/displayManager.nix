@@ -1,20 +1,16 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  command = "Hyprland";
+in {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        #         command = "Hyprland";
-
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd Hyprland";
-        #user = "greetd";
+        command = "${pkgs.greetd.greetd}/bin/agreety --cmd \"${command}\"";
       };
-      #initial_session = {
-      #command = "Hyprland";
-      # user = "eimmer";
-      #};
+      initial_session = {
+        command = command;
+        user = "eimmer";
+      };
     };
-  };
-  services.getty = {
-    #autologinUser = "eimmer";
   };
 }

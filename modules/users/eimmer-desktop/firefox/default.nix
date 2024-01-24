@@ -56,6 +56,13 @@
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@drs" "@rsd" "@rust-docs"];
               };
+              "Wolfram Alpha" = {
+                urls = [{template = "https://www.wolframalpha.com/input?i={searchTerms}";}];
+                iconUpdateURL = "https://www.wolframalpha.com/_next/static/images/favicon_1zbE9hjk.ico";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@wolf" "@wolframalpha"];
+              };
+
               "D&D Beyond" = {
                 urls = [{template = "https://www.dndbeyond.com/search?q={searchTerms}";}];
                 iconUpdateURL = "https://media.dndbeyond.com/images/web/favicon.png";

@@ -42,6 +42,10 @@
       inherit desc;
       cmd = run-in-place cmd;
     };
+    mk-key-bind-close = desc: cmd: {
+      inherit desc;
+      cmd = "${run-in-place cmd}; killall wlr-which-key; hyprctl dispatch submap reset";
+    };
     launch-wlr-wk = name: cfg: "${lib.getExe pkgs.wlr-which-key} ${
       pkgs.writeText "launch-wlr-wk-${name}.yaml"
       (builtins.toJSON ({
@@ -179,13 +183,14 @@
       in ''
         bind=SUPER, T, exec, ${launch-wlr-wk "launcher" {
           menu = {
-            w = mk-key-bind "Nautilus" "${pkgs.gnome.nautilus}/bin/nautilus";
-            b = mk-key-bind "Bitwarden" (lib.getExe pkgs.bitwarden);
-            r = mk-key-bind "Signal" (lib.getExe pkgs.signal-desktop);
-            t = mk-key-bind "Firefox" "$BROWSER";
-            a = mk-key-bind "Alacritty" "alacritty";
+            w = mk-key-bind-close "Nautilus" "${pkgs.gnome.nautilus}/bin/nautilus";
+            b = mk-key-bind-close "Bitwarden" (lib.getExe pkgs.bitwarden);
+            r = mk-key-bind-close "Signal" (lib.getExe pkgs.signal-desktop);
+            t = mk-key-bind-close "Firefox" "$BROWSER";
+            a = mk-key-bind-close "Alacritty" "alacritty";
           };
         }}
+        bind=SUPER, T, submap, launcher
         submap=launcher
         bind=SUPER, W, exec, ${run-in-place "${pkgs.gnome.nautilus}/bin/nautilus"}
         ${end-key "W"}

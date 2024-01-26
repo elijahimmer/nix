@@ -44,6 +44,12 @@
                 updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@hm" "@home-manager"];
               };
+              "Rust std docs" = {
+                urls = [{template = "https://doc.rust-lang.org/stable/std/?search={searchTerms}";}];
+                iconUpdateURL = "https://doc.rust-lang.org/stable/static.files/favicon-2c020d218678b618.svg";
+                updateInterval = 24 * 60 * 60 * 1000;
+                definedAliases = ["@rstd" "@stdr" "@rust-std"];
+              };
               "Crates.io" = {
                 urls = [{template = "https://crates.io/search?q={searchTerms}";}];
                 iconUpdateURL = "https://crates.io/assets/cargo.png";

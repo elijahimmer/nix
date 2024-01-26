@@ -1,13 +1,11 @@
 {headfull, ...}: {
   imports = [./packages.nix ./ssh.nix ./age.nix];
 
-  environment = {
-    shellAliases = {
-      l = "eza -al";
-      ls = "eza";
-      la = "eza -a";
-      rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
-    };
+  environment.shellAliases = {
+    l = "eza -al";
+    ls = "eza";
+    la = "eza -a";
+    rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
   };
 
   programs.skim = {
@@ -52,7 +50,7 @@
   programs.starship = {
     enable = true;
     settings = {
-      continuation_prompt = "$character";
+      continuation_prompt = " $character";
       # I know there is a better way to write this,
       # I cannot find a way for some reason though.
       format =
@@ -64,10 +62,7 @@
       nix_shell.format = ''[$state \($name\)]($style) '';
       username.format = "[$user]($style)";
       hostname.format = "[@$hostname]($style)";
-      cmd_duration = {
-        #format = "[$duration]($style) ";
-        show_notifications = true;
-      };
+      cmd_duration.show_notifications = true;
     };
   };
 }

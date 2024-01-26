@@ -4,7 +4,7 @@
     DEFAULT_BROWSER = BROWSER;
   };
 
-  home-manager.users.eimmer = {...}: {
+  home-manager.users.eimmer = {lib, ...}: {
     programs.firefox = {
       enable = true;
       profiles = {
@@ -18,68 +18,85 @@
             force = true;
             engines = let
               icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
-              nixSearch = "https://search.nixos.org";
+              oncePerDay = 24 * 60 * 60 * 1000;
+              engine = {
+                baseUrl,
+                search,
+                definedAliases ? [],
+                icon ? null,
+                iconUpdateURLIsAbsolute ? false,
+                iconUpdateURL ? null,
+                updateInterval ? oncePerDay,
+              }: let
+                iconURL =
+                  if iconUpdateURLIsAbsolute
+                  then iconUpdateURL
+                  else "${baseUrl}${iconUpdateURL}";
+              in {
+                inherit icon updateInterval definedAliases;
+                urls = [{template = "${baseUrl}${search}";}];
+                iconUpdateURL = lib.mkIf (isNull icon) iconURL;
+              };
             in {
-              "Nix Packages" = {
-                urls = [{template = "${nixSearch}/packages?channel=unstable&query={searchTerms}";}];
+              "Nix Packages" = engine {
+                baseUrl = "https://search.nixos.org";
+                search = "/packages?channel=unstable&query={searchTerms}";
                 icon = "${icons}/nix-snowflake.svg";
                 definedAliases = ["@np" "@nix-packages"];
               };
-              "NixOS Options" = {
-                urls = [{template = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";}];
+              "NixOS Options" = engine {
+                baseUrl = "https://search.nixos.org";
+                search = "/options?channel=unstable&query={searchTerms}";
                 icon = "${icons}/nix-snowflake-white.svg";
                 definedAliases = ["@no" "@nix-options"];
               };
-              "NixOS Wiki" = {
-                urls = [{template = "https://nixos.wiki/index.php?search={searchTerms}";}];
-                iconUpdateURL = "https://nixos.wiki/favicon.png";
-                updateInterval = 24 * 60 * 60 * 1000;
+              "NixOS Wiki" = engine {
+                baseUrl = "https://nixos.wiki";
+                search = "/index.php?search={searchTerms}";
+                iconUpdateURL = "/favicon.png";
                 definedAliases = ["@nw" "@nix-wiki"];
               };
-              "Home Manager Options" = let
-                base_url = "https://mipmip.github.io/home-manager-option-search";
-              in {
-                urls = [{template = "${base_url}/?query={searchTerms}";}];
-                iconUpdateURL = "${base_url}/images/favicon.png";
-                updateInterval = 24 * 60 * 60 * 1000;
+              "Home Manager Options" = engine {
+                baseUrl = "https://mipmip.github.io/home-manager-option-search";
+                search = "/?query={searchTerms}";
+                iconUpdateURL = "/images/favicon.png";
                 definedAliases = ["@hm" "@home-manager"];
               };
-              "Rust std docs" = {
-                urls = [{template = "https://doc.rust-lang.org/stable/std/?search={searchTerms}";}];
-                iconUpdateURL = "https://doc.rust-lang.org/stable/static.files/favicon-2c020d218678b618.svg";
-                updateInterval = 24 * 60 * 60 * 1000;
+              "Rust STD Docs" = engine {
+                baseUrl = "https://doc.rust-lang.org/stable";
+                search = "/std/?search={searchTerms}";
+                iconUpdateURL = "/static.files/favicon-2c020d218678b618.svg";
                 definedAliases = ["@rstd" "@stdr" "@rust-std"];
               };
-              "Crates.io" = {
-                urls = [{template = "https://crates.io/search?q={searchTerms}";}];
-                iconUpdateURL = "https://crates.io/assets/cargo.png";
-                updateInterval = 24 * 60 * 60 * 1000;
+              "Crates.io" = engine {
+                baseUrl = "https://crates.io";
+                search = "/search?q={searchTerms}";
+                iconUpdateURL = "/assets/cargo.png";
                 definedAliases = ["@crs" "@rsc" "@rust-crates"];
               };
               "Docs.rs" = {
                 urls = [{template = "https://docs.rs/releases/search?query={searchTerms}";}];
                 iconUpdateURL = "https://docs.rs/favicon.ico";
-                updateInterval = 24 * 60 * 60 * 1000;
                 definedAliases = ["@drs" "@rsd" "@rust-docs"];
               };
-              "Wolfram Alpha" = {
-                urls = [{template = "https://www.wolframalpha.com/input?i={searchTerms}";}];
-                iconUpdateURL = "https://www.wolframalpha.com/_next/static/images/favicon_1zbE9hjk.ico";
-                updateInterval = 24 * 60 * 60 * 1000;
+              "Wolfram Alpha" = engine {
+                baseUrl = "https://www.wolframalpha.com";
+                search = "/input?i={searchTerms}";
+                iconUpdateURL = "/_next/static/images/favicon_1zbE9hjk.ico";
                 definedAliases = ["@wolf" "@wolframalpha"];
               };
-
-              "D&D Beyond" = {
-                urls = [{template = "https://www.dndbeyond.com/search?q={searchTerms}";}];
+              "D&D Beyond" = engine {
+                baseUrl = "https://www.dndbeyond.com";
+                search = "/search?q={searchTerms}";
                 iconUpdateURL = "https://media.dndbeyond.com/images/web/favicon.png";
-                updateInterval = 24 * 60 * 60 * 1000;
-                definedAliases = ["@dnd"];
+                iconUpdateURLIsAbsolute = true;
+                definedAliases = ["@dnd" "@dnd-beyond"];
               };
-              "GitHub" = {
-                urls = [{template = "https://github.com/search?q={searchTerms}&type=repositories";}];
-                iconUpdateURL = "https://github.com/favicon.ico";
-                updateInterval = 24 * 60 * 60 * 1000;
-                definedAliases = ["@gh"];
+              "GitHub" = engine {
+                baseUrl = "https://github.com";
+                search = "/search?q={searchTerms}&type=repositories";
+                iconUpdateURL = "/favicon.ico";
+                definedAliases = ["@gh" "@github"];
               };
               "Google".metaData.alias = "@g";
               "Wikipedia (en)".metaData.alias = "@w";
@@ -94,8 +111,10 @@
               "NixOS Wiki"
               "Home Manager Options"
               "GitHub"
+              "Rust STD Docs"
               "Crates.io"
               "Docs.rs"
+              "Wolfram Alpha"
               "D&D Beyond"
               "Wikipedia (en)"
               "Google"
@@ -123,7 +142,6 @@
           addons_url = "https://addons.mozilla.org/firefox/downloads/latest";
         in {
           Install = [
-            "${addons_url}/clearurls/latest.xpi"
             "${addons_url}/decentraleyes/latest.xpi"
             "${addons_url}/ublock-origin/latest.xpi"
             "${addons_url}/privacy-badger17/latest.xpi"
@@ -131,6 +149,9 @@
             "${addons_url}/darkreader/lastest.xpi"
             "${addons_url}/bitwarden-password-manager/lastest.xpi"
             "${addons_url}/firefox-color/lastest.xpi"
+            "${addons_url}/pay-by-privacy/latest.xpi"
+            "${addons_url}/private-relay/latest.xpi"
+            "https://www.zotero.org/download/connector/dl?browser=firefox"
           ];
         };
       };

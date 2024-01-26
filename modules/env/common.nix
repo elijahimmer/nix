@@ -60,7 +60,7 @@
         + "$username$hostname $status$character ";
       directory.format = "[$path ]($style)";
       git_branch.format = "[$branch(:$remote_branch) ]($style)";
-      git_state.format = ''\($state \($progress_current/$progress_total\)\)]($style) '';
+      git_state.format = ''[\($state \($progress_current/$progress_total\)\)]($style) '';
       nix_shell.format = ''[$state \($name\)]($style) '';
       username.format = "[$user]($style)";
       hostname.format = "[@$hostname]($style)";

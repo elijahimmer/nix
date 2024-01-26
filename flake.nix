@@ -63,6 +63,31 @@
           headfull = true;
         };
       };
+      desktop = nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/desktop/configuration.nix
+
+          inputs.utils.nixosModules.autoGenFromInputs
+          inputs.home-manager.nixosModules.home-manager
+
+          inputs.nixvim.nixosModules.nixvim
+          inputs.stylix.nixosModules.stylix
+          inputs.agenix.nixosModules.default
+
+          inputs.nixos-hardware.nixosModules.common-cpu-amd
+          inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+          inputs.nixos-hardware.nixosModules.common-gpu-amd
+          inputs.nixos-hardware.nixosModules.common-pc
+          inputs.nixos-hardware.nixosModules.common-pc-ssd
+        ];
+        specialArgs = {
+          inherit inputs stateVersion system flakeAbsoluteDir;
+          hostName = "desktop";
+          headfull = true;
+        };
+      };
+ 
       server = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules = [

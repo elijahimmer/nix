@@ -22,6 +22,21 @@
     misc.upgrade
   ];
 
+  services = {
+    openssh = {
+      enable = true;
+      startWhenNeeded = true;
+      # TODO: Add age nix or another secrets method and get the authorized keys here!
+      banner = ''
+        ===========================================
+          HERE BE DRAGONS; BEWARE OF WATERS AHEAD
+        ===========================================
+      '';
+    };
+    btrfs.autoScrub.enable = true;
+    tailscale.useRoutingFeatures = "both";
+  };
+
   security.polkit.enable = true;
   # Let video group access backlight
   services.udev.extraRules = ''

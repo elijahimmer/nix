@@ -32,7 +32,6 @@
   systemd.coredump.enable = true;
 
   boot = {
-    initrd.secrets = {"/luks" = "/luks";};
     tmp.useTmpfs = true;
     loader = {
       grub = {

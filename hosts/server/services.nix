@@ -25,6 +25,10 @@
       openFirewall = true;
       port = 8181;
     };
+    radarr = {
+      enable = true;
+      openFirewall = true;
+    };
 
     samba = {
       enable = true;

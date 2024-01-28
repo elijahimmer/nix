@@ -27,7 +27,31 @@
         currentLineBlame = true;
         numhl = true;
       };
+      crates-nvim.enable = true;
       lsp-format.enable = true;
+      #      nvim-cmp = {
+      #        enable = true;
+      #        sources = [
+      #          {name = "nvim_lsp";}
+      #          {name = "path";}
+      #          {name = "buffer";}
+      #          {name = "git";}
+      #          {name = "crates";}
+      #          {name = "clippy";}
+      #        ];
+      #      };
+      #      cmp-greek.enable = true;
+      #      cmp-nvim-lsp.enable = true;
+      #      cmp-path.enable = true;
+      #      cmp-git.enable = true;
+      #      cmp-buffer.enable = true;
+      #      cmp-clippy.enable = true;
+      coq-nvim = {
+        enable = true;
+        alwaysComplete = true;
+        autoStart = true;
+        recommendedKeymaps = true;
+      };
       fugitive.enable = true;
       nix.enable = true;
       undotree.enable = true;

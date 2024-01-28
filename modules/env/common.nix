@@ -1,6 +1,8 @@
 {headfull, ...}: {
   imports = [./packages.nix ./ssh.nix ./age.nix];
 
+  security.sudo.execWheelOnly = true;
+
   environment.shellAliases = {
     l = "eza -al";
     ls = "eza";
@@ -22,14 +24,14 @@
 
   programs.nixvim = {
     enable = true;
+
+    # Make Neovim's Yank and Paste use the system clipboard
+    # I think I should work on this at some point, always
+    #    using the clipboard is annoying.
     clipboard.register =
       if headfull
       then "unnamedplus"
       else "";
-    # Make Neovim's Yank and Paste use the system clipboard
-    # I think I should work on this at some point, always
-    #    using the clipboard is annoying.
-
     colorschemes.rose-pine = {
       enable = true;
       transparentBackground = true;

@@ -5,7 +5,6 @@
     ./displayManager.nix
     ./firefox/default.nix
     ./hyprland.nix
-    ./music.nix
     ./packages.nix
     ./programs.nix
     ./services.nix

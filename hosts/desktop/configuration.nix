@@ -16,6 +16,7 @@
     misc.common
     misc.tailscale
     misc.mullvad
+    misc.music
     misc.networkmanager
     misc.pipewire
     misc.bluetooth

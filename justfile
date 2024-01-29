@@ -1,6 +1,7 @@
 alias t := test
 alias s := switch
 alias b := boot
+alias u := update
 
 test:
 	git add .

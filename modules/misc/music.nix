@@ -43,4 +43,8 @@
       '';
     };
   };
+  systemd.services.noisetorch = {
+    wants = ["hyprland-session.target"];
+    script = "noisetorch -i";
+  };
 }

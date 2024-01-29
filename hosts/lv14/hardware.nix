@@ -29,8 +29,8 @@
       powerKeyLongPress = "poweroff";
 
       lidSwitch = "suspend-then-hibernate";
-      lidSwitchExternalPower = "suspend";
-      lidSwitchDocked = "suspend";
+      lidSwitchExternalPower = "suspend-then-hibernate";
+      lidSwitchDocked = "ignore";
     };
     thermald.enable = true;
     tlp = {
@@ -50,6 +50,9 @@
 
         RUNTIME_PM_ON_AC = "auto";
         RUNTIME_PM_ON_BAT = "auto";
+
+        SOUND_POWER_SAVE_ON_AC = 1;
+        SOUND_POWER_SAVE_ON_BAT = 1;
 
         NATACPI_ENABLE = 1;
 

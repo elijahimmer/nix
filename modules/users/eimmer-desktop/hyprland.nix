@@ -179,29 +179,39 @@
         end-key = key: ''
           bind=SUPER, ${key}, exec, killall wlr-which-key
           bind=SUPER, ${key}, submap, reset
+          bind=, ${key}, exec, killall wlr-which-key
+          bind=, ${key}, submap, reset
         '';
+        keybind = key: cmd: ''
+          bind=SUPER, ${key}, exec, ${run-in-place cmd}
+          bind=,${key},exec, ${run-in-place cmd}
+          ${end-key key}
+        '';
+        opt = desc: {
+          inherit desc;
+          cmd = "";
+        };
       in ''
         bind=SUPER, T, exec, ${launch-wlr-wk "launcher" {
           menu = {
-            w = mk-key-bind-close "Nautilus" "${pkgs.gnome.nautilus}/bin/nautilus";
-            b = mk-key-bind-close "Bitwarden" (lib.getExe pkgs.bitwarden);
-            r = mk-key-bind-close "Signal" (lib.getExe pkgs.signal-desktop);
-            t = mk-key-bind-close "Firefox" "$BROWSER";
-            a = mk-key-bind-close "Alacritty" "alacritty";
+            w = opt "Nautilus";
+            b = opt "Bitwarden";
+            r = opt "Signal";
+            t = opt "Firefox";
+            a = opt "Alacritty";
+            s = opt "Steam";
+            d = opt "discord";
           };
         }}
         bind=SUPER, T, submap, launcher
         submap=launcher
-        bind=SUPER, W, exec, ${run-in-place "${pkgs.gnome.nautilus}/bin/nautilus"}
-        ${end-key "W"}
-        bind=SUPER, B, exec, ${run-in-place (lib.getExe pkgs.bitwarden)}
-        ${end-key "B"}
-        bind=SUPER, R, exec, ${run-in-place (lib.getExe pkgs.signal-desktop)}
-        ${end-key "R"}
-        bind=SUPER, T, exec, ${run-in-place "$BROWSER"}
-        ${end-key "T"}
-        bind=SUPER, A, exec, ${run-in-place "alacritty"}
-        ${end-key "A"}
+        ${keybind "W" "${pkgs.gnome.nautilus}/bin/nautilus"}
+        ${keybind "B" (lib.getExe pkgs.bitwarden)}
+        ${keybind "R" (lib.getExe pkgs.signal-desktop)}
+        ${keybind "T" "$BROWSER"}
+        ${keybind "A" "alacritty"}
+        ${keybind "S" (lib.getExe pkgs.steam)}
+        ${keybind "D" (lib.getExe pkgs.webcord-vencord)}
         ${end-key "ESCAPE"}
         submap=reset
       '';

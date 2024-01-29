@@ -22,6 +22,8 @@
     misc.upgrade
   ];
 
+  programs.noisetorch.enable = true;
+
   security.polkit.enable = true;
   # Let video group access backlight
   services.udev.extraRules = ''

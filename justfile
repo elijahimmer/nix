@@ -16,3 +16,6 @@ switch: test
 	git commit
 	sudo nixos-rebuild switch --flake .#$HOSTNAME
 
+update:
+	git pull
+	sudo nixos-rebuild switch --flake .#$HOSTNAME

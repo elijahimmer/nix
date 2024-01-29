@@ -201,6 +201,7 @@
             a = opt "Alacritty";
             s = opt "Steam";
             d = opt "discord";
+            z = opt "zotero";
           };
         }}
         bind=SUPER, T, submap, launcher
@@ -212,6 +213,7 @@
         ${keybind "A" "alacritty"}
         ${keybind "S" (lib.getExe pkgs.steam)}
         ${keybind "D" (lib.getExe pkgs.webcord-vencord)}
+        ${keybind "Z" (lib.getExe pkgs.zotero)}
         ${end-key "ESCAPE"}
         submap=reset
       '';

@@ -12,6 +12,7 @@
     users.eimmer
 
     common.all
+    env.common
     env.coding
 
     misc.build-host

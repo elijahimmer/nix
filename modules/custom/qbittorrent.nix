@@ -94,7 +94,7 @@ in {
           '';
         in "!${preStartScript}";
 
-        ExecStart = lib.getExe cfg.package;
+        ExecStart = lib.getExe' cfg.package "qbittorrent-nox";
         # To prevent "Quit & shutdown daemon" from working; we want systemd to
         # manage it!
         #Restart = "on-success";

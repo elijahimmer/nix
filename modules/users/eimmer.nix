@@ -30,7 +30,7 @@
   };
 
   services.openssh = {
-      hostKeys = [
+    hostKeys = [
       {
         path = config.age.secrets."${hostName}-ssh".file;
         type = "ed25519";

@@ -14,6 +14,7 @@
     env.common
     env.coding
 
+    misc.ssh-host
     misc.tailscale
     misc.upgrade
     misc.common

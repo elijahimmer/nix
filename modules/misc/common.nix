@@ -2,6 +2,7 @@
   pkgs,
   hostName,
   stateVersion,
+  system,
   ...
 }: {
   # needed to get flakes to work
@@ -29,6 +30,23 @@
       options = "--delete-older-than 8 days";
       persistent = true;
     };
+    buildMachines = [
+      {
+        inherit system;
+        # TODO: Find a better way to write this, like store the ssh public keys
+        #       in a way the whole config can find
+        sshKey = builtins.readFile ../../secrets/ssh-public-keys/server.pub;
+        hostName = "server";
+        maxJobs = 16;
+      }
+      {
+        inherit system;
+        sshKey = builtins.readFile ../../secrets/ssh-public-keys/desktop.pub;
+        hostName = "desktop";
+        maxJobs = 16;
+      }
+    ];
+    distributedBuilds = true;
 
     daemonIOSchedClass = "best-effort";
     daemonCPUSchedPolicy = "batch";

@@ -29,19 +29,22 @@
     home = {inherit stateVersion;};
   };
 
-  services.openssh.hostKeys = [
-    {
-      path = config.age.secrets."${hostName}-ssh".file;
-      type = "ed25519";
-    }
-  ];
+  services.openssh = {
+      hostKeys = [
+      {
+        path = config.age.secrets."${hostName}-ssh".file;
+        type = "ed25519";
+      }
+    ];
+  };
 
   users.users.eimmer = {
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtGu3F4RIogpoh5cai+8+kF6Ec8WJoM+1UfpmqPLB7v eimmer@lv14"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH0a9pghHok8USAlicO8tV1R11Uc/yt2nP0/O1D9rkme eimmer@server"
+    openssh.authorizedKeys.keyFiles = [
+      ../../secrets/ssh-public-keys/lv14.pub
+      ../../secrets/ssh-public-keys/server.pub
+      ../../secrets/ssh-public-keys/desktop.pub
     ];
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;

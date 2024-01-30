@@ -1,6 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   environment.sessionVariables = rec {
-    BROWSER = "firefox";
+    BROWSER = lib.getExe pkgs.firefox;
     DEFAULT_BROWSER = BROWSER;
   };
 

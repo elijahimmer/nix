@@ -21,8 +21,8 @@
 
     grim = lib.getExe pkgs.grim;
     slurp = lib.getExe pkgs.slurp;
-    wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-    wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+    wl-copy = "${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
+    wl-paste = "${lib.getExe' pkgs.wl-clipboard "wl-paste"}";
     notify = lib.getExe pkgs.notify-desktop;
 
     screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
@@ -206,11 +206,11 @@
         }}
         bind=SUPER, T, submap, launcher
         submap=launcher
-        ${keybind "W" "${pkgs.gnome.nautilus}/bin/nautilus"}
+        ${keybind "W" (lib.getExe pkgs.gnome.nautilus)}
         ${keybind "B" (lib.getExe pkgs.bitwarden)}
         ${keybind "R" (lib.getExe pkgs.signal-desktop)}
         ${keybind "T" "$BROWSER"}
-        ${keybind "A" "alacritty"}
+        ${keybind "A" (lib.getExe pkgs.alacritty)}
         ${keybind "S" (lib.getExe pkgs.steam)}
         ${keybind "D" (lib.getExe pkgs.webcord-vencord)}
         ${keybind "Z" (lib.getExe pkgs.zotero)}

@@ -2,16 +2,18 @@
   pkgs,
   lib,
   ...
-}: {
-  environment.sessionVariables.TERMINAL = "alacritty";
+}: let
+  alacritty = lib.getExe pkgs.alacritty;
+in {
+  environment.sessionVariables.TERMINAL = alacritty;
   environment.systemPackages = [
     (
       pkgs.writeShellScriptBin "xdg-terminal-exec" ''
         if [ -z "$@" ]
           then
-          ${lib.getBin pkgs.alacritty}/bin/alacritty
+          ${alacritty}
           else
-          ${lib.getBin pkgs.alacritty}/bin/alacritty -e "$@"
+          ${alacritty} -e "$@"
         fi
       ''
     )
@@ -26,15 +28,13 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        # TODO: Get Alacritty to actually use these keybindings
-        #keyboard.bindings = [
-        #  {
-        #    key = "Enter";
-        #    mods = "Control";
-        #    mode = "~Vi|Search";
-        #    action = "SpawnNewInstance";
-        #  }
-        #];
+        keyboard.bindings = [
+          {
+            key = "Return";
+            mods = "Control|Shift";
+            action = "SpawnNewInstance";
+          }
+        ];
 
         window.opacity = 0.90;
 
@@ -106,13 +106,6 @@
           dim = bright;
         };
 
-        keyboard.bindings = [
-          {
-            key = "Return";
-            mods = "Control|Shift";
-            action = "SpawnNewInstance";
-          }
-        ];
         font = let
           font = "FiraCode Nerd Font";
         in {

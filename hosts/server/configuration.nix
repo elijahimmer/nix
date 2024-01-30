@@ -11,19 +11,15 @@
 
     users.eimmer
 
-    env.common
+    common.all
     env.coding
 
+    misc.build-host
     misc.ssh-host
     misc.tailscale
-    misc.upgrade
-    misc.common
   ];
 
-  services = {
-    btrfs.autoScrub.enable = true;
-    tailscale.useRoutingFeatures = "both";
-  };
+  services.btrfs.autoScrub.enable = true;
 
   security = {
     tpm2.enable = true;

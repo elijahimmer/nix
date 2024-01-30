@@ -1,12 +1,38 @@
-{headfull, ...}: {
-  imports = [./packages.nix ./ssh.nix ./age.nix];
+{
+  pkgs,
+  lib,
+  hostName,
+  stateVersion,
+  ...
+}: {
+  imports = [
+    ./packages.nix
+    ./nixvim.nix
+    ./ssh.nix
+  ];
+  # needed to get flakes to work
+  environment.systemPackages = with pkgs; [git];
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  time.timeZone = "America/Los_Angeles";
+  location.provider = "geoclue2";
+
+  services.clamav = {
+    daemon.enable = true;
+    updater.enable = true;
+  };
+
+  networking = {inherit hostName;};
+  system = {inherit stateVersion;};
 
   security.sudo.execWheelOnly = true;
 
-  environment.shellAliases = {
-    l = "eza -al";
-    ls = "eza";
-    la = "eza -a";
+  environment.shellAliases = let
+    eza = lib.getExe pkgs.eza;
+  in {
+    l = "${eza} -al";
+    ls = eza;
+    la = "${eza} -a";
     rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
   };
 
@@ -20,33 +46,6 @@
     GIT_PAGER = EDITOR;
     PAGER = "page";
     VISUAL = PAGER;
-  };
-
-  programs.nixvim = {
-    enable = true;
-
-    # Make Neovim's Yank and Paste use the system clipboard
-    # I think I should work on this at some point, always
-    #    using the clipboard is annoying.
-    clipboard.register =
-      if headfull
-      then "unnamedplus"
-      else "";
-    colorschemes.rose-pine = {
-      enable = true;
-      transparentBackground = true;
-      disableItalics = true;
-    };
-
-    options = {
-      browsedir = "buffer";
-      mouse = "";
-      number = true;
-      relativenumber = true;
-      smartindent = true;
-      tabstop = 2;
-      shiftwidth = 2;
-    };
   };
 
   programs.starship = {

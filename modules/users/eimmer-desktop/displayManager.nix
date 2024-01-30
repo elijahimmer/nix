@@ -1,11 +1,11 @@
-{pkgs, ...}: let
+{pkgs, lib, ...}: let
   command = "Hyprland";
 in {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd \"${command}\"";
+        command = "${lib.getExe' pkgs.greetd.greetd "agetty"} --cmd \"${command}\"";
       };
       initial_session = {
         command = command;

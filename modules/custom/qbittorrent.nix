@@ -84,7 +84,7 @@ in {
         # can create the data directory if necessary.
         ExecStartPre = let
           preStartScript = pkgs.writeScript "qbittorrent-run-prestart" ''
-            #!${pkgs.bash}/bin/bash
+            #!${lib.getExe pkgs.bash}
 
             # Create data directory if it doesn't exist
             if ! test -d "$QBT_PROFILE"; then
@@ -94,8 +94,7 @@ in {
           '';
         in "!${preStartScript}";
 
-        #ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox";
-        ExecStart = "${cfg.package}/bin/qbittorrent-nox";
+        ExecStart = lib.getExe cfg.package;
         # To prevent "Quit & shutdown daemon" from working; we want systemd to
         # manage it!
         #Restart = "on-success";

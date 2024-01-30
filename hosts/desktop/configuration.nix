@@ -10,17 +10,14 @@
 
     users.eimmer
 
+    common.all
     env.common
-    env.coding
 
-    misc.common
     misc.tailscale
     misc.mullvad
     misc.music
     misc.networkmanager
     misc.pipewire
-    misc.bluetooth
-    misc.upgrade
   ];
 
   programs.noisetorch.enable = true;

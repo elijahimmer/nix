@@ -16,11 +16,10 @@
     wget
     page
     p7zip
-    socat
-    jq
+    #    socat
+    #    jq
     gh
 
-    dialog
     killall
     # END AUTO GENERATION
 

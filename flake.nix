@@ -51,6 +51,7 @@
           inputs.nixvim.nixosModules.nixvim
           inputs.stylix.nixosModules.stylix
           inputs.agenix.nixosModules.default
+          inputs.bar-rs.nixosModules.default
 
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-intel
@@ -74,6 +75,7 @@
           inputs.nixvim.nixosModules.nixvim
           inputs.stylix.nixosModules.stylix
           inputs.agenix.nixosModules.default
+          inputs.bar-rs.nixosModules.bar-rs
 
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate

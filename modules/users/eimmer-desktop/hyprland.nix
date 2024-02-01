@@ -4,6 +4,7 @@
   ...
 }: {
   programs.hyprland.enable = true;
+  services.bar-rs.enable = true;
 
   systemd.user.services.swaybg = {
     wantedBy = ["hyprland-session.target"];

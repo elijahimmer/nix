@@ -12,6 +12,9 @@
         wantedBy = ["hyprland-session.target"];
         script = lib.getExe inputs.bar-rs.packages.${system}.default;
         reloadIfChanged = true;
+        environment = {
+          pw-volume = lib.getExe pkgs.pw-volume;
+        };
       };
     };
   };

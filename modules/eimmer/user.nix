@@ -1,13 +1,26 @@
 {
   config,
-  headfull,
+  headFull,
   hostName,
   inputs,
   stateVersion,
-  lib,
+  mods,
   ...
 }: {
-  imports = [] ++ lib.optional headfull ./eimmer-desktop;
+  imports =
+    if headFull
+    then [
+      ./alacritty.nix
+      ./displayManager.nix
+      ./firefox
+      ./hyprland.nix
+      ./packages.nix
+      ./programs.nix
+      ./services.nix
+      ./stylix.nix
+      ./xdg.nix
+    ]
+    else [];
 
   home-manager = {
     useGlobalPkgs = true;
@@ -41,11 +54,7 @@
   users.users.eimmer = {
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
-    openssh.authorizedKeys.keyFiles = [
-      ../../secrets/ssh-public-keys/lv14.pub
-      ../../secrets/ssh-public-keys/server.pub
-      ../../secrets/ssh-public-keys/desktop.pub
-    ];
+    openssh.authorizedKeys.keyFiles = mods.ssot.keyFiles;
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
   };

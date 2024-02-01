@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  mods,
   ...
 }: {
   programs.hyprland.enable = true;
@@ -8,7 +9,7 @@
 
   systemd.user.services.swaybg = {
     wantedBy = ["hyprland-session.target"];
-    script = "${lib.getExe pkgs.swaybg} --image ${./background.png} --mode fit --color '#191724'";
+    script = "${lib.getExe pkgs.swaybg} --image ${toString mods.theme.background} --mode fit --color '#191724'";
   };
 
   home-manager.users.eimmer = {

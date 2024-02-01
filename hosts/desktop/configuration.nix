@@ -8,17 +8,7 @@
     ./hardware.nix
     ./packages.nix
 
-    users.eimmer
-
-    common.all
-    env.common
-    env.coding
-
-    misc.tailscale
-    misc.mullvad
     misc.music
-    misc.networkmanager
-    misc.pipewire
   ];
 
   programs.noisetorch.enable = true;

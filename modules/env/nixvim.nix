@@ -1,4 +1,4 @@
-{headfull, ...}: {
+{headFull, ...}: {
   programs.nixvim = {
     enable = true;
 
@@ -6,7 +6,7 @@
     # I think I should work on this at some point, always
     #    using the clipboard is annoying.
     clipboard.register =
-      if headfull
+      if headFull
       then "unnamedplus"
       else "";
     colorschemes.rose-pine = {

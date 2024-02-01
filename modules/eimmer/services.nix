@@ -18,12 +18,4 @@
       defaultTimeout = 10000; # 10 seconds
     };
   };
-
-  /*
-  stylix.targets.plymouth.enable = false;
-  boot.plymouth = {
-    enable = true;
-    logo = lib.mkForce ./background-small.png;
-  };
-  */
 }

@@ -9,15 +9,8 @@
     ./packages.nix
     ./services.nix
 
-    users.eimmer
-
-    common.all
-    env.common
-    env.coding
-
     misc.build-host
     misc.ssh-host
-    misc.tailscale
   ];
 
   services.btrfs.autoScrub.enable = true;

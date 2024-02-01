@@ -3,38 +3,13 @@
   pkgs,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     ./hardware-configuration.nix
     ./hardware.nix
     ./packages.nix
-
-    users.eimmer
-
-    common.all
-    env.common
-    env.coding
-
-    misc.tailscale
-    misc.mullvad
-    misc.networkmanager
-    misc.pipewire
-    misc.bluetooth
   ];
 
-  services = {
-    openssh = {
-      enable = true;
-      startWhenNeeded = true;
-      # TODO: Add age nix or another secrets method and get the authorized keys here!
-      banner = ''
-        ===========================================
-          HERE BE DRAGONS; BEWARE OF WATERS AHEAD
-        ===========================================
-      '';
-    };
-    btrfs.autoScrub.enable = true;
-    tailscale.useRoutingFeatures = "both";
-  };
+  services.btrfs.autoScrub.enable = true;
 
   security.polkit.enable = true;
   # Let video group access backlight

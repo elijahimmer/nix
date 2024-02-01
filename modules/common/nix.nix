@@ -18,6 +18,8 @@
       options = "--delete-older-than 8 days";
       persistent = true;
     };
+    /*
+       I need to find a better way to do this.
     buildMachines = let
       machine = hostName: {
         inherit system hostName;
@@ -28,21 +30,23 @@
       (machine "server")
       (machine "desktop")
     ];
+    */
     # TODO: Fix distributed build to, you know, work
+    #       I also need to find a way to make it optional,
+    #       so that if they don't have a connection to one
+    #       of the devices it doesn't fail
     #    distributedBuilds = true;
 
     daemonIOSchedClass = "best-effort";
     daemonCPUSchedPolicy = "batch";
 
     package = pkgs.nixUnstable;
-
-    # From flake-utils-plus
-    generateNixPathFromInputs = true;
-    generateRegistryFromInputs = true;
-    linkInputs = true;
   };
 
-  system.autoUpgrade = {
+  # I want to set this up, but I have to get the flake
+  # to a better state, and figure out how it works more.
+  /*
+    system.autoUpgrade = {
     enable = true;
     flake = "github:elijahimmer/nix";
     flags = [
@@ -55,4 +59,5 @@
     randomizedDelaySec = "45min";
     persistent = true;
   };
+  */
 }

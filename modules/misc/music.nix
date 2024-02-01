@@ -3,6 +3,7 @@
   lib,
   ...
 }: {
+  environment.systemPackages = with pkgs; [mpc-cli];
   systemd.user = {
     services.playlist-updater = {
       serviceConfig = {

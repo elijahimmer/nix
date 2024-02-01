@@ -2,8 +2,10 @@
   inputs,
   lib,
   system,
+  pkgs,
   ...
 }: {
+  environment.systemPackages = with pkgs; [pw-volume];
   systemd = {
     user = {
       services.bar-rs = {

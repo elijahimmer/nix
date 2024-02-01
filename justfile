@@ -25,7 +25,5 @@ update:
 inputs:
 	git pull
 	nix flake update
-	sudo nixos-rebuild switch --flake .#$HOSTNAME
-	git add .
-	git commit
+	@just switch
 

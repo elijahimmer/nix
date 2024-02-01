@@ -14,7 +14,7 @@ boot:
 	sudo nixos-rebuild boot --flake .#$HOSTNAME
 	nix fmt
 
-switch: test
+switch: nix_check 
 	git commit
 	sudo nixos-rebuild switch --flake .#$HOSTNAME
 
@@ -27,3 +27,7 @@ inputs:
 	nix flake update
 	@just switch
 
+nix_check:
+	git add .
+	nix flake check
+	nix fmt

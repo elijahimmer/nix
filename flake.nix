@@ -25,7 +25,8 @@
 
     # My Packages
     bar-rs = {
-      url = "github:elijahimmer/bar-rs";
+      #url = "github:elijahimmer/bar-rs";
+      url = "/home/eimmer/src/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

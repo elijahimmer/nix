@@ -1,10 +1,12 @@
 {
   system,
   pkgs,
+  inputs,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
   nix = {
+    nixPath = ["repl=${toString ./.}/repl.nix" "nixpkgs=${inputs.nixpkgs}"];
     settings = {
       trusted-users = ["@wheel" "root"];
       auto-optimise-store = true;

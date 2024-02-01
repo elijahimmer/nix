@@ -1,7 +1,6 @@
 {...}: {
   imports = [
     ./alacritty.nix
-    ./bar-rs.nix
     ./displayManager.nix
     ./firefox/default.nix
     ./hyprland.nix

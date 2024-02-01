@@ -26,7 +26,8 @@
       (machine "server")
       (machine "desktop")
     ];
-    distributedBuilds = true;
+# TODO: Fix distributed build to, you know, work
+#    distributedBuilds = true;
 
     daemonIOSchedClass = "best-effort";
     daemonCPUSchedPolicy = "batch";

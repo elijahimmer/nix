@@ -4,6 +4,8 @@
     typst-live
     typstfmt
 
+    cargo
+
     gcc
     rustfmt
 

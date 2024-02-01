@@ -2,6 +2,7 @@ alias t := test
 alias s := switch
 alias b := boot
 alias u := update
+alias i := inputs
 
 test:
 	git add .
@@ -20,3 +21,11 @@ switch: test
 update:
 	git pull
 	sudo nixos-rebuild switch --flake .#$HOSTNAME
+
+inputs:
+	git pull
+	nix flake update
+	sudo nixos-rebuild switch --flake .#$HOSTNAME
+	git add .
+	git commit
+

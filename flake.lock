@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1706586418,
-        "narHash": "sha256-UHXvZrsFdMSSfHthudvqqnjeun7we8ZJuWFUM7h+GQg=",
+        "lastModified": 1706743479,
+        "narHash": "sha256-IMZnOPoDzeT2xXDyiiRuVzwcTt7eqC8b/cq38/vQ5xI=",
         "owner": "elijahimmer",
         "repo": "bar-rs",
-        "rev": "f97494eddd63d723491051addc984c5023cc8d75",
+        "rev": "c116bd95b39025f5f014f7aab3aed4595f681d16",
         "type": "github"
       },
       "original": {
@@ -460,11 +460,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1706371002,
-        "narHash": "sha256-dwuorKimqSYgyu8Cw6ncKhyQjUDOyuXoxDTVmAXq88s=",
+        "lastModified": 1706550542,
+        "narHash": "sha256-UcsnCG6wx++23yeER4Hg18CXWbgNpqNXcHIo5/1Y+hc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c002c6aa977ad22c60398daaa9be52f2203d0006",
+        "rev": "97b17f32362e475016f942bbdfda4a4a72a8a652",
         "type": "github"
       },
       "original": {

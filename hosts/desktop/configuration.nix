@@ -12,6 +12,7 @@
 
     common.all
     env.common
+    env.coding
 
     misc.tailscale
     misc.mullvad

@@ -8,6 +8,7 @@
     ./age.nix
     ./nix.nix
   ];
+  security.sudo.execWheelOnly = true;
   # needed to get flakes to work
   environment.systemPackages = with pkgs; [git];
 

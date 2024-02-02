@@ -1,7 +1,7 @@
-{
-  services.openssh.knownHosts = {
-    desktop.publicKeyFile = ../../secrets/ssh-public-keys/desktop.pub;
-    lv14.publicKeyFile = ../../secrets/ssh-public-keys/lv14.pub;
-    server.publicKeyFile = ../../secrets/ssh-public-keys/server.pub;
+{mods, ...}: {
+  services.openssh.knownHosts = with mods.ssot.hosts; {
+    desktop.publicKeyFile = desktop.publicSshKeyFile;
+    lv14.publicKeyFile = lv14.publicSshKeyFile;
+    server.publicKeyFile = server.publicSshKeyFile;
   };
 }

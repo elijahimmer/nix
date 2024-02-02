@@ -27,13 +27,13 @@ in {
             mods.common.default
             mods.env.default
             mods.eimmer.user
+            mods.misc.networkmanager
 
             inputs.nixvim.nixosModules.nixvim
             inputs.agenix.nixosModules.default
           ]
           else []
         )
-        ++ modules
         ++ (
           if headFull
           then
@@ -52,10 +52,10 @@ in {
               env.coding
               misc.tailscale
               misc.mullvad
-              misc.networkmanager
             ]
           else []
-        );
+        )
+        ++ modules;
       specialArgs =
         {
           inherit inputs hostName headFull stateVersion system flakeAbsoluteDir mods;

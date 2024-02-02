@@ -1,7 +1,7 @@
 let
-  lv14 = builtins.readFile ./ssh-public-keys/lv14-ssh.pub;
-  server = builtins.readFile ./ssh-public-keys/server.pub;
-  desktop = builtins.readFile ./ssh-public-keys/desktop.pub;
+  lv14 = builtins.readFile ../../modules/ssot/lv14-ssh.pub;
+  server = builtins.readFile ../../modules/ssot/server.pub;
+  desktop = builtins.readFile ../../modules/ssot/desktop.pub;
   themAll = [lv14 server desktop];
 in {
   "lv14-ssh.age".publicKeys = [lv14];

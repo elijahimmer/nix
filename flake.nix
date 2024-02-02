@@ -36,9 +36,25 @@
   outputs = {
     self,
     nixpkgs,
+    flake-utils,
     ...
   } @ inputs: let
     nixosSystem = (self.nixosModules.custom.nixosSystem {inherit inputs;}).nixosSystem;
+    generated = flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      formatter = pkgs.alejandra;
+      # Helps to bootstrap a new system
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          git
+          neovim
+          ripgrep
+          fd
+          just
+        ];
+      };
+    });
   in {
     nixosModules = import ./modules {lib = nixpkgs.lib;};
     nixosConfigurations = {
@@ -63,7 +79,6 @@
           inputs.nixos-hardware.nixosModules.common-pc-ssd
         ];
       };
-
       server = nixosSystem {
         hostName = "server";
         modules = [
@@ -74,7 +89,17 @@
           inputs.nixos-hardware.nixosModules.common-pc-hdd
         ];
       };
+      # I don't want it to be checked unless I am going to use it because
+      # It would be invalid, since it as no hardware config.
+      /*
+        minimal = nixosSystem {
+        hostName = "minimal";
+        headFull = false;
+        useCommonExtendedModules = false;
+      };
+      */
     };
-    formatter.x86_64-linux = nixpkgs.legacyPackages."x86_64-linux".alejandra;
+    formatter = generated.formatter;
+    devShells = generated.devShells;
   };
 }

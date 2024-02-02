@@ -43,7 +43,7 @@
     generated = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      formatter = pkgs.alejandra;
+#      formatter = pkgs.alejandra;
       # Helps to bootstrap a new system
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
@@ -99,7 +99,7 @@
       };
       */
     };
-    formatter = generated.formatter;
+    #formatter = generated.formatter;
     devShells = generated.devShells;
   };
 }

@@ -17,10 +17,6 @@
     lib,
     ...
   }: let
-    run-in-place = command: let
-      current-workspace = "hyprctl activeworkspace | rg \\d+ -o | head --lines=1";
-    in "hyprctl dispatch -- exec [workspace $(${current-workspace}) silent] ${command}";
-
     grim = lib.getExe pkgs.grim;
     slurp = lib.getExe pkgs.slurp;
     wl-copy = "${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
@@ -39,33 +35,6 @@
       > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
       ${notify} 'Screenshot of whole screen taken' -t 5000
     '';
-
-    mk-key-bind = desc: cmd: {
-      inherit desc;
-      cmd = run-in-place cmd;
-    };
-    mk-key-bind-close = desc: cmd: {
-      inherit desc;
-      cmd = "${run-in-place cmd}; killall wlr-which-key; hyprctl dispatch submap reset";
-    };
-    launch-wlr-wk = name: cfg: "${lib.getExe pkgs.wlr-which-key} ${
-      pkgs.writeText "launch-wlr-wk-${name}.yaml"
-      (builtins.toJSON ({
-          background = "#1f1d2e";
-          color = "#e0def4";
-          border = "#ebbcba";
-          separator = " ➜ ";
-          border_width = 2;
-          corner_r = 10;
-          padding = 15;
-          anchor = "center";
-          margin_right = 0;
-          margin_bottom = 0;
-          margin_left = 0;
-          margin_top = 0;
-        }
-        // cfg))
-    }";
   in {
     wayland.windowManager.hyprland = {
       enable = true;
@@ -140,8 +109,6 @@
           "SUPER, 8, workspace, 8"
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
-
-          # Alternate Keyboard buttons
           "SUPER, Q, workspace, 6"
           "SUPER, D, workspace, 7"
           "SUPER, R, workspace, 8"
@@ -158,66 +125,72 @@
           "SUPER SHIFT, 8, movetoworkspace, 8"
           "SUPER SHIFT, 9, movetoworkspace, 9"
           "SUPER SHIFT, 0, movetoworkspace, 10"
-
-          # These few are for when I have my alternate keyboard
           "SUPER SHIFT, Q, movetoworkspace, 6"
           "SUPER SHIFT, D, movetoworkspace, 7"
           "SUPER SHIFT, R, movetoworkspace, 8"
           "SUPER SHIFT, W, movetoworkspace, 9"
           "SUPER SHIFT, B, movetoworkspace, 10"
-
-          "SUPER, DELETE, exec, ${launch-wlr-wk "power" {
-            menu = {
-              q = mk-key-bind "Exit" "hyprctl dispatch exit";
-              a = mk-key-bind "Poweroff" "systemctl poweroff";
-              s = mk-key-bind "Suspend" "systemctl suspend-then-hibernate";
-              h = mk-key-bind "Hibernate" "systemctl hibernate";
-              l = mk-key-bind "Lock" "lock";
-            };
-          }}"
         ];
       };
       extraConfig = let
-        end-key = key: ''
-          bind=SUPER, ${key}, exec, killall wlr-which-key
+        run-in-place = command: let
+          current-workspace = "hyprctl activeworkspace | rg \\d+ -o | head --lines=1";
+        in "hyprctl dispatch -- exec [workspace $(${current-workspace}) silent] ${command}";
+
+        launch-wlr-wk = name: menu: "${lib.getExe pkgs.wlr-which-key} ${
+          pkgs.writeText "launch-wlr-wk-${name}.yaml"
+          (builtins.toJSON ({
+              menu = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair (lib.strings.toLower name)) menu;
+              background = "#1f1d2e"; color = "#e0def4"; border = "#ebbcba";
+              separator = " ➜ ";      border_width = 2;  corner_r = 10;
+              padding = 15;           anchor = "center"; margin_right = 0;
+              margin_bottom = 0;      margin_left = 0;   margin_top = 0;
+            }))
+        }";
+
+        kill-wlr-wk = "killall wlr-which-key";
+        mk-key-bind = key: cmd: let c = run-in-place cmd; in ''
+          bind=SUPER, ${key}, exec, ${c}
+          bind=SUPER, ${key}, exec, ${kill-wlr-wk}
           bind=SUPER, ${key}, submap, reset
-          bind=, ${key}, exec, killall wlr-which-key
-          bind=, ${key}, submap, reset
+          bind=,      ${key}, exec, ${run-in-place cmd}
+          bind=,      ${key}, exec, ${c}
+          bind=,      ${key}, submap, reset
         '';
-        keybind = key: cmd: ''
-          bind=SUPER, ${key}, exec, ${run-in-place cmd}
-          bind=,${key},exec, ${run-in-place cmd}
-          ${end-key key}
+        wlr-wk-cfg = binds: lib.lists.foldl (acc: bind: acc // {${bind.key} = {desc = bind.name; cmd = "";};}) {} binds;
+        launcher = key: name: binds: ''
+          bind=SUPER, ${key}, exec,   ${launch-wlr-wk name (wlr-wk-cfg binds)}
+          bind=SUPER, ${key}, submap, ${name}
+          submap=${name}
+          ${builtins.foldl' (str: {key, cmd, ...}: str + (mk-key-bind key cmd)) "" binds}
+          bind=SUPER, ESCAPE, exec,   killall wlr-which-key
+          bind=SUPER, ESCAPE, submap, reset
+          bind=,      ESCAPE, exec,   killall wlr-which-key
+          bind=,      ESCAPE, submap, reset
+          submap=reset
         '';
-        opt = desc: {
-          inherit desc;
-          cmd = "";
-        };
+
+        mkBind = key: name: cmd: {inherit key name cmd;};
+        appLauncher = launcher "T" "launcher" [
+          (mkBind "w" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
+          (mkBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
+          (mkBind "T" "Firefox"   "$BROWSER")
+          (mkBind "A" "Alacritty" (lib.getExe pkgs.alacritty))
+          (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
+          (mkBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
+          (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
+        ];
+        powerCenter = launcher "DELETE" "power" [
+          (mkBind "Q" "Exit"      "hyprctl dispatch exit")
+          (mkBind "A" "Poweroff"  "systemctl poweroff")
+          (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
+          (mkBind "H" "Hibernate" "systemctl hibernate")
+          (mkBind "L" "Lock"      "lock")
+        ];
       in ''
-        bind=SUPER, T, exec, ${launch-wlr-wk "launcher" {
-          menu = {
-            w = opt "Nautilus";
-            b = opt "Bitwarden";
-            r = opt "Signal";
-            t = opt "Firefox";
-            a = opt "Alacritty";
-            s = opt "Steam";
-            d = opt "discord";
-            z = opt "zotero";
-          };
-        }}
-        bind=SUPER, T, submap, launcher
-        submap=launcher
-        ${keybind "W" (lib.getExe pkgs.gnome.nautilus)}
-        ${keybind "B" (lib.getExe pkgs.bitwarden)}
-        ${keybind "R" (lib.getExe pkgs.signal-desktop)}
-        ${keybind "T" "$BROWSER"}
-        ${keybind "A" (lib.getExe pkgs.alacritty)}
-        ${keybind "S" (lib.getExe pkgs.steam)}
-        ${keybind "D" (lib.getExe pkgs.webcord-vencord)}
-        ${keybind "Z" (lib.getExe pkgs.zotero)}
-        ${end-key "ESCAPE"}
-        submap=reset
+        ${appLauncher}
+        ${powerCenter}
       '';
     };
     home.packages = with pkgs; [seatd xdg-utils swaylock];

@@ -7,12 +7,10 @@ alias i := inputs
 test:
 	git add .
 	sudo nixos-rebuild test --flake .#$HOSTNAME
-	nix fmt
 
 boot:
 	git add .
 	sudo nixos-rebuild boot --flake .#$HOSTNAME
-	nix fmt
 
 switch: nix_check 
 	git commit
@@ -30,4 +28,3 @@ inputs:
 nix_check:
 	git add .
 	nix flake check
-	nix fmt

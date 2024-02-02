@@ -153,8 +153,8 @@
           bind=SUPER, ${key}, exec, ${c}
           bind=SUPER, ${key}, exec, ${kill-wlr-wk}
           bind=SUPER, ${key}, submap, reset
-          bind=,      ${key}, exec, ${run-in-place cmd}
           bind=,      ${key}, exec, ${c}
+          bind=,      ${key}, exec, ${kill-wlr-wk}
           bind=,      ${key}, submap, reset
         '';
         wlr-wk-cfg = binds: lib.lists.foldl (acc: bind: acc // {${bind.key} = {desc = bind.name; cmd = "";};}) {} binds;

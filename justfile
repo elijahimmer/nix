@@ -3,6 +3,7 @@ alias s := switch
 alias b := boot
 alias u := update
 alias i := inputs
+alias c := nix-check
 
 test:
 	git add .
@@ -12,7 +13,7 @@ boot:
 	git add .
 	sudo nixos-rebuild boot --flake .#$HOSTNAME
 
-switch: nix_check 
+switch: nix-check 
 	git commit
 	sudo nixos-rebuild switch --flake .#$HOSTNAME
 
@@ -25,6 +26,6 @@ inputs:
 	nix flake update
 	@just switch
 
-nix_check:
+nix-check:
 	git add .
-	nix flake check
+	nix flake check --all-systems

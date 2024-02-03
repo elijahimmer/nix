@@ -9,6 +9,7 @@
     ./packages.nix
 
     misc.music
+    misc.noisetorch
   ];
 
   programs.noisetorch.enable = true;

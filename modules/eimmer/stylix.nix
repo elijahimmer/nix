@@ -37,8 +37,8 @@
         package = pkgs.rose-pine-gtk-theme;
       };
       iconTheme = {
-        #name = "oomox-rose-pine";
-        name = "rose-pine-icons";
+        name = "rose-pine";
+        #name = "rose-pine-icons";
         package = pkgs.rose-pine-icon-theme;
       };
     };

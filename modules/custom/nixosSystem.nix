@@ -29,6 +29,7 @@ in {
             mods.eimmer.user
             mods.misc.networkmanager
 
+            inputs.flake-utils-plus.nixosModules.autoGenFromInputs
             inputs.nixvim.nixosModules.nixvim
             inputs.agenix.nixosModules.default
           ]

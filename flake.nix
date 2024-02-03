@@ -6,6 +6,7 @@
     #nixpkgs.url = "/home/eimmer/src/nixpkgs/";
 
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 

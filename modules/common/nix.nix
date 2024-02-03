@@ -6,7 +6,11 @@
 }: {
   nixpkgs.config.allowUnfree = true;
   nix = {
-    nixPath = ["repl=${toString ./.}/repl.nix" "nixpkgs=${inputs.nixpkgs}"];
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+
+    generateNixPathFromInputs = true;
+    generateRegistryFromInputs = true;
+    linkInputs = true;
     settings = {
       trusted-users = ["@wheel" "root"];
       auto-optimise-store = true;
@@ -43,8 +47,7 @@
     package = pkgs.nixUnstable;
   };
 
-  # I want to set this up, but I have to get the flake
-  # to a better state, and figure out how it works more.
+  # TODO: Add auto upgrade again
   /*
     system.autoUpgrade = {
     enable = true;

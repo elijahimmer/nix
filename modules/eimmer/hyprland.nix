@@ -180,6 +180,7 @@
           (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
           (mkBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
           (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
+          (mkBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
         ];
         powerCenter = launcher "DELETE" "power" [
           (mkBind "Q" "Exit"      "hyprctl dispatch exit")

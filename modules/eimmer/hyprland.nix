@@ -140,12 +140,11 @@
         launch-wlr-wk = name: menu: "${lib.getExe pkgs.wlr-which-key} ${
           pkgs.writeText "launch-wlr-wk-${name}.yaml"
           (builtins.toJSON ({
-              menu = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair (lib.strings.toLower name)) menu;
-              background = "#1f1d2e"; color = "#e0def4"; border = "#ebbcba";
-              separator = " ➜ ";      border_width = 2;  corner_r = 10;
-              padding = 15;           anchor = "center"; margin_right = 0;
-              margin_bottom = 0;      margin_left = 0;   margin_top = 0;
-            }))
+            menu = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair (lib.strings.toLower name)) menu;
+            background = "#1f1d2e"; separator = " ➜ "; corner_r     = 10; margin_bottom = 0;
+            color      = "#e0def4"; anchor = "center"; padding      = 15; margin_left   = 0; 
+            border     = "#ebbcba"; border_width  = 2; margin_right = 0;  margin_top    = 0;
+          }))
         }";
 
         kill-wlr-wk = "killall wlr-which-key";
@@ -171,16 +170,18 @@
         '';
 
         mkBind = key: name: cmd: {inherit key name cmd;};
+        alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
           (mkBind "w" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
           (mkBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
           (mkBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
           (mkBind "T" "Firefox"   "$BROWSER")
-          (mkBind "A" "Alacritty" (lib.getExe pkgs.alacritty))
+          (mkBind "A" "Alacritty" (alacritty))
           (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
           (mkBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
           (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
           (mkBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
+          (mkBind "M" "BTop"      "${(alacritty)} --command ${lib.getExe pkgs.btop}")
         ];
         powerCenter = launcher "DELETE" "power" [
           (mkBind "Q" "Exit"      "hyprctl dispatch exit")

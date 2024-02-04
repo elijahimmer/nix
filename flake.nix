@@ -90,6 +90,21 @@
           inputs.nixos-hardware.nixosModules.common-pc-hdd
         ];
       };
+      myPi = nixosSystem {
+        hostName = "myPi";
+        useCommonExtendedModules = false;
+        useCommonModules = true;
+        modules = [
+          inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"         
+          {
+            nixpkgs.config.allowUnsupportedSystem = true;
+            nixpkgs.hostPlatform.system = "aarch64-linux";
+            nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
+            # ... extra configs as above
+          }
+        ];
+      };
       # I don't want it to be checked unless I am going to use it because
       # It would be invalid, since it as no hardware config.
       /*
@@ -100,7 +115,9 @@
       };
       */
     };
-    #formatter = generated.formatter;
+
+    images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
+   #formatter = generated.formatter;
     devShells = generated.devShells;
   };
 }

@@ -6,7 +6,7 @@ in {
     system ? "x86_64-linux",
     headFull ? false,
     useCommonModules ? true,
-    useCommonExtendedModules ? true,
+    useCommonExtendedModules ? useCommonModules,
     modules ? [],
     useCommonSpecialArgs ? true,
     specialArgs ? {},

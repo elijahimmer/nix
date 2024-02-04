@@ -11,6 +11,7 @@
     misc.music
     misc.noisetorch
   ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   programs.noisetorch.enable = true;
 

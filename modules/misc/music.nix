@@ -2,12 +2,12 @@
   pkgs,
   lib,
   ...
-}: {
+}: let musicDirectory = "/home/eimmer/Music"; in {
   environment.systemPackages = with pkgs; [mpc-cli];
   systemd.user = {
     services.playlist-updater = {
       serviceConfig = {
-        WorkingDirectory = "/home/eimmer/Music";
+        WorkingDirectory = musicDirectory;
       };
       script = "${lib.getExe pkgs.yt-dlp} -x \\
                 PLCQ2DK3yQCr7uR2F3QUfeq4T9svTFI4hl \\
@@ -20,7 +20,8 @@
                 --audio-quality 0 \\
                 --embed-thumbnail \\
                 --embed-metadata \\
-                --yes-playlist";
+                --yes-playlist
+                ${lib.getExe pkgs.mpc-cli} update Music";
     };
     timers = {
       playlist-updater = {
@@ -35,12 +36,16 @@
   home-manager.users.eimmer = {pkgs, ...}: {
     services.mpd = {
       enable = true;
-      musicDirectory = "/home/eimmer/Music/";
+      inherit musicDirectory;
       extraConfig = ''
         audio_output {
           type "pipewire"
-          name "Piprwire"
+          name "Pipewire"
         }
+
+        restore_paused no 
+        auto_update no
+        zeroconf_enable no
       '';
     };
   };

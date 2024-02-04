@@ -16,26 +16,15 @@
     pkgs,
     lib,
     ...
-  }: let
-    grim = lib.getExe pkgs.grim;
-    slurp = lib.getExe pkgs.slurp;
-    wl-copy = "${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
-    wl-paste = "${lib.getExe' pkgs.wl-clipboard "wl-paste"}";
-    notify = lib.getExe pkgs.notify-desktop;
-
-    screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
-      ${grim} -g "$(${slurp})" - \
-      | ${wl-copy} -t image/png && ${wl-paste} \
-      > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
-      ${notify} 'Screenshot of the region taken' -t 5000
-    '';
-    screenshot = pkgs.writeShellScript "screenshot" ''
-      ${grim} - \
-      | ${wl-copy} -t image/png && ${wl-paste} \
-      > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
-      ${notify} 'Screenshot of whole screen taken' -t 5000
-    '';
-  in {
+  }:{
+    home.packages = with pkgs; [seatd xdg-utils];
+    programs.swaylock = {
+      enable = true;
+      settings = {
+        scaling = lib.mkForce "fit";
+        show-failed-attempts = true;
+      };
+    };
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;
@@ -82,7 +71,27 @@
           vrr = 2;
           disable_autoreload = true;
         };
-        bind = [
+        bindl = ["SUPER, U, exec, killall swaylock -s SIGUSR1"];
+        bind = let
+            grim = lib.getExe pkgs.grim;
+            slurp = lib.getExe pkgs.slurp;
+            wl-copy = "${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
+            wl-paste = "${lib.getExe' pkgs.wl-clipboard "wl-paste"}";
+            notify = lib.getExe pkgs.notify-desktop;
+
+            screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
+              ${grim} -g "$(${slurp})" - \
+              | ${wl-copy} -t image/png && ${wl-paste} \
+              > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+              ${notify} 'Screenshot of the region taken' -t 5000
+            '';
+            screenshot = pkgs.writeShellScript "screenshot" ''
+              ${grim} - \
+              | ${wl-copy} -t image/png && ${wl-paste} \
+              > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+              ${notify} 'Screenshot of whole screen taken' -t 5000
+            '';
+          in [
           "SUPER, H, movefocus, l"
           "SUPER, J, movefocus, u"
           "SUPER, K, movefocus, d"
@@ -172,29 +181,39 @@
         mkBind = key: name: cmd: {inherit key name cmd;};
         alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
-          (mkBind "w" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkBind "A" "Alacritty" alacritty)
           (mkBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
-          (mkBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
-          (mkBind "T" "Firefox"   "$BROWSER")
-          (mkBind "A" "Alacritty" (alacritty))
-          (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
           (mkBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
-          (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
+          (mkBind "M" "BTop"      "${alacritty} --command ${lib.getExe pkgs.btop}")
+          (mkBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
+          (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
+          (mkBind "T" "Firefox"   "$BROWSER")
           (mkBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
-          (mkBind "M" "BTop"      "${(alacritty)} --command ${lib.getExe pkgs.btop}")
+          (mkBind "w" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
         ];
         powerCenter = launcher "DELETE" "power" [
-          (mkBind "Q" "Exit"      "hyprctl dispatch exit")
           (mkBind "A" "Poweroff"  "systemctl poweroff")
-          (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
           (mkBind "H" "Hibernate" "systemctl hibernate")
           (mkBind "L" "Lock"      "lock")
+          (mkBind "Q" "Exit"      "hyprctl dispatch exit")
+          (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];
-      in ''
-        ${appLauncher}
-        ${powerCenter}
-      '';
+        notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd})" -u low'';
+        mpc = lib.getExe pkgs.mpc-cli;
+        musicCenter = launcher "M" "music" [
+          (mkBind "A" "Play"         (notify-cmd "${mpc} play"))
+          (mkBind "H" "Toggle Pause" (notify-cmd "${mpc} toggle"))
+          (mkBind "T" "Next Song"    (notify-cmd "${mpc} next"))
+          (mkBind "S" "Status"       (notify-cmd "${mpc} status"))
+          (mkBind "W" "Volume +10%"  (notify-cmd "${mpc} vol +10"))
+          (mkBind "R" "Reset Volume" (notify-cmd "${mpc} vol 30"))
+          (mkBind "D" "Volume -10%"  (notify-cmd "${mpc} vol -10"))
+        ];
+      in 
+        appLauncher
+        + powerCenter
+        + musicCenter;
     };
-    home.packages = with pkgs; [seatd xdg-utils swaylock];
   };
 }

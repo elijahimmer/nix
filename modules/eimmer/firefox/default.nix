@@ -1,14 +1,16 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }: {
   environment.sessionVariables = rec {
-    BROWSER = lib.getExe pkgs.firefox;
+    BROWSER = lib.getExe config.home-manager.users.eimmer.programs.firefox.finalPackage;
     DEFAULT_BROWSER = BROWSER;
   };
 
   home-manager.users.eimmer = {lib, ...}: {
+
     programs.firefox = {
       enable = true;
       profiles = {

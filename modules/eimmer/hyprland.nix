@@ -7,6 +7,13 @@
   programs.hyprland.enable = true;
   services.bar-rs.enable = true;
 
+  security.pam.loginLimits = [
+    { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
+  ];
+
+  # needed to get swaylock to actually unlock
+  security.pam.services.swaylock = {};
+
   systemd.user.services.swaybg = {
     wantedBy = ["hyprland-session.target"];
     script = "${lib.getExe pkgs.swaybg} --image ${toString mods.theme.background} --mode fit --color '#191724'";
@@ -71,7 +78,6 @@
           vrr = 2;
           disable_autoreload = true;
         };
-        bindl = ["SUPER, U, exec, killall swaylock -s SIGUSR1"];
         bind = let
             grim = lib.getExe pkgs.grim;
             slurp = lib.getExe pkgs.slurp;
@@ -195,7 +201,7 @@
         powerCenter = launcher "DELETE" "power" [
           (mkBind "A" "Poweroff"  "systemctl poweroff")
           (mkBind "H" "Hibernate" "systemctl hibernate")
-          (mkBind "L" "Lock"      "lock")
+          (mkBind "L" "Lock"      "${lib.getExe pkgs.swaylock}")
           (mkBind "Q" "Exit"      "hyprctl dispatch exit")
           (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];

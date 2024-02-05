@@ -42,11 +42,7 @@
           type "pipewire"
           name "Pipewire"
         }
-
-        restore_paused no 
-        auto_update no
-        zeroconf_enable no
-      '';
+     '';
     };
   };
 }

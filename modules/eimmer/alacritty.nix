@@ -17,6 +17,16 @@ in {
         fi
       ''
     )
+    (
+      pkgs.writeShellScriptBin "alacritty-solid" ''
+        ${alacritty} msg config 'window.opacity = 1'
+      ''
+    )
+    (
+      pkgs.writeShellScriptBin "alacritty-clear" ''
+        ${alacritty} msg config -r
+      ''
+    )
   ];
 
   home-manager.users.eimmer = {

@@ -90,7 +90,7 @@
           inputs.nixos-hardware.nixosModules.common-pc-hdd
         ];
       };
-      myPi = nixosSystem {
+/*      myPi = nixosSystem {
         hostName = "myPi";
         useCommonExtendedModules = false;
         useCommonModules = true;
@@ -104,7 +104,7 @@
             # ... extra configs as above
           }
         ];
-      };
+      };*/
       # I don't want it to be checked unless I am going to use it because
       # It would be invalid, since it as no hardware config.
       /*

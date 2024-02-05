@@ -8,6 +8,11 @@
     ./age.nix
     ./nix.nix
   ];
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  users.mutableUsers = false;
+
   security.sudo.execWheelOnly = true;
   # needed to get flakes to work
   environment.systemPackages = with pkgs; [git];

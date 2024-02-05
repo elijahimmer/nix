@@ -52,6 +52,7 @@ in {
             with mods; [
               env.coding
               misc.tailscale
+              misc.syncthing
               misc.mullvad
             ]
           else []

@@ -38,7 +38,8 @@
           {name = "clippy";   groupIndex = 3;}
           {name = "path";     groupIndex = 4;}
           {name = "git";      groupIndex = 5;}
-          {name = "buffer";   groupIndex = 6;}
+          {name = "spell";    groupIndex = 6;}
+          {name = "buffer";   groupIndex = 7;}
        ];
        mapping = {
           "<C-d>" = "cmp.mapping.scroll_docs(-4)";
@@ -62,6 +63,7 @@
       cmp-git.enable = true;
       cmp-buffer.enable = true;
       cmp-clippy.enable = true;
+      cmp-spell.enable = true;
       /*coq-nvim = {
         enable = true;
         alwaysComplete = true;

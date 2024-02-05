@@ -1,4 +1,5 @@
 {...}: {
+  environment.shellAliases.open = "xdg-open";
   home-manager.users.eimmer = {...}: {
     xdg = {
       enable = true;

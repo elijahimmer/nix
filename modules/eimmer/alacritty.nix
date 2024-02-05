@@ -29,14 +29,12 @@ in {
       enable = true;
       settings = {
         keyboard.bindings = [
-          {
-            key = "Return";
+          { key = "Return";
             mods = "Control|Shift";
-            action = "SpawnNewInstance";
-          }
+            action = "SpawnNewInstance"; }
         ];
 
-        window.opacity = 0.90;
+        #window.opacity = 0.90;
 
         colors = rec {
           # credit to https://github.com/rose-pine/alacritty, they designed the theme

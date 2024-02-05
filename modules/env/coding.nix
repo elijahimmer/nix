@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     typst
-    typst-live
     typstfmt
 
     cargo
@@ -31,29 +30,44 @@
       };
       crates-nvim.enable = true;
       lsp-format.enable = true;
-      #      nvim-cmp = {
-      #        enable = true;
-      #        sources = [
-      #          {name = "nvim_lsp";}
-      #          {name = "path";}
-      #          {name = "buffer";}
-      #          {name = "git";}
-      #          {name = "crates";}
-      #          {name = "clippy";}
-      #        ];
-      #      };
-      #      cmp-greek.enable = true;
-      #      cmp-nvim-lsp.enable = true;
-      #      cmp-path.enable = true;
-      #      cmp-git.enable = true;
-      #      cmp-buffer.enable = true;
-      #      cmp-clippy.enable = true;
-      coq-nvim = {
+      nvim-cmp = {
+        enable = true;
+        sources = [
+          {name = "nvim_lsp"; groupIndex = 1;}
+          {name = "crates";   groupIndex = 2;}
+          {name = "clippy";   groupIndex = 3;}
+          {name = "path";     groupIndex = 4;}
+          {name = "git";      groupIndex = 5;}
+          {name = "buffer";   groupIndex = 6;}
+       ];
+       mapping = {
+          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+          "<C-f>" = "cmp.mapping.scroll_docs(4)";
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<C-e>" = "cmp.mapping.close()";
+          "<Tab>" = {
+            modes = ["i" "s"];
+            action = "cmp.mapping.select_next_item()";
+          };
+          "<S-Tab>" = {
+            modes = ["i" "s"];
+            action = "cmp.mapping.select_prev_item()";
+          };
+          "<CR>" = "cmp.mapping.confirm({ select = true })";
+        };
+      };
+      cmp-greek.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-path.enable = true;
+      cmp-git.enable = true;
+      cmp-buffer.enable = true;
+      cmp-clippy.enable = true;
+      /*coq-nvim = {
         enable = true;
         alwaysComplete = true;
         autoStart = true;
         recommendedKeymaps = true;
-      };
+      };*/
       fugitive.enable = true;
       nix.enable = true;
       undotree.enable = true;

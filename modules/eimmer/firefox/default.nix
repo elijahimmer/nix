@@ -98,6 +98,18 @@
                 iconUpdateURLIsAbsolute = true;
                 definedAliases = ["@dnd" "@dnd-beyond"];
               };
+              "Dictonary.com" = engine {
+                baseUrl = "https://www.dictionary.com";
+                search = "/browse/{searchTerms}";
+                iconUpdateURL = "/94e56a525da4e9fe0cda.png";
+                definedAliases = ["@dict" "@dictonary"];
+              };
+              "Thesaurus.com" = engine {
+                baseUrl = "https://www.thesaurus.com";
+                search = "/browse/{searchTerms}";
+                iconUpdateURL = "/0d297be7e698b98c9da8.png";
+                definedAliases = ["@thes" "@thesaurus"];
+              };
               "GitHub" = engine {
                 baseUrl = "https://github.com";
                 search = "/search?q={searchTerms}&type=repositories";
@@ -122,6 +134,8 @@
               "Docs.rs"
               "Wolfram Alpha"
               "D&D Beyond"
+              "Dictonary.com"
+              "Thesaurus.com"
               "Wikipedia (en)"
               "Google"
             ];

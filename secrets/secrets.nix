@@ -1,11 +1,16 @@
 let
-  lv14 = builtins.readFile ../../modules/ssot/lv14-ssh.pub;
-  server = builtins.readFile ../../modules/ssot/server.pub;
-  desktop = builtins.readFile ../../modules/ssot/desktop.pub;
-  themAll = [lv14 server desktop];
+  desktop = [(builtins.readFile ../modules/ssot/ssh/desktop.pub)];
+  server = [(builtins.readFile ../modules/ssot/ssh/server.pub)];
+  lv14 = [(builtins.readFile ../modules/ssot/ssh/lv14.pub)];
+  themAll = desktop ++ server ++ lv14;
 in {
-  "lv14-ssh.age".publicKeys = [lv14];
-  "server-ssh.age".publicKeys = [server];
-  "desktop-ssh.age".publicKeys = [desktop];
+  "lv14-ssh.age".publicKeys = lv14;
+  "desktop-ssh.age".publicKeys = desktop;
+  "server-ssh.age".publicKeys = server;
+  
+#  "lv14-syncthing.age".publicKeys = lv14;
+  "desktop-syncthing.age".publicKeys = desktop;
+#  "server-syncthing.age".publicKeys = server;
+  
   "eimmer-passwd.age".publicKeys = themAll;
 }

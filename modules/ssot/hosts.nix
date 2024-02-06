@@ -1,11 +1,14 @@
 {
   desktop = {
-    publicSshKeyFile = ./desktop.pub;
+    publicSshKeyFile = ./ssh/desktop.pub;
+    syncthing = ./syncthing/desktop.cert.pem;
   };
   server = {
-    publicSshKeyFile = ./server.pub;
+    publicSshKeyFile = ./ssh/server.pub;
+    syncthing = ./syncthing/server.cert.pem;
   };
   lv14 = {
-    publicSshKeyFile = ./lv14.pub;
+    publicSshKeyFile = ./ssh/lv14.pub;
+    syncthing = ./syncthing/lv14.cert.pem;
   };
 }

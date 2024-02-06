@@ -1,5 +1,5 @@
 [
-  ./desktop.pub
-  ./server.pub
-  ./lv14.pub
+  ./ssh/desktop.pub
+  ./ssh/server.pub
+  ./ssh/lv14.pub
 ]

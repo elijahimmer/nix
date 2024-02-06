@@ -45,7 +45,7 @@
   services.openssh = {
     hostKeys = [
       {
-        path = config.age.secrets."${hostName}-ssh".path;
+        path = config.age.secrets.ssh.path;
         type = "ed25519";
       }
     ];

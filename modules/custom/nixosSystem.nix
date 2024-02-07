@@ -28,6 +28,7 @@ in {
             mods.env.default
             mods.eimmer.user
             mods.misc.networkmanager
+            mods.ssot.age
 
             inputs.flake-utils-plus.nixosModules.autoGenFromInputs
             inputs.nixvim.nixosModules.nixvim

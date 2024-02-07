@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./age.nix
     ./nix.nix
   ];
 

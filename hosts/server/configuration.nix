@@ -9,7 +9,6 @@
     ./packages.nix
     ./services.nix
 
-    misc.build-host
     misc.ssh-host
   ];
 

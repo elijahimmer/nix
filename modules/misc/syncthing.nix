@@ -1,9 +1,4 @@
-{
-  mods,
-  hostName,
-  config, 
-  ...
-}: let 
+{...}: let 
   group = "syncthing";
 in {
   users.groups.${group} = {
@@ -12,12 +7,8 @@ in {
   services.syncthing = {
     inherit group;
     enable = true;
-#    cert = toString mods.ssot.hosts.${hostName}.syncthing;
-#    key = config.age.secrets.syncthing.path;
 
     openDefaultPorts = true;
-    #settings.options = {
-    #  urAccepted = -1;
-    #};
+    settings.options.urAccepted = -1;
   };
 }

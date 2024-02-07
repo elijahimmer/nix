@@ -54,7 +54,7 @@
   users.users.eimmer = {
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
-    openssh.authorizedKeys.keyFiles = mods.ssot.keyFiles;
+    openssh.authorizedKeys.keyFiles = mods.ssot.sshKeyfiles;
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
   };

@@ -8,9 +8,5 @@ in {
   "desktop-ssh.age".publicKeys = desktop;
   "server-ssh.age".publicKeys = server;
   
-#  "lv14-syncthing.age".publicKeys = lv14;
-  "desktop-syncthing.age".publicKeys = desktop;
-#  "server-syncthing.age".publicKeys = server;
-  
   "eimmer-passwd.age".publicKeys = themAll;
 }

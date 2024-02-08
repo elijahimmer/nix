@@ -33,10 +33,6 @@
       enable = true;
       openFirewall = true;
     };
-    jackett = {
-      enable = true;
-      openFirewall = true;
-    };
 
     samba = {
       enable = true;

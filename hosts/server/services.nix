@@ -29,6 +29,10 @@
       enable = true;
       openFirewall = true;
     };
+    readarr = {
+      enable = true;
+      openFirewall = true;
+    };
 
     samba = {
       enable = true;

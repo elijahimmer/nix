@@ -163,11 +163,19 @@
         }";
 
         kill-wlr-wk = "killall wlr-which-key";
-        mk-key-bind = key: cmd: let c = run-in-place cmd; in ''
-          bind=SUPER, ${key}, exec, ${c}
+        mk-key-bind = key: cmd: ''
+          bind=SUPER, ${key}, exec, ${cmd}
           bind=SUPER, ${key}, exec, ${kill-wlr-wk}
           bind=SUPER, ${key}, submap, reset
-          bind=,      ${key}, exec, ${c}
+          bind=,      ${key}, exec, ${cmd}
+          bind=,      ${key}, exec, ${kill-wlr-wk}
+          bind=,      ${key}, submap, reset
+        '';
+        mk-key-bind-kill = key: cmd: ''
+          bind=SUPER, ${key}, exec, ${cmd}
+          bind=SUPER, ${key}, exec, ${kill-wlr-wk}
+          bind=SUPER, ${key}, submap, reset
+          bind=,      ${key}, exec, ${cmd}
           bind=,      ${key}, exec, ${kill-wlr-wk}
           bind=,      ${key}, submap, reset
         '';
@@ -176,7 +184,7 @@
           bind=SUPER, ${key}, exec,   ${launch-wlr-wk name (wlr-wk-cfg binds)}
           bind=SUPER, ${key}, submap, ${name}
           submap=${name}
-          ${builtins.foldl' (str: {key, cmd, ...}: str + (mk-key-bind key cmd)) "" binds}
+          ${builtins.foldl' (str: {key, cmd, ...}: str + (mk-key-bind-kill key cmd)) "" binds}
           bind=SUPER, ESCAPE, exec,   killall wlr-which-key
           bind=SUPER, ESCAPE, submap, reset
           bind=,      ESCAPE, exec,   killall wlr-which-key
@@ -185,27 +193,28 @@
         '';
 
         mkBind = key: name: cmd: {inherit key name cmd;};
+        mkAppBind = key: name: cmd: (mkBind key name (run-in-place cmd));
         alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
-          (mkBind "A" "Alacritty" alacritty)
-          (mkBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
-          (mkBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
-          (mkBind "M" "BTop"      "${alacritty} --command ${lib.getExe pkgs.btop}")
-          (mkBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
-          (mkBind "S" "Steam"     (lib.getExe pkgs.steam))
-          (mkBind "T" "Firefox"   "$BROWSER")
-          (mkBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
-          (mkBind "w" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
-          (mkBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
+          (mkAppBind "A" "Alacritty" alacritty)
+          (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
+          (mkAppBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
+          (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
+          (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
+          (mkAppBind "S" "Steam"     (lib.getExe pkgs.steam))
+          (mkAppBind "T" "Firefox"   "$BROWSER")
+          (mkAppBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
+          (mkAppBind "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkAppBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
         ];
         powerCenter = launcher "DELETE" "power" [
           (mkBind "A" "Poweroff"  "systemctl poweroff")
           (mkBind "H" "Hibernate" "systemctl hibernate")
-          (mkBind "L" "Lock"      "${lib.getExe pkgs.swaylock}")
+          (mkBind "L" "Lock"      (lib.getExe pkgs.swaylock))
           (mkBind "Q" "Exit"      "hyprctl dispatch exit")
           (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];
-        notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd})" -u low'';
+        notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd} | head --lines 2 -)" -u low'';
         mpc = lib.getExe pkgs.mpc-cli;
         musicCenter = launcher "M" "music" [
           (mkBind "A" "Play"         (notify-cmd "${mpc} play"))
@@ -216,6 +225,7 @@
           (mkBind "R" "Reset Volume" (notify-cmd "${mpc} vol 30"))
           (mkBind "D" "Volume -10%"  (notify-cmd "${mpc} vol -10"))
         ];
+        resizeCenter = launcher "R" "resize" [];
       in 
         appLauncher
         + powerCenter

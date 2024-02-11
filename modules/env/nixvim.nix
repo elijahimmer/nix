@@ -1,5 +1,5 @@
 {headFull, ...}: {
-  programs.nixvim.config = {
+  programs.nixvim = {
     enable = true;
 
     # Make Neovim's Yank and Paste use the system clipboard

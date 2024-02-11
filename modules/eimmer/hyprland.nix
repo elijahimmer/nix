@@ -5,12 +5,6 @@
   ...
 }: {
   programs.hyprland.enable = true;
-  services.bar-rs = {
-    enable = true;
-    user = "eimmer";
-    group = "";
-  };
-
   security.pam.loginLimits = [
     { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
   ];

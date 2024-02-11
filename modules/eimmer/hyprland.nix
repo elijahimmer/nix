@@ -196,7 +196,7 @@
         appLauncher = launcher "T" "launcher" [
           (mkAppBind "A" "Alacritty" alacritty)
           (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
-          (mkAppBind "D" "Discord"   (lib.getExe pkgs.webcord-vencord))
+          (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
           (mkAppBind "S" "Steam"     (lib.getExe pkgs.steam))

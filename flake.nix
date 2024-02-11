@@ -29,8 +29,8 @@
 
     # My Packages
     bar-rs = {
-      #url = "github:elijahimmer/bar-rs";
-      url = "/home/eimmer/src/bar-rs";
+      url = "github:elijahimmer/bar-rs";
+      #url = "/home/eimmer/src/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -40,7 +40,6 @@
     flake-utils,
     ...
   } @ inputs: let
-    nixosSystem = (self.nixosModules.custom.nixosSystem {inherit inputs;}).nixosSystem;
     generated = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
@@ -58,42 +57,86 @@
     });
   in {
     nixosModules = import ./modules {lib = nixpkgs.lib;};
-    nixosConfigurations = {
-      lv14 = nixosSystem {
-        hostName = "lv14";
-        headFull = true;
+    nixosConfigurations =
+      let 
+        stateVersion = "24.05";
+        flakeAbsoluteDir = "/home/eimmer/src/nix";
+        mods = inputs.self.nixosModules;
+        commonModules = [
+            inputs.home-manager.nixosModules.home-manager
+            mods.common.default
+            mods.env.default
+            mods.eimmer.user
+            mods.misc.networkmanager
+            mods.ssot.age
+
+            inputs.flake-utils-plus.nixosModules.autoGenFromInputs
+            inputs.nixvim.nixosModules.nixvim
+            inputs.agenix.nixosModules.default
+ 
+            mods.env.coding
+            mods.misc.tailscale
+            mods.misc.syncthing
+            mods.misc.mullvad
+        ];
+        headFullModules = with mods; [
+          inputs.stylix.nixosModules.stylix
+          theme.default
+          misc.pipewire
+        ];
+      in {
+      lv14 = inputs.nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
         modules = [
+          ./hosts/lv14/configuration.nix
+
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-intel
           inputs.nixos-hardware.nixosModules.common-pc-laptop
           inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-        ];
+        ] ++ commonModules ++ headFullModules;
+        specialArgs = {
+          inherit inputs stateVersion system flakeAbsoluteDir mods;
+          headFull = true;
+          hostName = "lv14";
+        };
       };
-      desktop = nixosSystem {
-        hostName = "desktop";
-        headFull = true;
+      desktop = inputs.nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
         modules = [
+         ./hosts/desktop/configuration.nix
+
           inputs.nixos-hardware.nixosModules.common-cpu-amd
           inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
           inputs.nixos-hardware.nixosModules.common-gpu-amd
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
-        ];
+        ] ++ commonModules ++ headFullModules;
+        specialArgs = {
+          inherit inputs stateVersion system flakeAbsoluteDir mods; 
+          headFull = true; 
+          hostName = "desktop"; 
+        };
       };
-      server = nixosSystem {
-        hostName = "server";
+      server = inputs.nixpkgs.lib.nixosSystem rec {
+        system = "x86_64-linux";
         modules = [
+          ./hosts/server/configuration.nix
+
           inputs.nixos-hardware.nixosModules.common-cpu-intel
           inputs.nixos-hardware.nixosModules.common-gpu-amd
           inputs.nixos-hardware.nixosModules.common-pc
           inputs.nixos-hardware.nixosModules.common-pc-ssd
           inputs.nixos-hardware.nixosModules.common-pc-hdd
-        ];
+        ] ++ commonModules;
+        specialArgs = {
+          inherit inputs stateVersion system flakeAbsoluteDir mods;
+          headFull = false;
+          hostName = "server";
+        };
       };
 /*      myPi = nixosSystem {
         hostName = "myPi";
-        useCommonExtendedModules = false;
-        useCommonModules = true;
         modules = [
           inputs.nixos-hardware.nixosModules.raspberry-pi-4
           "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"         

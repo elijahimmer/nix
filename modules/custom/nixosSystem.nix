@@ -40,7 +40,6 @@ in {
           if headFull
           then
             with mods; [
-              inputs.bar-rs.nixosModules.default
               inputs.stylix.nixosModules.stylix
               theme.default
               misc.pipewire

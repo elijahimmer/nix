@@ -2,6 +2,7 @@
   lib,
   pkgs,
   mods,
+  system,
   ...
 }: {
   programs.hyprland.enable = true;
@@ -20,6 +21,7 @@
   home-manager.users.eimmer = {
     pkgs,
     lib,
+    inputs,
     ...
   }:{
     home.packages = with pkgs; [seatd xdg-utils];
@@ -34,6 +36,9 @@
       enable = true;
       systemd.enable = true;
       settings = {
+        # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
+        exec = [(lib.getExe inputs.bar-rs.packages.${system}.default)];
+
         monitor = [
           "eDP-1, 1920x1080,0x0,1"
         ];

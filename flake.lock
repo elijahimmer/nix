@@ -32,17 +32,16 @@
         ]
       },
       "locked": {
+        "dirtyRev": "a6a63bbdf6b863ead4e46614e9295e87fdaecec4-dirty",
+        "dirtyShortRev": "a6a63bb-dirty",
         "lastModified": 1707629121,
-        "narHash": "sha256-P/HGlc2IAmTh1Bdg1KwssxH/9Qn5KsCEk5o147xQCT4=",
-        "owner": "elijahimmer",
-        "repo": "bar-rs",
-        "rev": "a6a63bbdf6b863ead4e46614e9295e87fdaecec4",
-        "type": "github"
+        "narHash": "sha256-jCXW5BdvujlUmVSNC4+i7pyTfRjzN9y1Lbkig1YCzEM=",
+        "type": "git",
+        "url": "file:///home/eimmer/src/bar-rs"
       },
       "original": {
-        "owner": "elijahimmer",
-        "repo": "bar-rs",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/eimmer/src/bar-rs"
       }
     },
     "base16": {

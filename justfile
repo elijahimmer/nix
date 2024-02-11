@@ -4,6 +4,7 @@ alias b := boot
 alias u := update
 alias i := inputs
 alias c := nix-check
+alias ti := test-inputs
 
 test:
 	git add .
@@ -29,3 +30,7 @@ inputs:
 nix-check:
 	git add .
 	nix flake check --all-systems
+
+test-inputs:
+	nix flake update
+	@just test 

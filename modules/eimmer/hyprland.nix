@@ -18,6 +18,8 @@
     script = "${lib.getExe pkgs.swaybg} --image ${toString mods.theme.background} --mode fit --color '#191724'";
   };
 
+  environment.variables = {WLR_DRM_NO_MODIFIERS = "1";};
+
   home-manager.users.eimmer = {
     pkgs,
     lib,
@@ -37,7 +39,9 @@
       systemd.enable = true;
       settings = {
         # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
-        exec = [(lib.getExe inputs.bar-rs.packages.${system}.default)];
+        exec = let 
+          bar-rs = lib.getExe inputs.bar-rs.packages.${system}.default;
+        in [ "${lib.getExe pkgs.killall} ${bar-rs}; ${bar-rs}" ];
 
         monitor = [
           "eDP-1, 1920x1080,0x0,1"

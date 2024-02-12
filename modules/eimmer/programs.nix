@@ -2,6 +2,7 @@
   environment.systemPackages = with pkgs; [
     wl-clipboard
     element-desktop
+    wluma
     (
       pkgs.writeShellScriptBin "steam-bigpicture" ''
         ${lib.getExe' pkgs.gamemode "gamemoderun"} ${lib.getExe pkgs.gamescope} \

@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707636613,
-        "narHash": "sha256-nmPipl+YRF5pdIbmGgmjsK97ynwAkg92MsSEG+38KIU=",
+        "lastModified": 1707778634,
+        "narHash": "sha256-U54rPR7XWNPauRaeOj7x9dZNuFlMdIO/2NCa/ePO3us=",
         "owner": "elijahimmer",
         "repo": "bar-rs",
-        "rev": "7d165a29b6a15dbe4b305fdb41cba3e9d5ca10a6",
+        "rev": "268ef6e545be91328d8c23dc116f44f93068a9a6",
         "type": "github"
       },
       "original": {
@@ -579,11 +579,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1707691286,
-        "narHash": "sha256-yZ8KzUBAo0xMk683krioF/YPr0StrN32kkDYArfrrOs=",
+        "lastModified": 1707770208,
+        "narHash": "sha256-E5sHUrcNOURp7u9cYJOLUmhXqWPwQ8Y4WNSjgNC2ggY=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "f44d117d59117e55c4ddf1837e5eb65eeda2f135",
+        "rev": "81ff1f8f6f5dec432f6b71ddd5e8dd57ac424f58",
         "type": "github"
       },
       "original": {
@@ -652,11 +652,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707685931,
-        "narHash": "sha256-Zjdfj7FUkA50yOyy9ZQDqrwHmiCEbQN9gyeriGB6078=",
+        "lastModified": 1707757489,
+        "narHash": "sha256-YyqHbxtDGB3OIITPQ3XtkM20fh9/t4CXkYXKzg9DuP8=",
         "owner": "danth",
         "repo": "stylix",
-        "rev": "aca2d28f08e71bdd14192c3b20fb4df768ae1240",
+        "rev": "50cae37cfe23e5ad202ed53f48529139dfa0d008",
         "type": "github"
       },
       "original": {

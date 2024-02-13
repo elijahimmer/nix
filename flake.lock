@@ -1355,17 +1355,17 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1707857331,
-        "narHash": "sha256-sPXpC+jFcMO0HKMhgHL1n2OTdHrzvoADDSywxiF0IVU=",
-        "ref": "refs/heads/main",
-        "rev": "121790c31b9933003f29a4946e490803a658346c",
-        "revCount": 932,
-        "type": "git",
-        "url": "file:///home/eimmer/src/neovim-flake"
+        "lastModified": 1707858034,
+        "narHash": "sha256-FtQERNfW6ZAp6F/pB7/DIX7C9VC2RkT7tOHOObdleoU=",
+        "owner": "elijahimmer",
+        "repo": "neovim-flake",
+        "rev": "14cbc0bcb79c87b7958f7d182046e2557da8a016",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/eimmer/src/neovim-flake"
+        "owner": "elijahimmer",
+        "repo": "neovim-flake",
+        "type": "github"
       }
     },
     "nil": {

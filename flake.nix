@@ -24,7 +24,7 @@
     };*/
     neovim-flake = {
       #url = "github:NotAShelf/neovim-flake";
-      url = "/home/eimmer/src/neovim-flake";
+      url = "github:elijahimmer/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {

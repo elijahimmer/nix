@@ -13,7 +13,7 @@
     ghc
   ];
 
-  programs.nixvim = {
+  /*programs.nixvim = {
     plugins = {
       which-key.enable = true;
       telescope.enable = true;
@@ -64,12 +64,14 @@
       cmp-buffer.enable = true;
       cmp-clippy.enable = true;
       cmp-spell.enable = true;
+      */
       /*coq-nvim = {
         enable = true;
         alwaysComplete = true;
         autoStart = true;
         recommendedKeymaps = true;
       };*/
+      /*
       fugitive.enable = true;
       nix.enable = true;
       undotree.enable = true;
@@ -99,5 +101,5 @@
         };
       };
     };
-  };
+  };*/
 }

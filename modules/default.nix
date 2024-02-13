@@ -15,13 +15,13 @@
   generateModulesAuto = root: let
     moduleFolderNames =
       attrNames
-      (filterAttrs (n: v: v == "directory") (readDir (toString root)));
+      (filterAttrs (_n: v: v == "directory") (readDir (toString root)));
     moduleFolderPaths = map (x: (toString root) + "/" + x) moduleFolderNames;
     zippedList =
       listToAttrs
       (zipListsWith (x: y: nameValuePair x y) moduleFolderNames
         moduleFolderPaths);
   in
-    mapAttrs (n: v: generateModules v) zippedList;
+    mapAttrs (_n: v: generateModules v) zippedList;
 in
   generateModulesAuto ./.

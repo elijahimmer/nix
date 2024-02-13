@@ -18,8 +18,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
+    /*nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };*/
+    neovim-flake = {
+      #url = "github:NotAShelf/neovim-flake";
+      url = "/home/eimmer/src/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
@@ -43,7 +48,7 @@
     generated = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-#      formatter = pkgs.alejandra;
+      #      formatter = pkgs.alejandra;
       # Helps to bootstrap a new system
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
@@ -57,44 +62,46 @@
     });
   in {
     nixosModules = import ./modules {lib = nixpkgs.lib;};
-    nixosConfigurations =
-      let 
-        stateVersion = "24.05";
-        flakeAbsoluteDir = "/home/eimmer/src/nix";
-        mods = inputs.self.nixosModules;
-        commonModules = [
-            inputs.home-manager.nixosModules.home-manager
-            mods.common.default
-            mods.env.default
-            mods.eimmer.user
-            mods.misc.networkmanager
-            mods.ssot.age
+    nixosConfigurations = let
+      stateVersion = "24.05";
+      flakeAbsoluteDir = "/home/eimmer/src/nix";
+      mods = inputs.self.nixosModules;
+      commonModules = [
+        inputs.home-manager.nixosModules.home-manager
+        mods.common.default
+        mods.env.default
+        mods.eimmer.user
+        mods.misc.networkmanager
+        mods.ssot.age
 
-            inputs.flake-utils-plus.nixosModules.autoGenFromInputs
-            inputs.nixvim.nixosModules.nixvim
-            inputs.agenix.nixosModules.default
- 
-            mods.env.coding
-            mods.misc.tailscale
-            mods.misc.syncthing
-            mods.misc.mullvad
-        ];
-        headFullModules = with mods; [
-          inputs.stylix.nixosModules.stylix
-          theme.default
-          misc.pipewire
-        ];
-      in {
+        inputs.flake-utils-plus.nixosModules.autoGenFromInputs
+        #inputs.nixvim.nixosModules.nixvim
+        inputs.agenix.nixosModules.default
+
+        mods.env.coding
+        mods.misc.tailscale
+        mods.misc.syncthing
+        mods.misc.mullvad
+      ];
+      headFullModules = with mods; [
+        inputs.stylix.nixosModules.stylix
+        theme.default
+        misc.pipewire
+      ];
+    in {
       lv14 = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-          ./hosts/lv14/configuration.nix
+        modules =
+          [
+            ./hosts/lv14/configuration.nix
 
-          inputs.nixos-hardware.nixosModules.common-cpu-intel
-          inputs.nixos-hardware.nixosModules.common-gpu-intel
-          inputs.nixos-hardware.nixosModules.common-pc-laptop
-          inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-        ] ++ commonModules ++ headFullModules;
+            inputs.nixos-hardware.nixosModules.common-cpu-intel
+            inputs.nixos-hardware.nixosModules.common-gpu-intel
+            inputs.nixos-hardware.nixosModules.common-pc-laptop
+            inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+          ]
+          ++ commonModules
+          ++ headFullModules;
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = true;
@@ -103,43 +110,49 @@
       };
       desktop = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-         ./hosts/desktop/configuration.nix
+        modules =
+          [
+            ./hosts/desktop/configuration.nix
 
-          inputs.nixos-hardware.nixosModules.common-cpu-amd
-          inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-          inputs.nixos-hardware.nixosModules.common-gpu-amd
-          inputs.nixos-hardware.nixosModules.common-pc
-          inputs.nixos-hardware.nixosModules.common-pc-ssd
-        ] ++ commonModules ++ headFullModules;
+            inputs.nixos-hardware.nixosModules.common-cpu-amd
+            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.nixos-hardware.nixosModules.common-pc
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
+          ]
+          ++ commonModules
+          ++ headFullModules;
         specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir mods; 
-          headFull = true; 
-          hostName = "desktop"; 
+          inherit inputs stateVersion system flakeAbsoluteDir mods;
+          headFull = true;
+          hostName = "desktop";
         };
       };
       server = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
-        modules = [
-          ./hosts/server/configuration.nix
+        modules =
+          [
+            ./hosts/server/configuration.nix
 
-          inputs.nixos-hardware.nixosModules.common-cpu-intel
-          inputs.nixos-hardware.nixosModules.common-gpu-amd
-          inputs.nixos-hardware.nixosModules.common-pc
-          inputs.nixos-hardware.nixosModules.common-pc-ssd
-          inputs.nixos-hardware.nixosModules.common-pc-hdd
-        ] ++ commonModules;
+            inputs.nixos-hardware.nixosModules.common-cpu-intel
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.nixos-hardware.nixosModules.common-pc
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
+            inputs.nixos-hardware.nixosModules.common-pc-hdd
+          ]
+          ++ commonModules;
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = false;
           hostName = "server";
         };
       };
-/*      myPi = nixosSystem {
+      /*
+        myPi = nixosSystem {
         hostName = "myPi";
         modules = [
           inputs.nixos-hardware.nixosModules.raspberry-pi-4
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"         
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
           {
             nixpkgs.config.allowUnsupportedSystem = true;
             nixpkgs.hostPlatform.system = "aarch64-linux";
@@ -147,7 +160,8 @@
             # ... extra configs as above
           }
         ];
-      };*/
+      };
+      */
       # I don't want it to be checked unless I am going to use it because
       # It would be invalid, since it as no hardware config.
       /*
@@ -160,7 +174,7 @@
     };
 
     images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
-   #formatter = generated.formatter;
+    #formatter = generated.formatter;
     devShells = generated.devShells;
   };
 }

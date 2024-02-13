@@ -5,7 +5,8 @@
 }: {
   imports = [
     ./packages.nix
-    ./nixvim.nix
+    ./neovim-flake.nix
+#    ./nixvim.nix
     ./ssh.nix
   ];
   # needed to get flakes to work

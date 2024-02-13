@@ -1355,15 +1355,15 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1707858034,
+        "lastModified": 1707862530,
         "narHash": "sha256-FtQERNfW6ZAp6F/pB7/DIX7C9VC2RkT7tOHOObdleoU=",
-        "owner": "elijahimmer",
+        "owner": "NotAShelf",
         "repo": "neovim-flake",
-        "rev": "14cbc0bcb79c87b7958f7d182046e2557da8a016",
+        "rev": "c0841e01068c21ed1ea6aacb1ff0c6904462e271",
         "type": "github"
       },
       "original": {
-        "owner": "elijahimmer",
+        "owner": "NotAShelf",
         "repo": "neovim-flake",
         "type": "github"
       }

@@ -23,8 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };*/
     neovim-flake = {
-      #url = "github:NotAShelf/neovim-flake";
-      url = "github:elijahimmer/neovim-flake";
+      url = "github:NotAShelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {

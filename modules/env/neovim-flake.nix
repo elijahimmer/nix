@@ -42,7 +42,6 @@
           context.enable = true;
         };
 
-        leaderKey = "<SPC>";
         lineNumberMode = "relNumber";
 
         notes.todo-comments.enable = true;

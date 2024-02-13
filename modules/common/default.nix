@@ -14,7 +14,8 @@
 
   security.sudo.execWheelOnly = true;
   # needed to get flakes to work
-  environment.systemPackages = with pkgs; [git];
+  environment.systemPackages = with pkgs; [git man-pages man-pages-posix ];
+  documentation.dev.enable = true;
   hardware.enableAllFirmware = true;
 
   i18n.defaultLocale = "en_US.UTF-8";

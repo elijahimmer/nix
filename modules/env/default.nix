@@ -5,20 +5,26 @@
 }: {
   imports = [
     ./packages.nix
-    ./neovim-flake.nix
-#    ./nixvim.nix
     ./ssh.nix
   ];
   # needed to get flakes to work
-  environment.systemPackages = with pkgs; [git];
+  environment = {
+    systemPackages = with pkgs; [git];
+    shellAliases = let
+      eza = lib.getExe pkgs.eza;
+    in {
+      l = "${eza} -al";
+      ls = eza;
+      la = "${eza} -a";
+      rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
+    };
 
-  environment.shellAliases = let
-    eza = lib.getExe pkgs.eza;
-  in {
-    l = "${eza} -al";
-    ls = eza;
-    la = "${eza} -a";
-    rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
+    variables = rec {
+      EDITOR = "nvim";
+      GIT_PAGER = EDITOR;
+      PAGER = "page";
+      VISUAL = PAGER;
+    };
   };
 
   programs.skim = {
@@ -26,12 +32,6 @@
     keybindings = true;
   };
 
-  environment.variables = rec {
-    EDITOR = "nvim";
-    GIT_PAGER = EDITOR;
-    PAGER = "page";
-    VISUAL = PAGER;
-  };
 
   programs.starship = {
     enable = true;

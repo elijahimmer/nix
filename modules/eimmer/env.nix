@@ -1,5 +1,11 @@
-{...}: {
+_: {
   home-manager.users.eimmer = {inputs, ...}: {
+    
+    programs.zoxide = {
+      enable = true;
+    };
+
+    # Neovim-flake
     imports = [ inputs.neovim-flake.homeManagerModules.default ];
     programs.neovim-flake = {
       enable = true;
@@ -7,9 +13,7 @@
       settings.vim = {
         viAlias = false;
         vimAlias = true;
-        lsp = {
-          enable = true;
-        };
+        lsp.enable = true;
         autoIndent = true;
         autocomplete = {
           enable = true;
@@ -24,8 +28,6 @@
         autopairs.enable = true;
         binds.whichKey.enable = true;
         comments.comment-nvim.enable = true;
-        # For training later.
-        #disableArrows = true;
         git.enable = true;
         hideSearchHighlight = true;
 

@@ -29,11 +29,7 @@ in {
     )
   ];
 
-  home-manager.users.eimmer = {
-    pkgs,
-    stylix,
-    ...
-  }: {
+  home-manager.users.eimmer = { stylix, ... }: {
     stylix.targets.alacritty.enable = false;
     programs.alacritty = {
       enable = true;

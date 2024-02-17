@@ -1,14 +1,14 @@
 {
   config,
   headFull,
-  hostName,
   inputs,
   stateVersion,
   mods,
   ...
 }: {
   imports =
-    if headFull
+    [ ./env.nix ] ++
+    (if headFull
     then [
       ./alacritty.nix
 #      ./bar-rs.nix
@@ -16,12 +16,11 @@
       ./firefox
       ./hyprland.nix
       ./packages.nix
-      ./programs.nix
       ./services.nix
       ./stylix.nix
       ./xdg.nix
     ]
-    else [];
+    else []);
 
   home-manager = {
     useGlobalPkgs = true;
@@ -43,14 +42,8 @@
     home = {inherit stateVersion;};
   };
 
-  services.openssh = {
-    hostKeys = [
-      {
-        path = config.age.secrets.ssh.path;
-        type = "ed25519";
-      }
-    ];
-  };
+  services.openssh.hostKeys =
+    [{ inherit (config.age.secrets.ssh) path; type = "ed25519"; }];
 
   users.users.eimmer = {
     isNormalUser = true;

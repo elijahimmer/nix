@@ -1,8 +1,8 @@
-{lib, ...}: {
+_: {
   # enable virtual disks for garbage and the like
   services.gvfs.enable = true;
 
-  home-manager.users.eimmer = {...}: {
+  home-manager.users.eimmer = _: {
     services.wlsunset = {
       enable = true;
       latitude = "46";

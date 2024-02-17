@@ -160,12 +160,12 @@
 
         launch-wlr-wk = name: menu: "${lib.getExe pkgs.wlr-which-key} ${
           pkgs.writeText "launch-wlr-wk-${name}.yaml"
-          (builtins.toJSON ({
+          (builtins.toJSON {
             menu = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair (lib.strings.toLower name)) menu;
             background = "#1f1d2e"; separator = " ➜ "; corner_r     = 10; margin_bottom = 0;
             color      = "#e0def4"; anchor = "center"; padding      = 15; margin_left   = 0; 
             border     = "#ebbcba"; border_width  = 2; margin_right = 0;  margin_top    = 0;
-          }))
+          })
         }";
 
         kill-wlr-wk = "killall wlr-which-key";

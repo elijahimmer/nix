@@ -22,6 +22,6 @@
       (zipListsWith (x: y: nameValuePair x y) moduleFolderNames
         moduleFolderPaths);
   in
-    mapAttrs (_n: v: generateModules v) zippedList;
+    mapAttrs (_n: generateModules) zippedList;
 in
   generateModulesAuto ./.

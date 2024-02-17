@@ -1,6 +1,6 @@
-{...}: {
+_: {
   environment.shellAliases.open = "xdg-open";
-  home-manager.users.eimmer = {...}: {
+  home-manager.users.eimmer = _: {
     xdg = {
       enable = true;
       mimeApps.enable = true;

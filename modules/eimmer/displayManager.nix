@@ -12,7 +12,7 @@ in {
         command = "${lib.getExe' pkgs.greetd.greetd "agetty"} --cmd \"${command}\"";
       };
       initial_session = {
-        command = command;
+        inherit command;
         user = "eimmer";
       };
     };

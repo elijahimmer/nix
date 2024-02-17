@@ -1,1 +1,1 @@
-{...}: {services.mullvad-vpn.enable = true;}
+_: {services.mullvad-vpn.enable = true;}

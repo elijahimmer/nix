@@ -47,7 +47,7 @@ in
 
     users.users = mkIf (cfg.user == "parrot") {
       parrot = {
-        group = cfg.group;
+        inherit (cfg) group;
         isSystemUser = true;
         home = "/var/lib/${config.systemd.services.parrot.serviceConfig.StateDirectory}";
       };

@@ -29,7 +29,7 @@ _: {
         binds.whichKey.enable = true;
         comments.comment-nvim.enable = true;
         git.enable = true;
-        hideSearchHighlight = true;
+        #hideSearchHighlight = true;
 
         theme = {
           enable = true;
@@ -39,18 +39,11 @@ _: {
           transparent  = true;
         };
 
-        treesitter = {
-          enable = true;
-          context.enable = true;
-        };
+        treesitter.enable = true;
 
         lineNumberMode = "relNumber";
 
         notes.todo-comments.enable = true;
-        notify.nvim-notify = {
-          enable = true;
-          position = "top_right";
-        };
         searchCase = "smart";
         spellChecking.enable = true;
         splitBelow = true;
@@ -58,10 +51,6 @@ _: {
         # statusline.lualine = {};
         telescope.enable = true;
         
-        /*theme = {
-          enable = true;
-
-        };*/
         useSystemClipboard = true;
         #utility.icon-picker.enable = true;
         wordWrap = true;
@@ -87,8 +76,6 @@ _: {
           java.enable = true;
           # if I ever use it:
           # go.enable = true;
-
-
         };
       };
     };

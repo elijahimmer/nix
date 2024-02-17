@@ -37,6 +37,14 @@
       #url = "/home/eimmer/src/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # my perspective window manager
+    # nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    # rose-pine-doom-emacs.url = "github:donniebreve/rose-pine-doom-emacs";
+    # rose-pine-doom-emacs.flake = false;
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    rose-pine-emacs.url = "github:konrad1977/pinerose-emacs";
+    rose-pine-emacs.flake = false;
   };
   outputs = {
     self,
@@ -60,7 +68,8 @@
       };
     });
   in {
-    nixosModules = import ./modules {lib = nixpkgs.lib;};
+    inherit (generated) devShells;
+    nixosModules = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
       stateVersion = "24.05";
       flakeAbsoluteDir = "/home/eimmer/src/nix";
@@ -68,6 +77,7 @@
       commonModules = [
         inputs.home-manager.nixosModules.home-manager
         mods.common.default
+        mods.emacs.default
         mods.env.default
         mods.eimmer.user
         mods.misc.networkmanager
@@ -173,7 +183,5 @@
     };
 
     images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
-    #formatter = generated.formatter;
-    devShells = generated.devShells;
   };
 }

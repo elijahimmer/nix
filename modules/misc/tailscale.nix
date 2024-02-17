@@ -1,4 +1,4 @@
-{...}: {
+_: {
   networking.firewall = {
     # Note from https://github.com/MatthewCroughan/nixcfg/blob/master/modules/profiles/tailscale.nix 10/21/2023
     # trace: warning: Strict reverse path filtering breaks Tailscale exit node

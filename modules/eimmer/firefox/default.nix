@@ -41,7 +41,7 @@
               in {
                 inherit icon updateInterval definedAliases;
                 urls = [{template = "${baseUrl}${search}";}];
-                iconUpdateURL = lib.mkIf (isNull icon) iconURL;
+                iconUpdateURL = lib.mkIf (icon == null) iconURL;
               };
             in {
               "Nix Packages" = engine {

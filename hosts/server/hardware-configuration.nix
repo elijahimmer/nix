@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
@@ -12,34 +11,34 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["ehci_pci" "ahci" "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/22bfef04-442e-4374-8f98-77f62aff3d9c";
-    fsType = "btrfs";
+  boot = {
+    initrd.availableKernelModules = ["ehci_pci" "ahci" "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod"];
+    initrd.kernelModules = [];
+    kernelModules = ["kvm-intel"];
+    extraModulePackages = [];
   };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/CCCC-1852";
-    fsType = "vfat";
-  };
-
-  fileSystems."/disks/media" = {
-    device = "/dev/disk/by-uuid/9fa79658-f82e-4eba-ac8d-d43b3e453f79";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/disks/qbit" = {
-    device = "/dev/disk/by-uuid/289ee36a-7dc9-4977-b290-32ccb1a43aba";
-    fsType = "btrfs";
-  };
-
-  fileSystems."/disks/ssd" = {
-    device = "/dev/disk/by-uuid/4ca4b75f-e204-467f-a6f7-a42d4bf8fcfb";
-    fsType = "btrfs";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/22bfef04-442e-4374-8f98-77f62aff3d9c";
+      fsType = "btrfs";
+    };
+    "/boot/efi" = {
+      device = "/dev/disk/by-uuid/CCCC-1852";
+      fsType = "vfat";
+    };
+    "/disks/media" = {
+      device = "/dev/disk/by-uuid/9fa79658-f82e-4eba-ac8d-d43b3e453f79";
+      fsType = "btrfs";
+    };
+    "/disks/qbit" = {
+      device = "/dev/disk/by-uuid/289ee36a-7dc9-4977-b290-32ccb1a43aba";
+      fsType = "btrfs";
+    };
+    "/disks/ssd" = {
+      device = "/dev/disk/by-uuid/4ca4b75f-e204-467f-a6f7-a42d4bf8fcfb";
+      fsType = "btrfs";
+    };
   };
 
   swapDevices = [];

@@ -2,9 +2,15 @@
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
     tree-sitter-grammars.tree-sitter-typst
+    typst-lsp
   ];
 
   home-manager.users.eimmer = {pkgs, inputs, lib, ...}: {
+    home.packages = with pkgs; [
+      (aspellWithDicts (dicts: with dicts; [en en-computers en-science]))
+      tree-sitter-grammars.tree-sitter-typst
+      typst-lsp
+    ];
     programs.emacs = {
       enable = true;
       package = pkgs.emacs-gtk;
@@ -30,7 +36,7 @@
         ;;(require 'rose-pine-theme)
         (load-theme 'rose-pine)
       '';
-      extraPackages = epkgs: with epkgs; [
+      extraPackages = epkgs: (with epkgs; [
         use-package
         evil
         autothemer
@@ -42,7 +48,10 @@
         sass-mode
         justl
         just-mode
-      ];
+      ]) ++ (with pkgs; [
+        tree-sitter-grammars.tree-sitter-typst
+        typst-lsp
+      ]);
     };
 
     services.emacs = {

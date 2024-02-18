@@ -39,10 +39,6 @@
     };
 
     # my perspective window manager
-    # nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    # rose-pine-doom-emacs.url = "github:donniebreve/rose-pine-doom-emacs";
-    # rose-pine-doom-emacs.flake = false;
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
     rose-pine-emacs.url = "github:konrad1977/pinerose-emacs";
     rose-pine-emacs.flake = false;
     typst-ts-mode.url = "sourcehut:~meow_king/typst-ts-mode";

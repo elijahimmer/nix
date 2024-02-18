@@ -45,6 +45,8 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     rose-pine-emacs.url = "github:konrad1977/pinerose-emacs";
     rose-pine-emacs.flake = false;
+    typst-ts-mode.url = "sourcehut:~meow_king/typst-ts-mode";
+    typst-ts-mode.flake = false;
   };
   outputs = {
     self,

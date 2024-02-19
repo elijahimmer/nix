@@ -76,7 +76,7 @@
         misc = {
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
-          #enable_swallow = true;
+          enable_swallow = true;
           swallow_regex = "Alacritty";
 
           focus_on_activate = true;
@@ -97,12 +97,6 @@
               > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
               ${notify} 'Screenshot of the region taken' -t 5000
             '';
-            screenshot = pkgs.writeShellScript "screenshot" ''
-              ${grim} - \
-              | ${wl-copy} -t image/png && ${wl-paste} \
-              > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
-              ${notify} 'Screenshot of whole screen taken' -t 5000
-            '';
           in [
           "SUPER, H, movefocus, l"
           "SUPER, J, movefocus, u"
@@ -116,7 +110,6 @@
           "SUPER SHIFT, A, swapnext"
           "SUPER, X, killactive"
           "SUPER SHIFT, G, exec, ${screenshotRegion}"
-          "SUPER CTRL, G, exec, ${screenshot}"
           "SUPER SHIFT, code:35, fullscreen"
           "SUPER SHIFT, code:34, fakefullscreen"
 
@@ -130,11 +123,11 @@
           "SUPER, 8, workspace, 8"
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
-          "SUPER, Q, workspace, 6"
-          "SUPER, D, workspace, 7"
-          "SUPER, R, workspace, 8"
-          "SUPER, W, workspace, 9"
-          "SUPER, B, workspace, 10"
+          # "SUPER, Q, workspace, 6"
+          # "SUPER, D, workspace, 7"
+          # "SUPER, R, workspace, 8"
+          # "SUPER, W, workspace, 9"
+          # "SUPER, B, workspace, 10"
 
           "SUPER SHIFT, 1, movetoworkspace, 1"
           "SUPER SHIFT, 2, movetoworkspace, 2"
@@ -146,17 +139,24 @@
           "SUPER SHIFT, 8, movetoworkspace, 8"
           "SUPER SHIFT, 9, movetoworkspace, 9"
           "SUPER SHIFT, 0, movetoworkspace, 10"
-          "SUPER SHIFT, Q, movetoworkspace, 6"
-          "SUPER SHIFT, D, movetoworkspace, 7"
-          "SUPER SHIFT, R, movetoworkspace, 8"
-          "SUPER SHIFT, W, movetoworkspace, 9"
-          "SUPER SHIFT, B, movetoworkspace, 10"
+          # "SUPER SHIFT, Q, movetoworkspace, 6"
+          # "SUPER SHIFT, D, movetoworkspace, 7"
+          # "SUPER SHIFT, R, movetoworkspace, 8"
+          # "SUPER SHIFT, W, movetoworkspace, 9"
+          # "SUPER SHIFT, B, movetoworkspace, 10"
         ];
       };
       extraConfig = let
         run-in-place = command: let
           current-workspace = "hyprctl activeworkspace | rg \\d+ -o | head --lines=1";
         in "hyprctl dispatch -- exec [workspace $(${current-workspace}) silent] ${command}";
+
+        exit = key: ''
+          bind=SUPER, ${key}, exec,   killall wlr-which-key
+          bind=SUPER, ${key}, submap, reset
+          bind=,      ${key}, exec,   killall wlr-which-key
+          bind=,      ${key}, submap, reset
+        '';
 
         launch-wlr-wk = name: menu: "${lib.getExe pkgs.wlr-which-key} ${
           pkgs.writeText "launch-wlr-wk-${name}.yaml"
@@ -168,44 +168,40 @@
           })
         }";
 
-        kill-wlr-wk = "killall wlr-which-key";
-        mk-key-bind = key: cmd: ''
-          bind=SUPER, ${key}, exec, ${cmd}
-          bind=SUPER, ${key}, exec, ${kill-wlr-wk}
-          bind=SUPER, ${key}, submap, reset
-          bind=,      ${key}, exec, ${cmd}
-          bind=,      ${key}, exec, ${kill-wlr-wk}
-          bind=,      ${key}, submap, reset
-        '';
-        mk-key-bind-kill = key: cmd: ''
-          bind=SUPER, ${key}, exec, ${cmd}
-          bind=SUPER, ${key}, exec, ${kill-wlr-wk}
-          bind=SUPER, ${key}, submap, reset
-          bind=,      ${key}, exec, ${cmd}
-          bind=,      ${key}, exec, ${kill-wlr-wk}
-          bind=,      ${key}, submap, reset
-        '';
         wlr-wk-cfg = binds: lib.lists.foldl (acc: bind: acc // {${bind.key} = {desc = bind.name; cmd = "";};}) {} binds;
+
         launcher = key: name: binds: ''
           bind=SUPER, ${key}, exec,   ${launch-wlr-wk name (wlr-wk-cfg binds)}
           bind=SUPER, ${key}, submap, ${name}
           submap=${name}
-          ${builtins.foldl' (str: {key, cmd, ...}: str + (mk-key-bind-kill key cmd)) "" binds}
-          bind=SUPER, ESCAPE, exec,   killall wlr-which-key
-          bind=SUPER, ESCAPE, submap, reset
-          bind=,      ESCAPE, exec,   killall wlr-which-key
-          bind=,      ESCAPE, submap, reset
+          ${builtins.foldl' (str: bind: str + bind.bind) "" binds}
+          ${exit "ESCAPE"}
           submap=reset
         '';
 
-        mkBind = key: name: cmd: {inherit key name cmd;};
-        mkAppBind = key: name: cmd: (mkBind key name (run-in-place cmd));
+        mkBind = key: name: cmd: {
+          inherit key name cmd;
+          bind = ''
+            bind=SUPER, ${key}, exec, ${cmd}
+            bind=,      ${key}, exec, ${cmd}
+          '';
+        };
+
+        mkBindExit = key: name: cmd: { 
+          inherit key name cmd;
+          bind = ''
+            bind=SUPER, ${key}, exec, ${cmd}
+            bind=,      ${key}, exec, ${cmd}
+          '' + (exit key);
+        };
+
+        mkAppBind = key: name: cmd: (mkBindExit key name (run-in-place cmd));
         alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
           (mkAppBind "A" "Alacritty" alacritty)
           (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
           (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
-          (mkAppBind "E" "Emacs"     "emacs")
+          # (mkAppBind "E" "Emacs"     "emacs")
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
           (mkAppBind "S" "Steam"     (lib.getExe pkgs.steam))
@@ -214,23 +210,26 @@
           (mkAppBind "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
           (mkAppBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
         ];
+
         powerCenter = launcher "DELETE" "power" [
-          (mkBind "A" "Poweroff"  "systemctl poweroff")
-          (mkBind "H" "Hibernate" "systemctl hibernate")
-          (mkBind "L" "Lock"      (lib.getExe pkgs.swaylock))
-          (mkBind "Q" "Exit"      "hyprctl dispatch exit")
-          (mkBind "S" "Suspend"   "systemctl suspend-then-hibernate")
+          (mkBindExit "A" "Poweroff"  "systemctl poweroff")
+          (mkBindExit "H" "Hibernate" "systemctl hibernate")
+          (mkBindExit "L" "Lock"      (lib.getExe pkgs.swaylock))
+          (mkBindExit "Q" "Exit"      "hyprctl dispatch exit")
+          (mkBindExit "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];
+
         notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd} | head --lines 2 -)" -u low'';
         mpc = lib.getExe pkgs.mpc-cli;
+        mpc-cmd = cmd: notify-cmd "${mpc} ${cmd}";
         musicCenter = launcher "M" "music" [
-          (mkBind "A" "Play"         (notify-cmd "${mpc} play"))
-          (mkBind "H" "Toggle Pause" (notify-cmd "${mpc} toggle"))
-          (mkBind "T" "Next Song"    (notify-cmd "${mpc} next"))
-          (mkBind "S" "Status"       (notify-cmd "${mpc} status"))
-          (mkBind "W" "Volume +10%"  (notify-cmd "${mpc} vol +10"))
-          (mkBind "R" "Reset Volume" (notify-cmd "${mpc} vol 30"))
-          (mkBind "D" "Volume -10%"  (notify-cmd "${mpc} vol -10"))
+          (mkBindExit "A" "Play"         (mpc-cmd "play"))
+          (mkBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))
+          (mkBindExit "T" "Next Song"    (mpc-cmd "next"))
+          (mkBindExit "S" "Status"       (mpc-cmd "status"))
+          (mkBindExit "R" "Reset Volume" (mpc-cmd "vol 30"))
+          (mkBind     "W" "Volume +2%"   (mpc-cmd "vol +2"))
+          (mkBind     "D" "Volume -2%"   (mpc-cmd "vol -2"))
         ];
         resizeCenter = launcher "R" "resize" [];
       in 

@@ -25,6 +25,22 @@
     ...
   }:{
     home.packages = with pkgs; [seatd xdg-utils];
+
+    services.swayidle = {
+      enable = true;
+      timeouts = [
+        {
+          timeout = 3000;
+          command = "swaylock";
+        }
+        {
+          timeout = 6000;
+          command = "hyprctl dispatch dpms off";
+          resumeCommand = "hyprctl dispatch dpms on";
+        }
+      ];
+    };
+
     programs.swaylock = {
       enable = true;
       settings = {
@@ -74,6 +90,9 @@
           follow_mouse = 2;
         };
         misc = {
+          new_window_takes_over_fullscreen = true;
+          mouse_move_enables_dpms = true;
+          key_press_enables_dpms = true;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           enable_swallow = true;
@@ -179,7 +198,7 @@
           submap=reset
         '';
 
-        mkBind = key: name: cmd: {
+        mkCmdBind = key: name: cmd: {
           inherit key name cmd;
           bind = ''
             bind=SUPER, ${key}, exec, ${cmd}
@@ -187,7 +206,7 @@
           '';
         };
 
-        mkBindExit = key: name: cmd: { 
+        mkCmdBindExit = key: name: cmd: { 
           inherit key name cmd;
           bind = ''
             bind=SUPER, ${key}, exec, ${cmd}
@@ -195,7 +214,7 @@
           '' + (exit key);
         };
 
-        mkAppBind = key: name: cmd: (mkBindExit key name (run-in-place cmd));
+        mkAppBind = key: name: cmd: (mkCmdBindExit key name (run-in-place cmd));
         alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
           (mkAppBind "A" "Alacritty" alacritty)
@@ -212,24 +231,24 @@
         ];
 
         powerCenter = launcher "DELETE" "power" [
-          (mkBindExit "A" "Poweroff"  "systemctl poweroff")
-          (mkBindExit "H" "Hibernate" "systemctl hibernate")
-          (mkBindExit "L" "Lock"      (lib.getExe pkgs.swaylock))
-          (mkBindExit "Q" "Exit"      "hyprctl dispatch exit")
-          (mkBindExit "S" "Suspend"   "systemctl suspend-then-hibernate")
+          (mkCmdBindExit "A" "Poweroff"  "systemctl poweroff")
+          (mkCmdBindExit "H" "Hibernate" "systemctl hibernate")
+          (mkCmdBindExit "L" "Lock"      (lib.getExe pkgs.swaylock))
+          (mkCmdBindExit "Q" "Exit"      "hyprctl dispatch exit")
+          (mkCmdBindExit "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];
 
         notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd} | head --lines 2 -)" -u low'';
         mpc = lib.getExe pkgs.mpc-cli;
         mpc-cmd = cmd: notify-cmd "${mpc} ${cmd}";
         musicCenter = launcher "M" "music" [
-          (mkBindExit "A" "Play"         (mpc-cmd "play"))
-          (mkBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))
-          (mkBindExit "T" "Next Song"    (mpc-cmd "next"))
-          (mkBindExit "S" "Status"       (mpc-cmd "status"))
-          (mkBindExit "R" "Reset Volume" (mpc-cmd "vol 30"))
-          (mkBind     "W" "Volume +2%"   (mpc-cmd "vol +2"))
-          (mkBind     "D" "Volume -2%"   (mpc-cmd "vol -2"))
+          (mkCmdBindExit "A" "Play"         (mpc-cmd "play"))
+          (mkCmdBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))
+          (mkCmdBindExit "T" "Next Song"    (mpc-cmd "next"))
+          (mkCmdBindExit "S" "Status"       (mpc-cmd "status"))
+          (mkCmdBindExit "R" "Reset Volume" (mpc-cmd "vol 30"))
+          (mkCmdBind     "W" "Volume +2%"   (mpc-cmd "vol +2"))
+          (mkCmdBind     "D" "Volume -2%"   (mpc-cmd "vol -2"))
         ];
         resizeCenter = launcher "R" "resize" [];
       in 

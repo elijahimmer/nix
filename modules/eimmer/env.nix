@@ -1,8 +1,13 @@
 _: {
   home-manager.users.eimmer = {inputs, ...}: {
-    
-    programs.zoxide = {
-      enable = true;
+    programs = {
+      bash.enable = true;
+
+      zoxide = {
+        enable = true;
+        enableBashIntegration = true;
+        options = ["--cmd cd"];
+      };
     };
 
     # Neovim-flake
@@ -25,11 +30,9 @@ _: {
             buffer = "[Buffer]";
           };
         };
-        autopairs.enable = true;
         binds.whichKey.enable = true;
         comments.comment-nvim.enable = true;
         git.enable = true;
-        #hideSearchHighlight = true;
 
         theme = {
           enable = true;
@@ -48,11 +51,9 @@ _: {
         spellChecking.enable = true;
         splitBelow = true;
         splitRight = true;
-        # statusline.lualine = {};
         telescope.enable = true;
         
         useSystemClipboard = true;
-        #utility.icon-picker.enable = true;
         wordWrap = true;
 
         languages = {
@@ -74,8 +75,6 @@ _: {
           zig.enable = true;
           # only for school...
           java.enable = true;
-          # if I ever use it:
-          # go.enable = true;
         };
       };
     };

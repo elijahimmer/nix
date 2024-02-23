@@ -10,10 +10,11 @@
       if headFull
       then "unnamedplus"
       else "";
+
     colorschemes.rose-pine = {
       enable = true;
       transparentBackground = true;
-      disableItalics = true;
+      disableItalics = false;
     };
 
     options = {

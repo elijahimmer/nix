@@ -6,6 +6,8 @@
   imports = [
     ./packages.nix
     ./ssh.nix
+    ./nixvim.nix
+    ./coding.nix
   ];
   # needed to get flakes to work
   environment = {

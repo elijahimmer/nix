@@ -13,14 +13,17 @@
     ghc
   ];
 
-  /*programs.nixvim = {
+  programs.nixvim = {
     plugins = {
       which-key.enable = true;
       telescope.enable = true;
       treesitter.enable = true;
       typst-vim = {
         enable = true;
-        concealMath = true;
+        settings = {
+        	concealMath = true;
+          pdf_veiwer = "xdg-open"; # this maybe should be the default
+        };
       };
       gitsigns = {
         enable = true;
@@ -64,14 +67,12 @@
       cmp-buffer.enable = true;
       cmp-clippy.enable = true;
       cmp-spell.enable = true;
-      */
       /*coq-nvim = {
         enable = true;
         alwaysComplete = true;
         autoStart = true;
         recommendedKeymaps = true;
       };*/
-      /*
       fugitive.enable = true;
       nix.enable = true;
       undotree.enable = true;
@@ -83,8 +84,8 @@
           bashls.enable = true;
           clangd.enable = true;
           elixirls.enable = true;
+          # only for school...
           java-language-server.enable = true;
-          # I swear Java is only for school, not my choice
           hls.enable = true;
           pylsp.enable = true;
           taplo.enable = true;
@@ -101,5 +102,5 @@
         };
       };
     };
-  };*/
+  };
 }

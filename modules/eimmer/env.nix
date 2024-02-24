@@ -1,4 +1,16 @@
-_: {
+{pkgs, lib, ...}: {
+  environment.systemPackages = with pkgs; [
+    typst
+    typstfmt
+
+    gcc
+    cargo
+    rustfmt
+
+    elixir
+    ghc
+  ];
+
   home-manager.users.eimmer = {inputs, ...}: {
     programs = {
       bash.enable = true;
@@ -7,6 +19,47 @@ _: {
         enable = true;
         enableBashIntegration = true;
         options = ["--cmd cd"];
+      };
+
+      neovim = {
+        enable = true;
+        defaultEditor = true;
+        vimAlias = true;
+        vimdiffAlias = true;
+        withNodeJs = false;
+        withRuby = false;
+        withPython3 = false;
+
+        plugins = with pkgs.vimPlugins; [
+          # Highlighting
+          nvim-treesitter.withAllGrammars
+
+          # nvim cmp
+          nvim-cmp
+          cmp-nvim-lsp 
+
+          # Lsp + language stuff
+          nvim-lspconfig
+          vim-nix
+          statix
+          luasnip
+
+          # theme
+          rose-pine
+        ];
+
+        extraPackages = with pkgs; [
+          tree-sitter
+
+          nil
+          elixir-ls
+          typst-lsp
+          rust-analyzer
+          jdt-language-server
+          lua-language-server
+        ];
+
+        extraLuaConfig = builtins.readFile ./init.lua;
       };
     };
 

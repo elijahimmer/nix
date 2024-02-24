@@ -24,7 +24,7 @@
     variables = rec {
       EDITOR = "nvim";
       GIT_PAGER = EDITOR;
-      PAGER = "page";
+      PAGER = lib.getExe pkgs.nvimpager;
       VISUAL = PAGER;
     };
   };

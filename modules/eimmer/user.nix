@@ -7,7 +7,9 @@
   ...
 }: {
   imports =
-    [ ./env.nix ] ++
+    [
+      ./env.nix
+    ] ++
     (if headFull
     then [
       ./alacritty.nix

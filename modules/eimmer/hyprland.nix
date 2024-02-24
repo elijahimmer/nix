@@ -5,6 +5,7 @@
   system,
   ...
 }: {
+  programs.dconf.enable = true;
   programs.hyprland.enable = true;
   security.pam.loginLimits = [
     { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
@@ -57,6 +58,8 @@
           bar-rs = lib.getExe inputs.bar-rs.packages.${system}.default;
           killall = lib.getExe pkgs.killall;
         in [ "${killall} .bar-rs-wrapped; ${bar-rs}" ];
+
+        exec-once = [ "swaylock" ];
 
         monitor = [
           "eDP-1, 1920x1080,0x0,1"
@@ -214,7 +217,7 @@
           '' + (exit key);
         };
 
-        mkAppBind = key: name: cmd: (mkCmdBindExit key name (run-in-place cmd));
+        mkAppBind = key: name: cmd: (mkCmdBindExit key name cmd);
         alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
           (mkAppBind "A" "Alacritty" alacritty)
@@ -250,7 +253,6 @@
           (mkCmdBind     "W" "Volume +2%"   (mpc-cmd "vol +2"))
           (mkCmdBind     "D" "Volume -2%"   (mpc-cmd "vol -2"))
         ];
-        resizeCenter = launcher "R" "resize" [];
       in 
         appLauncher
         + powerCenter

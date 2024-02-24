@@ -18,15 +18,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # neovim-flake = {
-    #   #url = "github:NotAShelf/neovim-flake";
-    #   url = "/home/eimmer/src/neovim-flake/";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,12 +29,6 @@
       #url = "/home/eimmer/src/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # my perspective window manager
-    # rose-pine-emacs.url = "github:konrad1977/pinerose-emacs";
-    # rose-pine-emacs.flake = false;
-    # typst-ts-mode.url = "sourcehut:~meow_king/typst-ts-mode";
-    # typst-ts-mode.flake = false;
   };
   outputs = {
     self,
@@ -83,7 +68,6 @@
         mods.ssot.age
 
         inputs.flake-utils-plus.nixosModules.autoGenFromInputs
-        inputs.nixvim.nixosModules.nixvim
         inputs.agenix.nixosModules.default
 
         mods.env.coding

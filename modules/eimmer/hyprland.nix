@@ -93,7 +93,6 @@
           follow_mouse = 2;
         };
         misc = {
-          new_window_takes_over_fullscreen = true;
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
           disable_hyprland_logo = true;

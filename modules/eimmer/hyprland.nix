@@ -57,7 +57,7 @@
         exec = let 
           bar-rs = lib.getExe inputs.bar-rs.packages.${system}.default;
           killall = lib.getExe pkgs.killall;
-        in [ "${killall} .bar-rs-wrapped; ${bar-rs}" ];
+        in [ "${killall} .bar-rs-wrapped bar-rs; ${bar-rs}" ];
 
         exec-once = [ "swaylock" ];
 
@@ -76,7 +76,6 @@
           gaps_out = 0;
           border_size = 2;
           no_cursor_warps = 0;
-          resize_on_border = true;
         };
 
         decoration = {
@@ -106,6 +105,10 @@
           vrr = 2;
           disable_autoreload = true;
         };
+        bindm = [
+          "SUPER, mouse:272, movewindow"
+          "SUPER, mouse:273, resizewindow"
+        ];
         bind = let
             grim = lib.getExe pkgs.grim;
             slurp = lib.getExe pkgs.slurp;
@@ -141,6 +144,8 @@
           "SUPER SHIFT, G, exec, ${screenshotRegion}"
           "SUPER SHIFT, code:35, fullscreen"
           "SUPER SHIFT, code:34, fakefullscreen"
+          "SUPER SHIFT, F, togglefloating"
+          "SUPER SHIFT, P, pin"
 
           "SUPER, 1, workspace, 1"
           "SUPER, 2, workspace, 2"

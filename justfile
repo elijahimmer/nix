@@ -7,30 +7,30 @@ alias c := nix-check
 alias ti := test-inputs
 
 test:
-	git add .
-	sudo nixos-rebuild test --flake .#$HOSTNAME
+    git add .
+    sudo nixos-rebuild test --flake .#$HOSTNAME
 
 boot:
-	git add .
-	sudo nixos-rebuild boot --flake .#$HOSTNAME
+    git add .
+    sudo nixos-rebuild boot --flake .#$HOSTNAME
 
 switch: nix-check 
-	git commit
-	sudo nixos-rebuild switch --flake .#$HOSTNAME
+    git commit
+    sudo nixos-rebuild switch --flake .#$HOSTNAME
 
 update:
-	git pull
-	sudo nixos-rebuild switch --flake .#$HOSTNAME
+    git pull
+    sudo nixos-rebuild switch --flake .#$HOSTNAME
 
 inputs:
-	git pull
-	nix flake update
-	@just switch
+    git pull
+    nix flake update
+    @just switch
 
 nix-check:
-	git add .
-	nix flake check --all-systems
+    git add .
+    nix flake check --all-systems
 
 test-inputs:
-	nix flake update
-	@just test 
+    nix flake update
+    @just test 

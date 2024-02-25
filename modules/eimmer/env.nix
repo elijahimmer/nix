@@ -43,6 +43,7 @@
           vim-nix
           statix
           luasnip
+          vim-just
 
           # theme
           rose-pine

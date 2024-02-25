@@ -9,19 +9,6 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-lspconfig.elixirls.setup { capabilities = capabilities }
-lspconfig.typst_lsp.setup { capabilities = capabilities }
-lspconfig.nil_ls.setup { capabilities = capabilities }
-lspconfig.lua_ls.setup { capabilities = capabilities }
-lspconfig.jdtls.setup {
-  capabilities = capabilities,
-  cmd = { 'jdtls' }
-}
-lspconfig.rust_analyzer.setup {	capabilities = capabilities }
-
 
 require('rose-pine').setup({
     variant = "main",
@@ -88,14 +75,16 @@ cmp.setup.cmdline({ '/', '?' }, {
   }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = 'path' }
---   }, {
---     { name = 'cmdline' }
---   })
--- })
+local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+lspconfig.elixirls.setup { capabilities = capabilities }
+lspconfig.typst_lsp.setup { capabilities = capabilities }
+lspconfig.nil_ls.setup { capabilities = capabilities }
+lspconfig.lua_ls.setup { capabilities = capabilities }
+lspconfig.jdtls.setup {
+  capabilities = capabilities,
+  cmd = { 'jdtls' }
+}
+lspconfig.rust_analyzer.setup {	capabilities = capabilities }
 

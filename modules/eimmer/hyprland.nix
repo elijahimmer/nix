@@ -112,10 +112,16 @@
             wl-paste = "${lib.getExe' pkgs.wl-clipboard "wl-paste"}";
             notify = lib.getExe pkgs.notify-desktop;
 
+            screenshot = pkgs.writeShellScript "screenshot" ''
+              ${grim} - \
+              | ${wl-copy} -t image/png && ${wl-paste} \
+              > ~/Pictures/Screenshot-$(date +%F_%T).png
+              ${notify} 'Screenshot taken' -t 5000
+            '';
             screenshotRegion = pkgs.writeShellScript "screenshot-region" ''
               ${grim} -g "$(${slurp})" - \
               | ${wl-copy} -t image/png && ${wl-paste} \
-              > ~/Pictures/Screenshots/Screenshot-$(date +%F_%T).png
+              > ~/Pictures/Screenshot-$(date +%F_%T).png
               ${notify} 'Screenshot of the region taken' -t 5000
             '';
           in [
@@ -130,6 +136,7 @@
           "SUPER SHIFT, L, movewindow, r"
           "SUPER SHIFT, A, swapnext"
           "SUPER, X, killactive"
+          "SUPER CONTROL, G, exec, ${screenshot}"
           "SUPER SHIFT, G, exec, ${screenshotRegion}"
           "SUPER SHIFT, code:35, fullscreen"
           "SUPER SHIFT, code:34, fakefullscreen"

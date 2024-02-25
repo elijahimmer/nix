@@ -8,6 +8,7 @@
     ./ssh.nix
     ./nixvim.nix
     ./coding.nix
+    ./autoupgrade.nix
   ];
   # needed to get flakes to work
   environment = {
@@ -23,8 +24,8 @@
 
     variables = rec {
       EDITOR = "nvim";
-      GIT_PAGER = EDITOR;
       PAGER = lib.getExe pkgs.nvimpager;
+      GIT_PAGER = PAGER;
       VISUAL = PAGER;
     };
   };

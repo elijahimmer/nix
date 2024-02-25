@@ -8,6 +8,7 @@ alias ti := test-inputs
 
 test:
     git add .
+    git diff HEAD | echo
     sudo nixos-rebuild test --flake .#$HOSTNAME
 
 boot:
@@ -15,6 +16,7 @@ boot:
     sudo nixos-rebuild boot --flake .#$HOSTNAME
 
 switch: nix-check 
+    git diff HEAD | echo
     git commit
     sudo nixos-rebuild switch --flake .#$HOSTNAME
 

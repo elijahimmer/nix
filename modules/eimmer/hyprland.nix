@@ -83,7 +83,7 @@
           drop_shadow = false;
           blur.enabled = false;
         };
-        #animations.enabled = false;
+
         input = {
           touchpad = {
             disable_while_typing = false;
@@ -92,6 +92,7 @@
           kb_options = "caps:escape";
           follow_mouse = 2;
         };
+
         misc = {
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;

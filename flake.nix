@@ -98,6 +98,7 @@
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = true;
           hostName = "lv14";
+          updateFromScratch = false;
         };
       };
       desktop = inputs.nixpkgs.lib.nixosSystem rec {
@@ -118,6 +119,7 @@
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = true;
           hostName = "desktop";
+          updateFromScratch = false;
         };
       };
       server = inputs.nixpkgs.lib.nixosSystem rec {
@@ -137,6 +139,7 @@
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = false;
           hostName = "server";
+          updateFromScratch = true;
         };
       };
       /*

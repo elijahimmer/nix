@@ -3,24 +3,24 @@
   environment.systemPackages = with pkgs; [
     # AUTO GENERATED PACKAGE ADDER
     ### INSERT PACKAGES HERE
+    bat
+    bc
     btop
     conceal
     eza
     fd
+    gh
     git
     just
+    killall
+    magic-wormhole
+    nvimpager
+    p7zip
+    page
     pciutils
     ripgrep
-    magic-wormhole
     skim
     wget
-    page
-    p7zip
-    #    socat
-    #    jq
-    gh
-
-    killall
     # END AUTO GENERATION
 
     (pkgs.writeScriptBin "n" "nix-shell -p $@")

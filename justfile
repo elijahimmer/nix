@@ -13,6 +13,7 @@ test:
 
 boot:
     git add .
+    git diff HEAD
     sudo nixos-rebuild boot --flake .#$HOSTNAME
 
 switch: nix-check 
@@ -22,10 +23,12 @@ switch: nix-check
 
 update:
     git pull
+    git diff HEAD
     sudo nixos-rebuild switch --flake .#$HOSTNAME
 
 inputs:
     git pull
+    git diff HEAD
     nix flake update
     @just switch
 

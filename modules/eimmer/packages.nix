@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     wl-clipboard
+    openjdk11
+    google-java-format
     #element-desktop
     #wluma
     (

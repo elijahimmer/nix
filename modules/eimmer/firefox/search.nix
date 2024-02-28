@@ -8,98 +8,82 @@ _: {
             default = "DuckDuckGo";
             force = true;
             engines = let
-              icons = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps";
-              oncePerDay = 24 * 60 * 60 * 1000;
+              icons = pkgs.nixos-icons + "/share/icons/hicolor/scalable/apps";
               engine = {
-                baseUrl,
                 search,
                 definedAliases ? [],
                 icon ? null,
-                iconUpdateURLIsAbsolute ? false,
-                iconUpdateURL ? null,
-                updateInterval ? oncePerDay,
-              }: let
-                iconURL =
-                  if iconUpdateURLIsAbsolute
-                  then iconUpdateURL
-                  else "${baseUrl}${iconUpdateURL}";
-              in {
-                inherit icon updateInterval definedAliases;
-                urls = [{template = "${baseUrl}${search}";}];
-                iconUpdateURL = lib.mkIf (icon == null) iconURL;
+              }: {
+                inherit icon definedAliases;
+                urls = [{template = search;}];
               };
             in {
               "Nix Packages" = engine {
-                baseUrl = "https://search.nixos.org";
-                search = "/packages?channel=unstable&query={searchTerms}";
-                icon = "${icons}/nix-snowflake.svg";
+                search = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+                icon = icons + "/nix-snowflake.svg";
                 definedAliases = ["@np" "@nixp" "@nix-packages"];
               };
               "NixOS Options" = engine {
-                baseUrl = "https://search.nixos.org";
-                search = "/options?channel=unstable&query={searchTerms}";
-                icon = "${icons}/nix-snowflake-white.svg";
+                search = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
+                icon = icons + "/nix-snowflake-white.svg";
                 definedAliases = ["@no" "@nixo" "@nix-options"];
               };
               "NixOS Wiki" = engine {
-                baseUrl = "https://nixos.wiki";
-                search = "/index.php?search={searchTerms}";
-                iconUpdateURL = "/favicon.png";
+                search = "https://nixos.wiki/index.php?search={searchTerms}";
+                icon = ./icons/nixos.wiki.webp;
                 definedAliases = ["@nw" "@nixw" "@nix-wiki"];
               };
-              "Home Manager Options" = engine {
-                baseUrl = "https://mipmip.github.io/home-manager-option-search";
-                search = "/?query={searchTerms}";
-                iconUpdateURL = "/images/favicon.png";
+              "Noogle" = engine {
+                search = "https://noogle.dev/q?term={searchTerms}&limit=50&page=1";
+                icon = ./icons/noogle.dev.png;
+                definedAliases = ["@noogle"];
+              };
+              "Home Manager Options" = let 
+                base_url = "https://mipmip.github.io/home-manager-option-search"; 
+              in engine {
+                search = "${base_url}/?query={searchTerms}";
+                icon = ./icons/home_manager.png;
                 definedAliases = ["@hm" "@home-manager"];
               };
               "Rust STD Docs" = engine {
-                baseUrl = "https://doc.rust-lang.org/stable";
-                search = "/std/?search={searchTerms}";
-                iconUpdateURL = "/static.files/favicon-2c020d218678b618.svg";
+                search = "https://doc.rust-lang.org/stable/std/?search={searchTerms}";
+                icon = ./icons/rust_std_docs.svg;
                 definedAliases = ["@rstd" "@stdr" "@stdrs" "@std-rust" "@rust-std"];
               };
               "Crates.io" = engine {
-                baseUrl = "https://crates.io";
-                search = "/search?q={searchTerms}";
-                iconUpdateURL = "/assets/cargo.png";
+                search = "https://crates.io/search?q={searchTerms}";
+                icon = ./icons/crates.io.png;
                 definedAliases = ["@cargo" "@crates" "@crs" "@rsc" "@rust-crates"];
               };
               "Docs.rs" = {
-                urls = [{template = "https://docs.rs/releases/search?query={searchTerms}";}];
-                iconUpdateURL = "https://docs.rs/favicon.ico";
+                baseUrl = "https://docs.rs/releases/search?query={searchTerms}";
+                icon = ./icons/docs.rs.ico;
                 definedAliases = ["@docs-rust" "@drs" "@rsd" "@rust-docs"];
               };
               "Wolfram Alpha" = engine {
-                baseUrl = "https://www.wolframalpha.com";
-                search = "/input?i={searchTerms}";
-                iconUpdateURL = "/_next/static/images/favicon_1zbE9hjk.ico";
+                search = "https://www.wolframalpha.com/input?i={searchTerms}";
+                icon = ./icons/wolfamalpha.com.ico;
                 definedAliases = ["@wolf" "@wolframalpha"];
               };
               "D&D Beyond" = engine {
-                baseUrl = "https://www.dndbeyond.com";
-                search = "/search?q={searchTerms}";
-                iconUpdateURL = "https://media.dndbeyond.com/images/web/favicon.png";
-                iconUpdateURLIsAbsolute = true;
+                search = "https://www.dndbeyond.com/search?q={searchTerms}";
+                icon = ./icons/dndbeyond.com.png;
                 definedAliases = ["@dnd" "@dnd-beyond"];
               };
-              "Dictonary.com" = engine {
-                baseUrl = "https://www.dictionary.com";
-                search = "/browse/{searchTerms}";
-                iconUpdateURL = "/94e56a525da4e9fe0cda.png";
-                definedAliases = ["@dict" "@dictonary"];
-              };
-              "Thesaurus.com" = engine {
-                baseUrl = "https://www.thesaurus.com";
-                search = "/browse/{searchTerms}";
-                iconUpdateURL = "/0d297be7e698b98c9da8.png";
-                definedAliases = ["@thes" "@thesaurus"];
+              "Oxford English Dictionary" = engine {
+                search = "https://www.oed.com/search/dictionary/?scope=Entries&q={searchTerms}";
+                icon = ./icons/oed.com.ico;
+                definedAliases = ["@dict" "@dictonary" "@oxford"];
               };
               "GitHub" = engine {
-                baseUrl = "https://github.com";
-                search = "/search?q={searchTerms}&type=repositories";
-                iconUpdateURL = "/favicon.ico";
+                search = "https://github.com/search?q={searchTerms}&type=repositories";
+                icon = ./icons/github.com.ico;
                 definedAliases = ["@gh" "@github"];
+              };
+              "Epic Music World" = engine {
+                search = "https://www.youtube.com/@EpicMusicWorld_Official/search?query={searchTerms}";
+                icon = ./icons/epic_music_world.jpg;
+                definedAliases = ["@epic" "@music"];
               };
               "Google".metaData.alias = "@g";
               "Wikipedia (en)".metaData.alias = "@w";
@@ -112,6 +96,7 @@ _: {
               "Nix Packages"
               "NixOS Options"
               "NixOS Wiki"
+              "Noogle"
               "Home Manager Options"
               "GitHub"
               "Rust STD Docs"
@@ -119,8 +104,8 @@ _: {
               "Docs.rs"
               "Wolfram Alpha"
               "D&D Beyond"
-              "Dictonary.com"
-              "Thesaurus.com"
+              "Epic Music World"
+              "Oxford English Dictionary"
               "Wikipedia (en)"
               "Google"
             ];

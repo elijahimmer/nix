@@ -61,7 +61,6 @@
       commonModules = [
         inputs.home-manager.nixosModules.home-manager
         mods.common.default
-        mods.emacs.default
         mods.env.default
         mods.eimmer.user
         mods.misc.networkmanager

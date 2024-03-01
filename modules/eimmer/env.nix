@@ -44,6 +44,7 @@
           statix
           luasnip
           vim-just
+          typst-vim
 
           # theme
           rose-pine

@@ -30,15 +30,10 @@
     services.swayidle = {
       enable = true;
       timeouts = [
-        {
-          timeout = 3000;
-          command = "swaylock";
-        }
-        {
-          timeout = 6000;
-          command = "hyprctl dispatch dpms off";
-          resumeCommand = "hyprctl dispatch dpms on";
-        }
+        { timeout = 3000;
+          command = "swaylock"; }
+        { timeout = 6000;
+          command = "'hyprctl \"dispatch dpms off\"'"; }
       ];
     };
 
@@ -112,9 +107,9 @@
         bind = let
             grim = lib.getExe pkgs.grim;
             slurp = lib.getExe pkgs.slurp;
-            wl-copy = "${lib.getExe' pkgs.wl-clipboard "wl-copy"}";
-            wl-paste = "${lib.getExe' pkgs.wl-clipboard "wl-paste"}";
             notify = lib.getExe pkgs.notify-desktop;
+            wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
+            wl-paste = lib.getExe' pkgs.wl-clipboard "wl-paste";
 
             screenshot = pkgs.writeShellScript "screenshot" ''
               ${grim} - \
@@ -141,7 +136,7 @@
           "SUPER SHIFT, A, swapnext"
           "SUPER, X, killactive"
           "SUPER CONTROL, G, exec, ${screenshot}"
-          "SUPER SHIFT, G, exec, ${screenshotRegion}"
+          "SUPER SHIFT,   G, exec, ${screenshotRegion}"
           "SUPER SHIFT, code:35, fullscreen"
           "SUPER SHIFT, code:34, fakefullscreen"
           "SUPER SHIFT, F, togglefloating"
@@ -157,11 +152,6 @@
           "SUPER, 8, workspace, 8"
           "SUPER, 9, workspace, 9"
           "SUPER, 0, workspace, 10"
-          # "SUPER, Q, workspace, 6"
-          # "SUPER, D, workspace, 7"
-          # "SUPER, R, workspace, 8"
-          # "SUPER, W, workspace, 9"
-          # "SUPER, B, workspace, 10"
 
           "SUPER SHIFT, 1, movetoworkspace, 1"
           "SUPER SHIFT, 2, movetoworkspace, 2"
@@ -173,11 +163,6 @@
           "SUPER SHIFT, 8, movetoworkspace, 8"
           "SUPER SHIFT, 9, movetoworkspace, 9"
           "SUPER SHIFT, 0, movetoworkspace, 10"
-          # "SUPER SHIFT, Q, movetoworkspace, 6"
-          # "SUPER SHIFT, D, movetoworkspace, 7"
-          # "SUPER SHIFT, R, movetoworkspace, 8"
-          # "SUPER SHIFT, W, movetoworkspace, 9"
-          # "SUPER SHIFT, B, movetoworkspace, 10"
         ];
       };
       extraConfig = let
@@ -235,7 +220,6 @@
           (mkAppBind "A" "Alacritty" alacritty)
           (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
           (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
-          # (mkAppBind "E" "Emacs"     "emacs")
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
           (mkAppBind "S" "Steam"     (lib.getExe pkgs.steam))

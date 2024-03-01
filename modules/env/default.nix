@@ -8,7 +8,6 @@
     ./ssh.nix
     ./nixvim.nix
     ./coding.nix
-    ./autoupgrade.nix
   ];
   # needed to get flakes to work
   environment = {

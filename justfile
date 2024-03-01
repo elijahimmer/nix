@@ -34,6 +34,7 @@ inputs:
 
 nix-check:
     git add .
+    git diff HEAD
     nix flake check --all-systems
 
 test-inputs:

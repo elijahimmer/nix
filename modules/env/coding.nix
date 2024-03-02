@@ -1,66 +1,50 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
+  environment.systemPackages = with pkgs; [
+    # Language Stuff
+    typst
+    typstfmt
 
-  # programs.nixvim = {
-  #   plugins = {
-  #     which-key.enable = true;
-  #     #telescope.enable = true;
-  #     treesitter.enable = true;
-  #     typst-vim = {
-  #       enable = true;
-  #       settings = {
-  #       	concealMath = true;
-  #       };
-  #     };
-  #     gitsigns = {
-  #       enable = true;
-  #       attachToUntracked = true;
-  #       currentLineBlame = true;
-  #       numhl = true;
-  #     };
-  #     crates-nvim.enable = true;
-  #     lsp-format.enable = true;
-  #     nvim-cmp = {
-  #       enable = true;
-  #       autoEnableSources = true;
-  #       sources = [
-  #         { name = "nvim_lsp"; }
-  #       ];
-  #       snippet.expand = "luasnip";
-  #     };
-  #     cmp-nvim-lsp.enable = true;
-  #     cmp-path.enable = true;
-  #     cmp-git.enable = true;
-  #     cmp-buffer.enable = true;
-  #     cmp-clippy.enable = true;
-  #     cmp-spell.enable = true;
-  #     fugitive.enable = true;
-  #     nix.enable = true;
-  #     undotree.enable = true;
-  #
-  #     lsp = {
-  #       enable = true;
-  #       servers = {
-  #         bashls.enable = true;
-  #         clangd.enable = true;
-  #         elixirls.enable = true;
-  #         hls.enable = true;
-  #         pylsp.enable = true;
-  #         taplo.enable = true;
-  #         typst-lsp.enable = true;
-  #         texlab.enable = true;
-  #         zls.enable = true;
-  #         nil_ls.enable = true;
-  #
-  #         # only for school...
-  #         java-language-server.enable = true;
-  #
-  #         rust-analyzer = {
-  #           enable = true;
-  #           installCargo = true;
-  #           installRustc = true;
-  #         };
-  #       };
-  #     };
-  #   };
-  # };
+    gcc
+    cargo
+    rustfmt
+
+    elixir
+    ghc
+
+
+    # Neovim Stuff
+    tree-sitter
+
+    nil
+    elixir-ls
+    typst-lsp
+    rust-analyzer
+    jdt-language-server
+    lua-language-server
+  ];
+  programs.neovim = {
+    configure = {
+        customRC = lib.mkForce """
+          lua << EOF
+            ${builtins.readFile ./init.lua}
+            ${builtins.readFile ./full.lua}
+          EOF
+        """;
+        packages.mein = with pkgs.vimPlugins; {
+          start = [
+            # Highlighting
+            nvim-treesitter.withAllGrammars
+
+            # nvim cmp
+            nvim-cmp
+            cmp-nvim-lsp 
+
+            # Lsp + language stuff
+            nvim-lspconfig
+            luasnip
+            typst-vim
+        ];
+      };
+    };
+  };
 }

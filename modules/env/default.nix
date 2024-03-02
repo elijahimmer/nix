@@ -6,6 +6,7 @@
   imports = [
     ./packages.nix
     ./ssh.nix
+    ./nixvim.nix
     ./coding.nix
     ./autoupgrade.nix
   ];
@@ -28,39 +29,9 @@
     };
   };
 
-  programs = { 
-    skim = {
-      fuzzyCompletion = true;
-      keybindings = true;
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      withNodeJs = false;
-      withRuby = false;
-      withPython3 = false;
-
-      configure = {
-        customRC = ''
-          lua << EOF
-            ${builtins.readFile ./init.lua}
-          EOF
-        '';
-  
-        packages.mein = with pkgs.vimPlugins; {
-          start = [
-            vim-just
-            vim-nix
-            statix
-
-            # theme
-            rose-pine
-          ];
-        };
-      };
-    };
+  programs.skim = {
+    fuzzyCompletion = true;
+    keybindings = true;
   };
 
 

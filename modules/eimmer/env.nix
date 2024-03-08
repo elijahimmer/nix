@@ -6,6 +6,8 @@
     gcc
     cargo
     rustfmt
+    zig
+    zig-shell-completions
 
     elixir
     ghc
@@ -45,6 +47,7 @@
           luasnip
           vim-just
           typst-vim
+          zig-vim
 
           # theme
           rose-pine
@@ -53,6 +56,7 @@
         extraPackages = with pkgs; [
           tree-sitter
 
+          zls
           nil
           elixir-ls
           typst-lsp

@@ -44,6 +44,7 @@
         show-failed-attempts = true;
       };
     };
+
     wayland.windowManager.hyprland = {
       enable = true;
       systemd.enable = true;

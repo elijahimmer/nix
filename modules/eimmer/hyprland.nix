@@ -167,10 +167,6 @@
         ];
       };
       extraConfig = let
-        run-in-place = command: let
-          current-workspace = "hyprctl activeworkspace | rg \\d+ -o | head --lines=1";
-        in "hyprctl dispatch -- exec [workspace $(${current-workspace}) silent] ${command}";
-
         exit = key: ''
           bind=SUPER, ${key}, exec,   killall wlr-which-key
           bind=SUPER, ${key}, submap, reset

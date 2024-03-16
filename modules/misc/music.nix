@@ -25,6 +25,7 @@
     };
     timers = {
       playlist-updater = {
+        wants = ["playlist-updater.service"];
         timerConfig = {
           Persistent = true;
           OnUnitActiveSec = "1d";

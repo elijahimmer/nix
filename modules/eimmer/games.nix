@@ -16,8 +16,6 @@
   programs = {
     steam = {
       enable = true;
-      extraCompatPackages = true;
-      extest.enable = true;
       gamescopeSession.enable = true;
     };
     gamescope = {

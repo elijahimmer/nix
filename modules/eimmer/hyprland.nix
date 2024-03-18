@@ -219,7 +219,7 @@
           (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
-          (mkAppBind "S" "Steam"     (lib.getExe pkgs.steam))
+          (mkAppBind "S" "Steam"     "steam-bigpicture")
           (mkAppBind "T" "Firefox"   "$BROWSER")
           (mkAppBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
           (mkAppBind "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))

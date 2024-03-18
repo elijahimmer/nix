@@ -19,7 +19,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 8 days";
+      options = "--delete-older-than 8d";
       persistent = true;
     };
     /*

@@ -14,7 +14,7 @@
 
   security.sudo.execWheelOnly = true;
   # needed to get flakes to work
-  environment.systemPackages = with pkgs; [git man-pages man-pages-posix ];
+  environment.systemPackages = with pkgs; [git man-pages man-pages-posix];
   documentation.dev.enable = true;
   hardware.enableAllFirmware = true;
 
@@ -28,6 +28,9 @@
     daemon.enable = true;
     updater.enable = true;
   };
+
+  # make sure to trim ssds
+  services.fstrim.enable = true;
 
   networking = {inherit hostName;};
   system = {inherit stateVersion;};

@@ -8,8 +8,6 @@
     ./nix.nix
   ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   users.mutableUsers = false;
 
   security.sudo.execWheelOnly = true;
@@ -22,15 +20,20 @@
   time.timeZone = "America/Los_Angeles";
   location.provider = "geoclue2";
 
-  # I shouldn't need this, but that's the point of having it
-  #   It's to prevent the senario that you need it.
-  services.clamav = {
-    daemon.enable = true;
-    updater.enable = true;
-  };
+  services = {
+    # I shouldn't need this, but that's the point of having it
+    #   It's to prevent the senario that you need it.
+    clamav = {
+      daemon.enable = true;
+      updater.enable = true;
+    };
 
-  # make sure to trim ssds
-  services.fstrim.enable = true;
+    # make sure to trim ssds
+    fstrim.enable = true;
+
+    # make sure disks are actually monitored
+    smartd.enable = true;
+  };
 
   networking = {inherit hostName;};
   system = {inherit stateVersion;};

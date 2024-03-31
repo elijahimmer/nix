@@ -4,8 +4,8 @@
     # AUTO GENERATED PACKAGE ADDER
     ### INSERT PACKAGES HERE
     bat
-    bc
     btop
+    calc
     conceal
     eza
     fd

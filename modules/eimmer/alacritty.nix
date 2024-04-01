@@ -34,7 +34,6 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
-        shell = "tmux";
         keyboard.bindings = [
           { key = "Return";
             mods = "Control|Shift";

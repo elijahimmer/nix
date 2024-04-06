@@ -218,6 +218,7 @@
           (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
           (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
+          (mkAppBind "Q" "Blueman"   "blueman-manager")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
           (mkAppBind "S" "Steam"     "steam-bigpicture")
           (mkAppBind "T" "Firefox"   "$BROWSER")

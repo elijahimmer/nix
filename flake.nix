@@ -86,6 +86,7 @@
           [
             ./hosts/lv14/configuration.nix
 
+            mods.misc.bluetooth
             inputs.nixos-hardware.nixosModules.common-cpu-intel
             inputs.nixos-hardware.nixosModules.common-gpu-intel
             inputs.nixos-hardware.nixosModules.common-pc-laptop

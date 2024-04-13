@@ -138,7 +138,7 @@
           "SUPER, X, killactive"
           "SUPER CONTROL, G, exec, ${screenshot}"
           "SUPER SHIFT,   G, exec, ${screenshotRegion}"
-          "SUPER SHIFT, code:35, fullscreen"
+          "SUPER SHIFT, code:35, fullscreen, 2"
           "SUPER SHIFT, code:34, fakefullscreen"
           "SUPER SHIFT, F, togglefloating"
           "SUPER SHIFT, P, pin"

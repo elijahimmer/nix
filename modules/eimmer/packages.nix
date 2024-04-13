@@ -3,8 +3,7 @@
     wl-clipboard
     openjdk11
     google-java-format
-    #element-desktop
-    #wluma
+    imv
   ];
 
   home-manager.users.eimmer = {pkgs, ...}: {
@@ -12,9 +11,6 @@
       notify-desktop
     ];
 
-    programs.zathura = {
-      enable = true;
-
-    };
+    programs.zathura.enable = true;
   };
 }

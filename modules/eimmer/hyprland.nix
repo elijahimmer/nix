@@ -216,6 +216,7 @@
         appLauncher = launcher "T" "launcher" [
           (mkAppBind "A" "Alacritty" alacritty)
           (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
+          (mkAppBind "C" "Chromium" (lib.getExe pkgs.ungoogled-chromium))
           (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "Q" "Blueman"   "blueman-manager")

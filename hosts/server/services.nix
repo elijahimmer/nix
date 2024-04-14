@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{inputs, hostName, ...}: {
   imports = with inputs.self.nixosModules; [
     custom.qbittorrent
   ];
@@ -53,5 +53,17 @@
       '';
     };
   };
-  #  systemd.services.tailscaled.script = ''mullvad-exclude tailscaled'';
+
+  services.matrix-conduit = {
+    enable = true;
+    settings.global = {
+      server_name = "Regnum Somnia";
+      address = hostName;
+      allow_registration = false;
+      allow_federation = true;
+      allow_encryption = true;
+
+      trusted_servers = ["matrix.org"];
+    };
+  };
 }

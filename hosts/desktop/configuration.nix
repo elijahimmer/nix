@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = with inputs.self.nixosModules; [
@@ -10,8 +11,18 @@
 
     misc.music
     misc.noisetorch
-    mods.eimmer.games
   ];
+
+  programs = {
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+  };
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
@@ -25,7 +36,6 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-  #programs.gamemode.enable = true;
 
   nix.settings = {
     substituters = ["https://nix-citizen.cachix.org" "https://nix-gaming.cachix.org"];
@@ -33,9 +43,16 @@
   };
 
   environment.systemPackages = with pkgs; [
-    lutris
     mono
     inputs.nix-citizen.packages.${system}.star-citizen
+
+    (
+      pkgs.writeShellScriptBin "steam-bigpicture" ''
+        ${lib.getExe' pkgs.gamemode "gamemoderun"} ${lib.getExe pkgs.gamescope} \
+          -fe --force-grab-cursor --sharpness 0 \
+          -H 1440 -W 3440 -S integer -- ${lib.getExe pkgs.steam} -tenfoot -pipewire-dmabuf
+      ''
+    )
   ];
 
   nix-citizen.starCitizen.enable = true;

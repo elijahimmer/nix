@@ -29,6 +29,11 @@
       #url = "/home/eimmer/src/bar-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # starcitizen
+    nix-citizen.url = "github:LovingMelody/nix-citizen";
+    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
   };
   outputs = {
     self,
@@ -111,6 +116,9 @@
             inputs.nixos-hardware.nixosModules.common-gpu-amd
             inputs.nixos-hardware.nixosModules.common-pc
             inputs.nixos-hardware.nixosModules.common-pc-ssd
+            inputs.nix-citizen.nixosModules.StarCitizen
+            inputs.nix-gaming.nixosModules.platformOptimizations
+            inputs.nix-gaming.nixosModules.pipewireLowLatency
           ]
           ++ commonModules
           ++ headFullModules;

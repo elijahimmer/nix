@@ -10,6 +10,7 @@
 
     misc.music
     misc.noisetorch
+    mods.eimmer.games
   ];
 
   programs.noisetorch.enable = true;

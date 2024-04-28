@@ -86,7 +86,6 @@
           [
             ./hosts/lv14/configuration.nix
 
-            mods.misc.bluetooth
             inputs.nixos-hardware.nixosModules.common-cpu-intel
             inputs.nixos-hardware.nixosModules.common-gpu-intel
             inputs.nixos-hardware.nixosModules.common-pc-laptop
@@ -106,8 +105,6 @@
         modules =
           [
             ./hosts/desktop/configuration.nix
-
-            mods.eimmer.games
 
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
@@ -156,7 +153,7 @@
             nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
             # ... extra configs as above
           }
-        ];
+ No       ];
       };
       */
       # I don't want it to be checked unless I am going to use it because

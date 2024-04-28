@@ -3,10 +3,13 @@
   pkgs,
   ...
 }: {
-  imports = [
+  imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     ./hardware.nix
     ./packages.nix
+
+    misc.music
+    misc.bluetooth
   ];
 
   services.btrfs.autoScrub.enable = true;

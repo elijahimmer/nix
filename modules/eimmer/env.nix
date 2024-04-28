@@ -6,7 +6,7 @@
     gcc
     cargo
     rustfmt
-    zig
+    zig_0_12
     zig-shell-completions
 
     elixir

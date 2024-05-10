@@ -44,7 +44,7 @@
     daemonIOSchedClass = "best-effort";
     daemonCPUSchedPolicy = "batch";
 
-    package = pkgs.nixUnstable;
+    #package = pkgs.nixUnstable;
   };
 
   # TODO: Add auto upgrade again

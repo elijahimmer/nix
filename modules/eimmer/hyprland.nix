@@ -221,7 +221,7 @@
           (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
           (mkAppBind "Q" "Blueman"   "blueman-manager")
           (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
-          (mkAppBind "S" "Steam"     "steam-bigpicture")
+          (mkAppBind "S" "Steam"     "steam")
           (mkAppBind "T" "Firefox"   "$BROWSER")
           (mkAppBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
           (mkAppBind "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))

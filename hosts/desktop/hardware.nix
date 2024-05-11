@@ -18,7 +18,7 @@
       ];
     };
 
-    cpu.intel.updateMicrocode = true;
+    cpu.amd.updateMicrocode = true;
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=5m";

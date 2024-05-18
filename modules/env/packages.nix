@@ -14,7 +14,7 @@
     just
     killall
     magic-wormhole
-    nvimpager
+    #nvimpager
     p7zip
     page
     pciutils

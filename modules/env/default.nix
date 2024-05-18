@@ -23,8 +23,8 @@
 
     variables = rec {
       EDITOR = "nvim";
-      PAGER = lib.getExe pkgs.nvimpager;
-      VISUAL = PAGER;
+      #PAGER = lib.getExe pkgs.nvimpager;
+      #VISUAL = PAGER;
     };
   };
 

@@ -71,8 +71,8 @@
           gaps_in = 0;
           gaps_out = 0;
           border_size = 2;
-          no_cursor_warps = 0;
         };
+        cursor.no_warps = true;
 
         decoration = {
           drop_shadow = false;

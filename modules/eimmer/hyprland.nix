@@ -72,7 +72,10 @@
           gaps_out = 0;
           border_size = 2;
         };
-        cursor.no_warps = true;
+        cursor = {
+          #enable_hyprcursor = false; # issues with valheim not showing cursor
+          no_warps = true;
+        };
 
         decoration = {
           drop_shadow = false;

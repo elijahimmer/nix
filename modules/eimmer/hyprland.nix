@@ -74,7 +74,7 @@
         };
         cursor = {
           #enable_hyprcursor = false; # issues with valheim not showing cursor
-          no_warps = true;
+          #no_warps = true;
         };
 
         decoration = {

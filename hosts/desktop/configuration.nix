@@ -13,6 +13,11 @@
     misc.noisetorch
   ];
 
+  hardware.opentabletdriver= {
+    enable = true;
+    daemon.enable = true;
+  };
+
   programs = {
     steam = {
       enable = true;

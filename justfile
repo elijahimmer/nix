@@ -7,20 +7,21 @@ alias c := nix-check
 alias ti := test-inputs
 
 test:
+    date +"%s" > updated_last
     git add .
     git diff HEAD
-    date +"%s" > updated_last
     sudo nixos-rebuild test --flake .#$HOSTNAME
 
 boot:
+    date +"%s" > updated_last
     git add .
     git diff HEAD
-    date +"%s" > updated_last
     sudo nixos-rebuild boot --flake .#$HOSTNAME
 
 switch: nix-check 
-    git diff HEAD
     date +"%s" > updated_last
+    git add .
+    git diff HEAD
     git commit
     sudo nixos-rebuild switch --flake .#$HOSTNAME
 

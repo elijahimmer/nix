@@ -51,7 +51,7 @@
       settings = {
         # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
         exec = let 
-          bar-rs = lib.getExe inputs.bar-rs.packages.${system}.default;
+          bar-rs = "${lib.getExe inputs.bar-rs.packages.${system}.default} -U ${builtins.readFile ../../updated_last}";
           killall = lib.getExe pkgs.killall;
         in [ "${killall} .bar-rs-wrapped bar-rs; ${bar-rs}" ];
 

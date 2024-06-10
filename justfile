@@ -9,15 +9,18 @@ alias ti := test-inputs
 test:
     git add .
     git diff HEAD
+    date +"%s" > updated_last
     sudo nixos-rebuild test --flake .#$HOSTNAME
 
 boot:
     git add .
     git diff HEAD
+    date +"%s" > updated_last
     sudo nixos-rebuild boot --flake .#$HOSTNAME
 
 switch: nix-check 
     git diff HEAD
+    date +"%s" > updated_last
     git commit
     sudo nixos-rebuild switch --flake .#$HOSTNAME
 

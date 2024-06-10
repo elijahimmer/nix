@@ -10,7 +10,8 @@
 
       Service = {
         Environment = "PATH=${config.home.profileDirectory}/bin";
-        ExecStart = lib.getExe inputs.bar-rs.packages.${system}.default;
+        ExecStart = 
+        "${lib.getExe inputs.bar-rs.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
       };
 
       Install.WantedBy = [ "graphical-session.target" ];

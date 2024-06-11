@@ -35,6 +35,10 @@
         { timeout = 6000;
           command = "'hyprctl \"dispatch dpms off\"'"; }
       ];
+      events = [
+        { event = "before-sleep";
+          command = "swaylock"; }
+      ];
     };
 
     programs.swaylock = {
@@ -62,7 +66,7 @@
         ];
         master = {
           mfact = 0.5;
-          no_gaps_when_only = 1;
+          no_gaps_when_only = true;
           orientation = "right";
         };
         general = {
@@ -72,16 +76,10 @@
           gaps_out = 0;
           border_size = 2;
         };
-        cursor = {
-          #enable_hyprcursor = false; # issues with valheim not showing cursor
-          #no_warps = true;
-        };
-
         decoration = {
           drop_shadow = false;
           blur.enabled = false;
         };
-
         input = {
           touchpad = {
             disable_while_typing = false;

@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   stylix = {
-    image = import ./background.nix;
+    enable = true;
+    image = ./background.png;
     base16Scheme = ./rose-pine-base16.yaml;
     polarity = "dark";
     opacity.terminal = 0.9;

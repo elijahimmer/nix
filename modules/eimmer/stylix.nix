@@ -30,6 +30,7 @@
 
   home-manager.users.eimmer = {config, ...}: {
     stylix.targets.vim.enable = false;
+    stylix.targets.gtk.enable = false;
     gtk = lib.mkForce {
       enable = true;
       gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

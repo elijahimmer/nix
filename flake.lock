@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718043805,
-        "narHash": "sha256-7oMT/TfiqYxxOjsI7OAQD4VmYGio9p9NyziSppFNI2Y=",
+        "lastModified": 1718135429,
+        "narHash": "sha256-EhRvyyAvrNxYhNWHE5kLjPqU/3CUccRkyUZVPeVF/yY=",
         "owner": "elijahimmer",
         "repo": "bar-rs",
-        "rev": "0a7ccda17649fce35db77903dbf730c219b4d31a",
+        "rev": "06268a948d18952cf01ada4e6d0dc9041c6e1a2e",
         "type": "github"
       },
       "original": {

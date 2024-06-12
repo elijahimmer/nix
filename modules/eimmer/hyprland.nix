@@ -56,10 +56,9 @@
         # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
         exec = let 
           bar-rs = "${lib.getExe inputs.bar-rs.packages.${system}.default} -U ${builtins.readFile ../../updated_last}";
-          killall = lib.getExe pkgs.killall;
-        in [ "${killall} .bar-rs-wrapped bar-rs; ${bar-rs}" ];
+        in [ "${lib.getExe pkgs.killall} .bar-rs-wrapped bar-rs; ${bar-rs}" ];
 
-        exec-once = [ "swaylock" ];
+        exec-once = [ (lib.getExe pkgs.swaylock) ];
 
         monitor = [
           "eDP-1, 1920x1080,0x0,1"
@@ -94,14 +93,20 @@
           key_press_enables_dpms = true;
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
-          # enable_swallow = true;
-          swallow_regex = "Alacritty";
+          enable_swallow = true;
+          swallow_regex = "^(Alacritty)$";
 
           focus_on_activate = true;
           vfr = true;
           vrr = 2;
           disable_autoreload = true;
         };
+
+        windowrule = [
+          "float, title:^(Picture-in-Picture)$"
+          "pin,   title:^(Picture-in-Picture)$"
+        ];
+
         bindm = [
           "SUPER, mouse:272, movewindow"
           "SUPER, mouse:273, resizewindow"
@@ -212,21 +217,19 @@
           '' + (exit key);
         };
 
-        mkAppBind = key: name: cmd: (mkCmdBindExit key name cmd);
-        alacritty = lib.getExe pkgs.alacritty;
         appLauncher = launcher "T" "launcher" [
-          (mkAppBind "A" "Alacritty" alacritty)
-          (mkAppBind "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
-          (mkAppBind "C" "Chromium"  (lib.getExe pkgs.ungoogled-chromium))
-          (mkAppBind "D" "Discord"   (lib.getExe pkgs.vesktop))
-          (mkAppBind "M" "B-Top"     "${alacritty} --command ${lib.getExe pkgs.btop}")
-          (mkAppBind "Q" "Blueman"   "blueman-manager")
-          (mkAppBind "R" "Signal"    (lib.getExe pkgs.signal-desktop))
-          (mkAppBind "S" "Steam"     "steam")
-          (mkAppBind "T" "Firefox"   "$BROWSER")
-          (mkAppBind "V" "Volume"    (lib.getExe pkgs.pavucontrol))
-          (mkAppBind "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
-          (mkAppBind "Z" "Zotero"    (lib.getExe pkgs.zotero))
+          (mkCmdBindExit "A" "Alacritty" (lib.getExe pkgs.alacritty))
+          (mkCmdBindExit "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
+          (mkCmdBindExit "C" "Chromium"  (lib.getExe pkgs.ungoogled-chromium))
+          (mkCmdBindExit "D" "Discord"   (lib.getExe pkgs.vesktop))
+          (mkCmdBindExit "M" "B-Top"     "${lib.getExe pkgs.alacritty} --command ${lib.getExe pkgs.btop}")
+          (mkCmdBindExit "Q" "Blueman"   "blueman-manager")
+          (mkCmdBindExit "R" "Signal"    (lib.getExe pkgs.signal-desktop))
+          (mkCmdBindExit "S" "Steam"     "steam")
+          (mkCmdBindExit "T" "Firefox"   "$BROWSER")
+          (mkCmdBindExit "V" "Volume"    (lib.getExe pkgs.pavucontrol))
+          (mkCmdBindExit "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkCmdBindExit "Z" "Zotero"    (lib.getExe pkgs.zotero))
         ];
 
         powerCenter = launcher "DELETE" "power" [
@@ -253,6 +256,7 @@
         appLauncher
         + powerCenter
         + musicCenter;
+
     };
   };
 }

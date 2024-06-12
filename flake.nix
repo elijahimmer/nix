@@ -8,7 +8,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    #nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -91,10 +91,10 @@
           [
             ./hosts/lv14/configuration.nix
 
-            #inputs.nixos-hardware.nixosModules.common-cpu-intel
+            inputs.nixos-hardware.nixosModules.common-cpu-intel
             #inputs.nixos-hardware.nixosModules.common-gpu-intel
-            #inputs.nixos-hardware.nixosModules.common-pc-laptop
-            #inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+            inputs.nixos-hardware.nixosModules.common-pc-laptop
+            inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
           ]
           ++ commonModules
           ++ headFullModules;
@@ -111,14 +111,11 @@
           [
             ./hosts/desktop/configuration.nix
 
-            #inputs.nixos-hardware.nixosModules.common-cpu-amd
-            #inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-            #inputs.nixos-hardware.nixosModules.common-gpu-amd
-            #inputs.nixos-hardware.nixosModules.common-pc
-            #inputs.nixos-hardware.nixosModules.common-pc-ssd
-            inputs.nix-citizen.nixosModules.StarCitizen
-            inputs.nix-gaming.nixosModules.platformOptimizations
-            inputs.nix-gaming.nixosModules.pipewireLowLatency
+            inputs.nixos-hardware.nixosModules.common-cpu-amd
+            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.nixos-hardware.nixosModules.common-pc
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
           ]
           ++ commonModules
           ++ headFullModules;
@@ -135,11 +132,11 @@
           [
             ./hosts/server/configuration.nix
 
-            #inputs.nixos-hardware.nixosModules.common-cpu-intel
-            #inputs.nixos-hardware.nixosModules.common-gpu-amd
-            #inputs.nixos-hardware.nixosModules.common-pc
-            #inputs.nixos-hardware.nixosModules.common-pc-ssd
-            #inputs.nixos-hardware.nixosModules.common-pc-hdd
+            inputs.nixos-hardware.nixosModules.common-cpu-intel
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.nixos-hardware.nixosModules.common-pc
+            inputs.nixos-hardware.nixosModules.common-pc-ssd
+            inputs.nixos-hardware.nixosModules.common-pc-hdd
           ]
           ++ commonModules;
         specialArgs = {

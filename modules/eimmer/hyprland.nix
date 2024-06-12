@@ -27,19 +27,40 @@
   }:{
     home.packages = with pkgs; [seatd xdg-utils];
 
-    services.swayidle = {
+    services.hypridle = {
       enable = true;
-      timeouts = [
-        { timeout = 3000;
-          command = "swaylock"; }
-        { timeout = 6000;
-          command = "'hyprctl \"dispatch dpms off\"'"; }
-      ];
-      events = [
-        { event = "before-sleep";
-          command = "swaylock"; }
-      ];
+      settings = {
+        general = {
+          lock_cmd = "pidof swaylock || swaylock";
+          before_sleep_cmd = "loginctl lock-session";
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+        };
+        listener = [
+          { timeout = 300; # 5 minutes
+            on-timeout = "loginctl lock-session"; }
+          { timeout = 330; # 5.5 minutes
+            on-timeout = "hyprctl dispatch dpms off"; 
+            on-resume  = "hyprctl dispatch dpms on" ; }
+          { timeout = 1800; # 30 minutes
+            on-timeout = "systemctl suspend"; }
+        ];
+      };
     };
+
+    #programs.hyprlock = {
+    #  enable = true;
+    #  settings = {
+    #    general = {
+    #      disable_loading_bar = true;
+    #      hide_cursor = true;
+    #      grace = 5; # seconds
+    #      ignore_empty_input = true;
+    #    };
+    #    background = {
+    #      path = mods.theme.background;
+    #    };
+    #  };
+    #};
 
     programs.swaylock = {
       enable = true;

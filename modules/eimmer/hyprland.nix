@@ -36,31 +36,12 @@
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
         listener = [
-          { timeout = 300; # 5 minutes
-            on-timeout = "loginctl lock-session"; }
-          { timeout = 330; # 5.5 minutes
-            on-timeout = "hyprctl dispatch dpms off"; 
-            on-resume  = "hyprctl dispatch dpms on" ; }
-          { timeout = 1800; # 30 minutes
-            on-timeout = "systemctl suspend"; }
+          { timeout = 300;  on-timeout = "loginctl lock-session"; }
+          { timeout = 330;  on-timeout = "hyprctl dispatch dpms off"; on-resume = "hyprctl dispatch dpms on"; }
+          { timeout = 1800; on-timeout = "systemctl suspend"; }
         ];
       };
     };
-
-    #programs.hyprlock = {
-    #  enable = true;
-    #  settings = {
-    #    general = {
-    #      disable_loading_bar = true;
-    #      hide_cursor = true;
-    #      grace = 5; # seconds
-    #      ignore_empty_input = true;
-    #    };
-    #    background = {
-    #      path = mods.theme.background;
-    #    };
-    #  };
-    #};
 
     programs.swaylock = {
       enable = true;
@@ -72,7 +53,10 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        variables = ["--all"];
+      };
       settings = {
         # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
         exec = let 
@@ -259,14 +243,13 @@
         powerCenter = launcher "DELETE" "power" [
           (mkCmdBindExit "A" "Poweroff"  "systemctl poweroff")
           (mkCmdBindExit "H" "Hibernate" "systemctl hibernate")
-          (mkCmdBindExit "L" "Lock"      (lib.getExe pkgs.swaylock))
+          (mkCmdBindExit "L" "Lock"      "loginctl lock-session")
           (mkCmdBindExit "Q" "Exit"      "hyprctl dispatch exit")
           (mkCmdBindExit "S" "Suspend"   "systemctl suspend-then-hibernate")
         ];
 
-        notify-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${cmd} | head --lines 2 -)" -u low'';
         mpc = lib.getExe pkgs.mpc-cli;
-        mpc-cmd = cmd: notify-cmd "${mpc} ${cmd}";
+        mpc-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$("${mpc} ${cmd}" | head --lines 2 -)" -u low'';
         musicCenter = launcher "M" "music" [
           (mkCmdBindExit "A" "Play"         (mpc-cmd "play"))
           (mkCmdBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))

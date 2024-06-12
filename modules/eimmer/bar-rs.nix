@@ -5,7 +5,6 @@
       Unit = {
         Description = "bar-rs Wayland GTK4 bar";
         PartOf = [ "graphical-session.target" ];
-        BindsTo = [ "pipewire.service" ];
       };
 
       Service = {

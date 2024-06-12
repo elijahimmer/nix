@@ -249,7 +249,7 @@
         ];
 
         mpc = lib.getExe pkgs.mpc-cli;
-        mpc-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$("${mpc} ${cmd}" | head --lines 2 -)" -u low'';
+        mpc-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${mpc} ${cmd} | head --lines 2 -)" -u low'';
         musicCenter = launcher "M" "music" [
           (mkCmdBindExit "A" "Play"         (mpc-cmd "play"))
           (mkCmdBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))

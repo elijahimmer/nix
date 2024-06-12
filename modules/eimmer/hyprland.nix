@@ -105,6 +105,8 @@
         windowrule = [
           "float, title:^(Picture-in-Picture)$"
           "pin,   title:^(Picture-in-Picture)$"
+          "move onscreen 100% 0, title:^(Picture-in-Picture)$"
+          "suppressevent fullscreen, ^(Signal)$"
         ];
 
         bindm = [
@@ -147,6 +149,7 @@
           "SUPER SHIFT, code:35, fullscreen"
           "SUPER SHIFT, code:34, fakefullscreen"
           "SUPER SHIFT, F, togglefloating"
+          "SUPER SHIFT, F, pin"
           "SUPER SHIFT, P, pin"
 
           "SUPER, 1, workspace, 1"

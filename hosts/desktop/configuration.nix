@@ -12,7 +12,6 @@
     misc.noisetorch
     games.default
     games.starcitizen
-    eimmer.bar-rs
   ];
 
   hardware.opentabletdriver = {

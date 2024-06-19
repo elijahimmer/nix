@@ -13,7 +13,6 @@
     (if headFull
     then [
       ./alacritty.nix
-#      ./bar-rs.nix
       ./displayManager.nix
       ./firefox
       ./hyprland.nix

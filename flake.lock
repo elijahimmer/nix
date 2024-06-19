@@ -23,7 +23,7 @@
         "type": "github"
       }
     },
-    "bar-rs": {
+    "bar-wlrs": {
       "inputs": {
         "flake-utils": "flake-utils",
         "naersk": "naersk",
@@ -32,16 +32,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1718168979,
-        "narHash": "sha256-jE8U0IcLImDY5rN3NXRBeHm39SAtc7BGZZPjAo9gQMI=",
+        "lastModified": 1718780714,
+        "narHash": "sha256-FnZG6DNdHqJ7SkSLEC8f7a2htu8Wbm5shcPdR3FwMUk=",
         "owner": "elijahimmer",
-        "repo": "bar-rs",
-        "rev": "2d5d3d858cace230bb4e2d4b13b2162ae645894a",
+        "repo": "bar-wlrs",
+        "rev": "b5e004a7bc61d4546406bda1e472c4a6ddb0f5ff",
         "type": "github"
       },
       "original": {
         "owner": "elijahimmer",
-        "repo": "bar-rs",
+        "repo": "bar-wlrs",
         "type": "github"
       }
     },
@@ -348,11 +348,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718526747,
-        "narHash": "sha256-sKrD/utGvmtQALvuDj4j0CT3AJXP1idOAq2p+27TpeE=",
+        "lastModified": 1718744742,
+        "narHash": "sha256-kOG10gJ3zLZNiom9NXJM4/mA4/lsmR3rp74YVw+iros=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0a7ffb28e5df5844d0e8039c9833d7075cdee792",
+        "rev": "0dd1c1495af6e6424695670343236f0053bf4947",
         "type": "github"
       },
       "original": {
@@ -385,16 +385,16 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "bar-rs",
+          "bar-wlrs",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1713520724,
-        "narHash": "sha256-CO8MmVDmqZX2FovL75pu5BvwhW+Vugc7Q6ze7Hj8heI=",
+        "lastModified": 1718727675,
+        "narHash": "sha256-uFsCwWYI2pUpt0awahSBorDUrUfBhaAiyz+BPTS2MHk=",
         "owner": "nmattia",
         "repo": "naersk",
-        "rev": "c5037590290c6c7dae2e42e7da1e247e54ed2d49",
+        "rev": "941ce6dc38762a7cfb90b5add223d584feed299b",
         "type": "github"
       },
       "original": {
@@ -545,7 +545,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "bar-rs": "bar-rs",
+        "bar-wlrs": "bar-wlrs",
         "flake-utils": "flake-utils_2",
         "flake-utils-plus": "flake-utils-plus",
         "home-manager": "home-manager_2",

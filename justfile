@@ -20,6 +20,7 @@ switch: nix-check
     git add .
     git diff HEAD
     git commit
+    git push
     sudo nixos-rebuild switch --flake .#$HOSTNAME
 
 update:

@@ -9,7 +9,6 @@
     enableAllFirmware = true;
     opengl = {
       enable = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
         vulkan-validation-layers
         vulkan-extension-layer

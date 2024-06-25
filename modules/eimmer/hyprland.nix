@@ -91,6 +91,7 @@
           };
           kb_options = "caps:escape";
           follow_mouse = 2;
+          scroll_factor = 0.5;
         };
 
         misc = {

@@ -21,7 +21,7 @@
       rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
     };
 
-    variables = rec {
+    variables = {
       EDITOR = "nvim";
       #PAGER = lib.getExe pkgs.nvimpager;
       #VISUAL = PAGER;

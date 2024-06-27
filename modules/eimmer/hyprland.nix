@@ -19,6 +19,11 @@
     script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
   };
 
+  systemd.user.services.noisetorch = {
+    wantedBy = ["hyprland-session.target"];
+    script = "${lib.getExe pkgs.noisetorch} -i";
+  };
+
   home-manager.users.eimmer = {
     pkgs,
     lib,

@@ -9,7 +9,6 @@
     ./packages.nix
 
     misc.music
-    misc.noisetorch
     games.default
     games.starcitizen
   ];

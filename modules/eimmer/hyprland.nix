@@ -16,7 +16,7 @@
 
   systemd.user.services.swaybg = {
     wantedBy = ["hyprland-session.target"];
-    script = "${lib.getExe pkgs.swaybg} --image ${toString mods.theme.background} --mode fit --color '#191724'";
+    script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
   };
 
   home-manager.users.eimmer = {

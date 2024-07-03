@@ -46,11 +46,14 @@
   services.openssh.hostKeys =
     [{ inherit (config.age.secrets.ssh) path; type = "ed25519"; }];
 
+  users.groups.eimmer-home = {};
   users.users.eimmer = {
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
     openssh.authorizedKeys.keyFiles = mods.ssot.sshKeyfiles;
+    group = "eimmer-home";
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
+    homeMode = "750";
   };
 }

@@ -75,7 +75,6 @@
 
         mods.env.coding
         mods.misc.tailscale
-        mods.misc.syncthing
       ];
       headFullModules = with mods; [
         inputs.stylix.nixosModules.stylix
@@ -89,6 +88,7 @@
           [
             ./hosts/lv14/configuration.nix
 
+            mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-intel
             #inputs.nixos-hardware.nixosModules.common-gpu-intel
             inputs.nixos-hardware.nixosModules.common-pc-laptop
@@ -109,6 +109,7 @@
           [
             ./hosts/desktop/configuration.nix
 
+            mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
             #inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -130,6 +131,7 @@
           [
             ./hosts/server/configuration.nix
 
+            mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-intel
             inputs.nixos-hardware.nixosModules.common-gpu-amd
             inputs.nixos-hardware.nixosModules.common-pc

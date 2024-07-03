@@ -76,7 +76,6 @@
         mods.env.coding
         mods.misc.tailscale
         mods.misc.syncthing
-        mods.misc.mullvad
       ];
       headFullModules = with mods; [
         inputs.stylix.nixosModules.stylix

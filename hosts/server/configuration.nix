@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  mods,
   ...
 }: {
   imports = with inputs.self.nixosModules; [
@@ -12,6 +13,18 @@
     misc.ssh-host
   ];
 
+
+  age.secrets.nextcloudAdminPassword = inputs.self + /secrets/nextcloud-admin-password.age;
+
+  services.nextcloud = {
+    enable = true;
+
+    config = {
+      adminpassFile = config.age.secrets.nextcloudAdminPassword.path;
+    };
+
+    database.createLocally = true;
+  };
 
   services.btrfs.autoScrub.enable = true;
 

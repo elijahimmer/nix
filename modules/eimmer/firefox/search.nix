@@ -39,9 +39,9 @@ _: {
                 definedAliases = ["@noogle"];
               };
               "Home Manager Options" = let 
-                base_url = "https://mipmip.github.io/home-manager-option-search"; 
+                base_url = "https://home-manager-options.extranix.com/"; 
               in engine {
-                search = "${base_url}/?query={searchTerms}";
+                search = "${base_url}/?query={searchTerms}&release=master";
                 icon = ./icons/home_manager.png;
                 definedAliases = ["@hm" "@home-manager"];
               };

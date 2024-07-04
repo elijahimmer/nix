@@ -14,6 +14,8 @@
 
   services.btrfs.autoScrub.enable = true;
 
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+
   security.polkit.enable = true;
   # Let video group access backlight
   #services.udev.extraRules = ''

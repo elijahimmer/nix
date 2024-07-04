@@ -13,19 +13,12 @@
     games.starcitizen
   ];
 
-  #fileSystems."/mnt/Documents" = {
-  #  device = "100.80.87.153:/export/Documents";
-  #  fsType = "nfs";
-  #  options = [ "x-systemd.idle-timeout=600" ];
-  #};
-
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = true;
   };
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
-
 
   security.polkit.enable = true;
   # Let video group access backlight

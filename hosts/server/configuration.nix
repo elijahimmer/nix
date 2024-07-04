@@ -13,7 +13,6 @@
     misc.ssh-host
   ];
 
-  networking.firewall.checkReversePath = "loose";
   services.btrfs.autoScrub.enable = true;
 
   security = {

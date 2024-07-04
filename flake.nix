@@ -171,6 +171,6 @@
       */
     };
 
-    images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
+    #images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
   };
 }

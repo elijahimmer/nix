@@ -1,4 +1,4 @@
-{hostName,config,inputs,...}: 
+{hostName,...}: 
   let
     devices = {
       desktop = "H4RMB5K-XW2FISQ-MYUHCSD-WTEXEII-IHBX7AB-NH4I32H-TWJUZKR-YTRBLAS";
@@ -7,8 +7,6 @@
     };
   in
 { 
-  #age.secrets.syncthingUsername = inputs.self + /secrets/syncthing-username.age;
-  #age.secrets.syncthingPassword = inputs.self + /secrets/syncthing-password.age;
   services.syncthing = {
     enable = true;
     user = "eimmer";
@@ -18,11 +16,6 @@
     openDefaultPorts = true;
     overrideFolders = true;
     overrideDevices = true;
-
-    #services.syncthing.settings.gui = {
-    #    user = config.age;
-    #    password = config.age.secrets.syncthing;
-    #};
 
     settings = {
       id = devices.${hostName};
@@ -46,7 +39,6 @@
         server = {
           id = devices.server;
           addresses = ["tcp://server"];
-          remoteGUIPort = 8384;
         };
       };
       options.urAccepted = -1;

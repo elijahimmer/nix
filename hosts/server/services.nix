@@ -3,55 +3,19 @@
     custom.qbittorrent
   ];
 
-  services = {
-    jellyfin = {
+  services = let 
+    enable = {
       enable = true;
       openFirewall = true;
-    };
-    jellyseerr = {
-      enable = true;
-      openFirewall = true;
-    };
-    sonarr = {
-      enable = true;
-      openFirewall = true;
-    };
-    prowlarr = {
-      enable = true;
-      openFirewall = true;
-    };
-    qbittorrent = {
-      enable = true;
-      openFirewall = true;
-      port = 8181;
-    };
-    radarr = {
-      enable = true;
-      openFirewall = true;
-    };
-    readarr = {
-      enable = true;
-      openFirewall = true;
-    };
+    }; 
+  in {
+    jellyfin = enable;
+    prowlarr = enable;
+    qbittorrent = enable // {port = 8181;};
+    sonarr = enable;
+    radarr = enable;
+    readarr = enable;
 
-    samba = {
-      enable = true;
-      enableWinbindd = true;
-      openFirewall = true;
-      shares = {
-        public = {
-          path = "/disks/";
-          "read only" = true;
-          browseable = "yes";
-          "guest ok" = "yes";
-          comment = "Public samba share.";
-        };
-      };
-      extraConfig = ''
-        guest account = nobody
-        map to guest = bad user
-      '';
-    };
+    ombi = enable // {port = 5050;};
   };
-  #  systemd.services.tailscaled.script = ''mullvad-exclude tailscaled'';
 }

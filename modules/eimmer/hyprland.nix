@@ -242,7 +242,7 @@
           (mkCmdBindExit "S" "Steam"     "steam")
           (mkCmdBindExit "T" "Firefox"   "$BROWSER")
           (mkCmdBindExit "V" "Volume"    (lib.getExe pkgs.pavucontrol))
-          (mkCmdBindExit "W" "Nautilus"  (lib.getExe pkgs.gnome.nautilus))
+          (mkCmdBindExit "W" "Nautilus"  (lib.getExe pkgs.nautilus))
           (mkCmdBindExit "Z" "Zotero"    (lib.getExe pkgs.zotero))
         ];
 

@@ -13,6 +13,12 @@
     games.starcitizen
   ];
 
+  #fileSystems."/mnt/Documents" = {
+  #  device = "100.80.87.153:/export/Documents";
+  #  fsType = "nfs";
+  #  options = [ "x-systemd.idle-timeout=600" ];
+  #};
+
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = true;
@@ -23,9 +29,9 @@
 
   security.polkit.enable = true;
   # Let video group access backlight
-  services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.toybox}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.toybox}/bin/chmod g+w $sys$devpath/brightness"
-  '';
+  #services.udev.extraRules = ''
+  #  ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.toybox}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.toybox}/bin/chmod g+w $sys$devpath/brightness"
+  #'';
 
   # Actually takes code dumps for debugging.
   systemd.coredump.enable = true;

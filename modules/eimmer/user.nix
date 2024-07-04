@@ -51,9 +51,7 @@
     isNormalUser = true;
     hashedPasswordFile = config.age.secrets.eimmer-passwd.path;
     openssh.authorizedKeys.keyFiles = mods.ssot.sshKeyfiles;
-    group = "eimmer-home";
     extraGroups = ["wheel" "video" "networkmanager"];
     useDefaultShell = true;
-    homeMode = "750";
   };
 }

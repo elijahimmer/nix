@@ -1,21 +1,32 @@
-{hostName,...}: 
+{hostName,config,inputs,...}: 
   let
     devices = {
-      desktop = "R4GYGQ3-LSWYBOA-5FZAEOM-CLIB75Y-ZNGRR47-IBB3XYG-TQYETOE-N4I3VQ5";
-      lv14 = "3LGCXEU-2UGN6FO-U5DEGRU-6Q3EFQH-OW2TDSI-WYQCTG7-PX77TZ2-BZ362QP";
-      server = "EW5UR76-JRBXC56-RYIPW3Z-2O2UZ6V-M2VF2GT-UT4VYVX-DHJWO2W-WBEP2QW";
+      desktop = "H4RMB5K-XW2FISQ-MYUHCSD-WTEXEII-IHBX7AB-NH4I32H-TWJUZKR-YTRBLAS";
+      lv14 = "7TYNNXG-TSZHVWS-KEKAVKS-NZMPOOF-2RSX7AP-U4PIENU-4WKCWO6-5GPHZAA";
+      server = "PVNDSAB-HQOHR66-TC33BUM-SKJKQUB-BQF72YE-SYY5IW2-OHBCY4C-DP5X4Q4";
     };
   in
 { 
+  #age.secrets.syncthingUsername = inputs.self + /secrets/syncthing-username.age;
+  #age.secrets.syncthingPassword = inputs.self + /secrets/syncthing-password.age;
   services.syncthing = {
-    group = "eimmer-home";
     enable = true;
+    user = "eimmer";
+    dataDir = "/home/eimmer/Documents";    # Default folder for new synced folders
+    configDir = "/home/eimmer/.config/syncthing";
+
     openDefaultPorts = true;
     overrideFolders = true;
     overrideDevices = true;
 
+    #services.syncthing.settings.gui = {
+    #    user = config.age;
+    #    password = config.age.secrets.syncthing;
+    #};
+
     settings = {
       id = devices.${hostName};
+
       folders = {
         "Documents" = {
           id = "Documents";
@@ -35,6 +46,7 @@
         server = {
           id = devices.server;
           addresses = ["tcp://server"];
+          remoteGUIPort = 8384;
         };
       };
       options.urAccepted = -1;

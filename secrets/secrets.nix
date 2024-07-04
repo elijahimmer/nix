@@ -9,6 +9,4 @@ in {
   "server-ssh.age".publicKeys = server;
   
   "eimmer-passwd.age".publicKeys = themAll;
-
-  "nextcloud-admin-password.age".publicKeys = server;
 }

@@ -4,7 +4,6 @@ _: {
     # trace: warning: Strict reverse path filtering breaks Tailscale exit node
     # use and some subnet routing setups. Consider setting
     # `networking.firewall.checkReversePath` = 'loose'
-    checkReversePath = "loose";
     trustedInterfaces = ["tailscale0"];
   };
   services.tailscale = {

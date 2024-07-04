@@ -7,18 +7,23 @@
     };
   in
 { 
+  networking.firewall.allowedTCPPorts = [8384];
   services.syncthing = {
     group = "eimmer-home";
     enable = true;
     openDefaultPorts = true;
     overrideFolders = true;
     overrideDevices = true;
+
+    guiAddress = "${hostName}:8384"; # should only accept on tailscale
+
     settings = {
       id = devices.${hostName};
       folders = {
-        "/home/eimmer/Documents" = {
+        "Documents" = {
           id = "Documents";
-          devices = ["desktop" "lv14"];
+          path = "/home/eimmer/Documents";
+          devices = ["desktop" "lv14" "server"];
         };
       };
       devices = {

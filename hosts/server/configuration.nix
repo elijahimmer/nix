@@ -12,6 +12,7 @@
     misc.ssh-host
   ];
 
+
   services.btrfs.autoScrub.enable = true;
 
   security = {

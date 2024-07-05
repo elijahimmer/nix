@@ -1,21 +1,11 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
-  command = "Hyprland";
-in {
+_: {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        inherit command;
+        command = "Hyprland";
         user = "eimmer";
       };
-     # initial_session = {
-     #   inherit command;
-     #   user = "eimmer";
-     # };
     };
   };
 }

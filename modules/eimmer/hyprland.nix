@@ -3,6 +3,7 @@
   pkgs,
   mods,
   system,
+  inputs,
   ...
 }: {
   programs.dconf.enable = true;
@@ -14,15 +15,22 @@
   # needed to get swaylock to actually unlock
   security.pam.services.swaylock = {};
 
-  systemd.user.services.swaybg = {
+  systemd.user.services = {
+    swaybg = {
     wantedBy = ["hyprland-session.target"];
     script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
   };
 
-  systemd.user.services.noisetorch = {
+  noisetorch = {
     wantedBy = ["hyprland-session.target"];
     script = "${lib.getExe pkgs.noisetorch} -i";
   };
+
+  wlrs-bar = {
+    wantedBy = ["hyprland-session.target"];
+    script = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
+  };
+};
 
   home-manager.users.eimmer = {
     pkgs,
@@ -63,11 +71,6 @@
         variables = ["--all"];
       };
       settings = {
-        # TODO: Get bar-rs to be able to interact with pipewire while being a systemd service
-        exec = let 
-          wlrs-bar = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
-        in [ "${lib.getExe pkgs.killall} wlrs-bar wlrs-bar; ${wlrs-bar}" ];
-
         exec-once = [ (lib.getExe pkgs.swaylock) ];
 
         monitor = [

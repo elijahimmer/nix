@@ -125,11 +125,11 @@
           updateFromScratch = false;
         };
       };
-      server = inputs.nixpkgs.lib.nixosSystem rec {
+      gaea = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules =
           [
-            ./hosts/server/configuration.nix
+            ./hosts/gaea/configuration.nix
 
             mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -141,7 +141,7 @@
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = false;
-          hostName = "server";
+          hostName = "gaea";
           updateFromScratch = true;
         };
       };

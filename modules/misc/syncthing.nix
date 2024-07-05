@@ -3,7 +3,7 @@
     devices = {
       desktop = "H4RMB5K-XW2FISQ-MYUHCSD-WTEXEII-IHBX7AB-NH4I32H-TWJUZKR-YTRBLAS";
       lv14 = "7TYNNXG-TSZHVWS-KEKAVKS-NZMPOOF-2RSX7AP-U4PIENU-4WKCWO6-5GPHZAA";
-      server = "PVNDSAB-HQOHR66-TC33BUM-SKJKQUB-BQF72YE-SYY5IW2-OHBCY4C-DP5X4Q4";
+      gaea = "PVNDSAB-HQOHR66-TC33BUM-SKJKQUB-BQF72YE-SYY5IW2-OHBCY4C-DP5X4Q4";
     };
   in
 { 
@@ -24,7 +24,7 @@
         "Documents" = {
           id = "Documents";
           path = "/home/eimmer/Documents";
-          devices = ["desktop" "lv14" "server"];
+          devices = ["desktop" "lv14" "gaea"];
         };
       };
       devices = {
@@ -36,9 +36,9 @@
           id = devices.lv14;
           addresses = ["tcp://lv14"];
         };
-        server = {
-          id = devices.server;
-          addresses = ["tcp://server"];
+        gaea = {
+          id = devices.gaea;
+          addresses = ["tcp://gaea"];
         };
       };
       options.urAccepted = -1;

@@ -1,5 +1,5 @@
 [
-  ./ssh/desktop.pub
-  ./ssh/lv14.pub
+  ./ssh/helios.pub
   ./ssh/gaea.pub
+  ./ssh/selene.pub
 ]

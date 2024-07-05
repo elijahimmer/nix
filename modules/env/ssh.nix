@@ -1,7 +1,7 @@
 {mods, ...}: {
   services.openssh.knownHosts = with mods.ssot.hosts; {
-    desktop.publicKeyFile = desktop.publicSshKeyFile;
-    lv14.publicKeyFile = lv14.publicSshKeyFile;
+    helios.publicKeyFile = helios.publicSshKeyFile;
     gaea.publicKeyFile = gaea.publicSshKeyFile;
+    selene.publicKeyFile = selene.publicSshKeyFile;
   };
 }

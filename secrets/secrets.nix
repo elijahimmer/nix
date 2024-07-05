@@ -1,12 +1,12 @@
 let
-  desktop = [(builtins.readFile ../modules/ssot/ssh/desktop.pub)];
-  gaea = [(builtins.readFile ../modules/ssot/ssh/server.pub)];
-  lv14 = [(builtins.readFile ../modules/ssot/ssh/lv14.pub)];
-  themAll = desktop ++ gaea ++ lv14;
+  helios = [(builtins.readFile ../modules/ssot/ssh/helios.pub)];
+  gaea = [(builtins.readFile ../modules/ssot/ssh/gaea.pub)];
+  selene = [(builtins.readFile ../modules/ssot/ssh/selene.pub)];
+  themAll = helios ++ gaea ++ selene;
 in {
-  "lv14-ssh.age".publicKeys = lv14;
-  "desktop-ssh.age".publicKeys = desktop;
+  "selene-ssh.age".publicKeys = selene;
   "gaea-ssh.age".publicKeys = gaea;
+  "helios-ssh.age".publicKeys = helios;
   
   "eimmer-passwd.age".publicKeys = themAll;
 }

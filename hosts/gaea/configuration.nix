@@ -1,41 +1,33 @@
 {
-  config,
-  pkgs,
   inputs,
-  mods,
+  pkgs,
   ...
 }: {
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
+    ./hardware.nix
     ./packages.nix
-    ./services.nix
 
-    misc.ssh-host
+    misc.music
+    games.default
+    games.starcitizen
   ];
 
-  services.btrfs.autoScrub.enable = true;
-
-  security = {
-    tpm2.enable = true;
-    protectKernelImage = true;
-    polkit.enable = true;
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = true;
   };
 
-  hardware = {
-    enableAllFirmware = true;
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        vulkan-validation-layers
-        vulkan-extension-layer
-        vulkan-loader
-        vulkan-tools
-      ];
-    };
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
-    cpu.intel.updateMicrocode = true;
-  };
+  security.polkit.enable = true;
+  # Let video group access backlight
+  #services.udev.extraRules = ''
+  #  ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.toybox}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.toybox}/bin/chmod g+w $sys$devpath/brightness"
+  #'';
+
+  # Actually takes code dumps for debugging.
+  systemd.coredump.enable = true;
 
   boot = {
     tmp.useTmpfs = true;
@@ -43,8 +35,10 @@
       grub = {
         memtest86.enable = true;
         enableCryptodisk = true;
+        timeoutStyle = "hidden";
         efiSupport = true;
         device = "nodev";
+        extraConfig = "GRUB_TIMEOUT=0";
       };
       efi = {
         efiSysMountPoint = "/boot/efi";

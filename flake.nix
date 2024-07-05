@@ -82,11 +82,11 @@
         misc.pipewire
       ];
     in {
-      lv14 = inputs.nixpkgs.lib.nixosSystem rec {
+      selene = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules =
           [
-            ./hosts/lv14/configuration.nix
+            ./hosts/selene/configuration.nix
 
             mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -99,15 +99,15 @@
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = true;
-          hostName = "lv14";
+          hostName = "selene";
           updateFromScratch = false;
         };
       };
-      desktop = inputs.nixpkgs.lib.nixosSystem rec {
+      gaea = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules =
           [
-            ./hosts/desktop/configuration.nix
+            ./hosts/gaea/configuration.nix
 
             mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -121,15 +121,15 @@
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = true;
-          hostName = "desktop";
+          hostName = "gaea";
           updateFromScratch = false;
         };
       };
-      gaea = inputs.nixpkgs.lib.nixosSystem rec {
+      helios = inputs.nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         modules =
           [
-            ./hosts/gaea/configuration.nix
+            ./hosts/helios/configuration.nix
 
             mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -141,7 +141,7 @@
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
           headFull = false;
-          hostName = "gaea";
+          hostName = "helios";
           updateFromScratch = true;
         };
       };

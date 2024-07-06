@@ -6,11 +6,14 @@
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     ./hardware.nix
-    ./packages.nix
 
     misc.music
     misc.bluetooth
   ];
+
+  environment.systemPackages = with pkgs; [
+    intel-gpu-tools
+    acpi];
 
   services.btrfs.autoScrub.enable = true;
 

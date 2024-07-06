@@ -4,6 +4,7 @@
     openjdk11
     google-java-format
     imv
+    xdg-utils
   ];
 
   home-manager.users.eimmer = {pkgs, ...}: {

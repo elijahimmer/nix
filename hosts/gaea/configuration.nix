@@ -6,7 +6,6 @@
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     ./hardware.nix
-    ./packages.nix
 
     misc.music
     games.default

@@ -30,9 +30,12 @@
     };
 
     # starcitizen
-    nix-citizen.url = "github:LovingMelody/nix-citizen";
     nix-gaming.url = "github:fufexan/nix-gaming";
-    nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+    nix-citizen = {
+      url = "github:LovingMelody/nix-citizen";
+      inputs.nix-gaming.follows = "nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,
@@ -59,7 +62,7 @@
     inherit (generated) devShells;
     nixosModules = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
-      stateVersion = "24.05";
+      stateVersion = "24.11";
       flakeAbsoluteDir = "/home/eimmer/src/nix";
       mods = inputs.self.nixosModules;
       commonModules = [
@@ -112,7 +115,7 @@
             mods.misc.syncthing
             inputs.nixos-hardware.nixosModules.common-cpu-amd
             inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-            #inputs.nixos-hardware.nixosModules.common-gpu-amd
+            inputs.nixos-hardware.nixosModules.common-gpu-amd
             inputs.nixos-hardware.nixosModules.common-pc
             inputs.nixos-hardware.nixosModules.common-pc-ssd
           ]

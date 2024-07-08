@@ -5,6 +5,7 @@
     google-java-format
     imv
     xdg-utils
+    noisetorch
   ];
 
   home-manager.users.eimmer = {pkgs, ...}: {

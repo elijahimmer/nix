@@ -6,8 +6,11 @@
   inputs,
   ...
 }: {
-  programs.dconf.enable = true;
-  programs.hyprland.enable = true;
+  programs = {
+    dconf.enable = true;
+    hyprland.enable = true;
+  };
+
   security.pam.loginLimits = [
     { domain = "@users"; item = "rtprio"; type = "-"; value = 1; }
   ];
@@ -16,21 +19,22 @@
   security.pam.services.swaylock = {};
 
   systemd.user.services = {
-    swaybg = {
-    wantedBy = ["hyprland-session.target"];
-    script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
-  };
+      swaybg = {
+      wantedBy = ["hyprland-session.target"];
+      script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
+    };
 
-  noisetorch = {
-    wantedBy = ["hyprland-session.target"];
-    script = "${lib.getExe pkgs.noisetorch} -i";
-  };
+    noisetorch = {
+      wantedBy = ["hyprland-session.target"];
+      after = ["pipewire.service"];
+      script = "${lib.getExe pkgs.noisetorch} -i";
+    };
 
-  wlrs-bar = {
-    wantedBy = ["hyprland-session.target"];
-    script = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
+    wlrs-bar = {
+      wantedBy = ["hyprland-session.target"];
+      script = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
+    };
   };
-};
 
   home-manager.users.eimmer = {
     pkgs,

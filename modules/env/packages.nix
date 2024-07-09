@@ -13,7 +13,6 @@
     git
     just
     killall
-    magic-wormhole
     #nvimpager
     p7zip
     page

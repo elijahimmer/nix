@@ -2,6 +2,7 @@
   description = "Elijah's Nixos Configs";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     # For testing:
     #nixpkgs.url = "/home/eimmer/src/nixpkgs/";
 
@@ -40,6 +41,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
     flake-utils,
     ...
   } @ inputs: let
@@ -64,6 +66,7 @@
     nixosConfigurations = let
       stateVersion = "24.11";
       flakeAbsoluteDir = "/home/eimmer/src/nix";
+      pkgs-stable = nixpkgs-stable.legacyPackages; 
       mods = inputs.self.nixosModules;
       commonModules = [
         inputs.home-manager.nixosModules.home-manager
@@ -101,9 +104,9 @@
           ++ headFullModules;
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
+          pkgs-stable = pkgs-stable.${system};
           headFull = true;
           hostName = "selene";
-          updateFromScratch = false;
         };
       };
       gaea = inputs.nixpkgs.lib.nixosSystem rec {
@@ -123,9 +126,9 @@
           ++ headFullModules;
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
+          pkgs-stable = pkgs-stable.${system};
           headFull = true;
           hostName = "gaea";
-          updateFromScratch = false;
         };
       };
       helios = inputs.nixpkgs.lib.nixosSystem rec {
@@ -143,9 +146,9 @@
           ++ commonModules;
         specialArgs = {
           inherit inputs stateVersion system flakeAbsoluteDir mods;
+          pkgs-stable = pkgs-stable.${system};
           headFull = false;
           hostName = "helios";
-          updateFromScratch = true;
         };
       };
       /*

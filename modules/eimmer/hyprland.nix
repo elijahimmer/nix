@@ -240,7 +240,6 @@
 
         appLauncher = launcher "T" "launcher" [
           (mkCmdBindExit "A" "Alacritty" (lib.getExe pkgs.alacritty))
-          (mkCmdBindExit "B" "Bitwarden" (lib.getExe pkgs.bitwarden))
           (mkCmdBindExit "C" "Chromium"  (lib.getExe pkgs.ungoogled-chromium))
           (mkCmdBindExit "D" "Discord"   (lib.getExe pkgs.vesktop))
           (mkCmdBindExit "M" "B-Top"     "${lib.getExe pkgs.alacritty} --command ${lib.getExe pkgs.btop}")

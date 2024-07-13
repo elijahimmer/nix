@@ -1,6 +1,7 @@
 {
   pkgs,
   hostName,
+  pkgs-stable,
   stateVersion,
   ...
 }: {

@@ -33,6 +33,7 @@
     wlrs-bar = {
       wantedBy = ["hyprland-session.target"];
       script = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
+      restartTriggers = [../../updated_last];
     };
   };
 

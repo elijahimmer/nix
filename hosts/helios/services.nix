@@ -3,6 +3,9 @@
     custom.qbittorrent
   ];
 
+  users.users.jellyfin.extraGroups = ["render" "video"];
+  
+
   services = let 
     enable = {
       enable = true;

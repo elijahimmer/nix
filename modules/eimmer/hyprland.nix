@@ -19,7 +19,7 @@
   security.pam.services.swaylock = {};
 
   systemd.user.services = {
-      swaybg = {
+    swaybg = {
       wantedBy = ["hyprland-session.target"];
       script = "sleep 1; ${lib.getExe pkgs.swaybg} --mode fit --color '#191724' --image ${toString mods.theme.background}";
     };
@@ -33,7 +33,7 @@
     wlrs-bar = {
       wantedBy = ["hyprland-session.target"];
       script = "${lib.getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${builtins.readFile ../../updated_last}";
-      restartTriggers = [../../updated_last];
+      restartTriggers = [ (builtins.readFile ../../updated_last) ];
     };
   };
 
@@ -42,7 +42,7 @@
     lib,
     inputs,
     ...
-  }:{
+  }: {
     home.packages = with pkgs; [seatd xdg-utils];
 
     services.hypridle = {

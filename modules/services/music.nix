@@ -4,10 +4,10 @@
   config,
   ...
 }: let
-  cfg = config.mein.services.music;
+  cfg = config.mein.music;
 in
   with lib; {
-    options.mein.services.music = {
+    options.mein.music = {
       enable = mkEnableOption "enable MPC and music downloader";
       musicDirectory = mkOption {
         type = types.str;

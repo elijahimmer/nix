@@ -16,10 +16,11 @@
 
   mein = {
     eimmer.headFull.enable = true;
+    eimmer.headFull.alacritty.enable = true;
     env.withCodingPkgs = true;
     pipewire.enable = true;
     pipewire.noisetorch.enable = true;
-    services.music.enable = true;
+    music.enable = true;
     theme.enable = true;
     games.enable = true;
     games.starCitizen.enable = true;

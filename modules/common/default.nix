@@ -5,7 +5,6 @@
   stateVersion,
   lib,
   config,
-  inputs,
   ...
 }: let
   cfg = config.mein.common;

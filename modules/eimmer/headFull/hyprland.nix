@@ -1,15 +1,14 @@
 {
   lib,
-  pkgs,
-  system,
-  inputs,
   config,
   ...
 }:
 with lib; {
   options.mein.eimmer.headFull.hyprland.enable = mkEnableOption "enable hyprland" // {default = config.mein.eimmer.headFull.enable;};
-  config = lib.mkIf config.mein.eimmer.headFull.hyprland.enable {
+
+  config = mkIf config.mein.eimmer.headFull.hyprland.enable {
     mein.eimmer.headFull.services.target = ["hyprland-session.target"];
+
     programs = {
       dconf.enable = true;
       hyprland.enable = true;
@@ -29,7 +28,6 @@ with lib; {
 
     home-manager.users.eimmer = {
       pkgs,
-      lib,
       inputs,
       ...
     }: {
@@ -64,7 +62,7 @@ with lib; {
       programs.swaylock = {
         enable = true;
         settings = {
-          scaling = lib.mkForce "fit";
+          scaling = mkForce "fit";
           show-failed-attempts = true;
         };
       };
@@ -76,7 +74,7 @@ with lib; {
           variables = ["--all"];
         };
         settings = {
-          exec-once = [(lib.getExe pkgs.swaylock)];
+          exec-once = [(getExe pkgs.swaylock)];
 
           monitor = [
             "eDP-1, 1920x1080,0x0,1"
@@ -133,11 +131,11 @@ with lib; {
             "SUPER, mouse:273, resizewindow"
           ];
           bind = let
-            grim = lib.getExe pkgs.grim;
-            slurp = lib.getExe pkgs.slurp;
-            notify = lib.getExe pkgs.notify-desktop;
-            wl-copy = lib.getExe' pkgs.wl-clipboard "wl-copy";
-            wl-paste = lib.getExe' pkgs.wl-clipboard "wl-paste";
+            grim = getExe pkgs.grim;
+            slurp = getExe pkgs.slurp;
+            notify = getExe pkgs.notify-desktop;
+            wl-copy = getExe' pkgs.wl-clipboard "wl-copy";
+            wl-paste = getExe' pkgs.wl-clipboard "wl-paste";
 
             screenshot = pkgs.writeShellScript "screenshot" ''
               ${grim} - \
@@ -202,10 +200,10 @@ with lib; {
             bind=,      ${key}, submap, reset
           '';
 
-          launch-wlr-wk = name: menu: "${lib.getExe pkgs.wlr-which-key} ${
+          launch-wlr-wk = name: menu: "${getExe pkgs.wlr-which-key} ${
             pkgs.writeText "launch-wlr-wk-${name}.yaml"
             (builtins.toJSON {
-              menu = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair (lib.strings.toLower name)) menu;
+              menu = attrsets.mapAttrs' (name: attrsets.nameValuePair (strings.toLower name)) menu;
               background = "#1f1d2e";
               separator = " ➜ ";
               corner_r = 10;
@@ -222,7 +220,7 @@ with lib; {
           }";
 
           wlr-wk-cfg = binds:
-            lib.lists.foldl (acc: bind:
+            lists.foldl (acc: bind:
               acc
               // {
                 ${bind.key} = {
@@ -259,19 +257,19 @@ with lib; {
               + (exit key);
           };
 
-          appLauncher = launcher "T" "launcher" [
-            (mkCmdBindExit "A" "Alacritty" (lib.getExe pkgs.alacritty))
-            (mkCmdBindExit "C" "Chromium" (lib.getExe pkgs.ungoogled-chromium))
-            (mkCmdBindExit "D" "Discord" (lib.getExe pkgs.vesktop))
-            (mkCmdBindExit "M" "B-Top" "${lib.getExe pkgs.alacritty} --command ${lib.getExe pkgs.btop}")
-            (mkCmdBindExit "Q" "Blueman" "blueman-manager")
+          appLauncher = launcher "T" "launcher" ([
+            (mkCmdBindExit "A" "Alacritty" (getExe pkgs.alacritty))
+            (mkCmdBindExit "C" "Chromium" (getExe pkgs.ungoogled-chromium))
+            (mkCmdBindExit "D" "Discord" (getExe pkgs.vesktop))
+            (mkCmdBindExit "M" "B-Top" "${getExe pkgs.alacritty} --command ${getExe pkgs.btop}")
             (mkCmdBindExit "R" "Signal" (lib.getExe pkgs.signal-desktop))
-            (mkCmdBindExit "S" "Steam" "steam")
             (mkCmdBindExit "T" "Firefox" "$BROWSER")
-            (mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pavucontrol))
             (mkCmdBindExit "W" "Nautilus" (lib.getExe pkgs.nautilus))
             (mkCmdBindExit "Z" "Zotero" (lib.getExe pkgs.zotero))
-          ];
+          ] 
+          ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
+          ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam")])
+          ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pavucontrol))]));
 
           powerCenter = launcher "DELETE" "power" [
             (mkCmdBindExit "A" "Poweroff" "systemctl poweroff")
@@ -279,6 +277,7 @@ with lib; {
             (mkCmdBindExit "L" "Lock" "loginctl lock-session")
             (mkCmdBindExit "Q" "Exit" "hyprctl dispatch exit")
             (mkCmdBindExit "S" "Suspend" "systemctl suspend-then-hibernate")
+            (mkCmdBindExit "R" "Restart" "systemctl restart")
           ];
 
           mpc = lib.getExe pkgs.mpc-cli;
@@ -295,7 +294,7 @@ with lib; {
         in
           appLauncher
           + powerCenter
-          + musicCenter;
+          + optionalString config.mein.music.enable musicCenter;
       };
     };
   };

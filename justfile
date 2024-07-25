@@ -9,24 +9,24 @@ alias ti := test-inputs
 test:
     git add .
     git diff HEAD
-    sudo nixos-rebuild test --flake .#$HOSTNAME
+    nh os test
 
 boot:
     git add .
     git diff HEAD
-    sudo nixos-rebuild boot --flake .#$HOSTNAME
+    nh os boot
 
 switch: nix-check 
     git add .
     git diff HEAD
-    git commit
+    git commit 
     git push
-    sudo nixos-rebuild switch --flake .#$HOSTNAME
+    nh os switch
 
 update:
     git pull
     git diff HEAD
-    sudo nixos-rebuild switch --flake .#$HOSTNAME
+    nh os switch
 
 inputs:
     git pull
@@ -38,7 +38,7 @@ inputs:
 nix-check:
     git add .
     git diff HEAD
-    nix flake check --all-systems
+    nh os test --dry
 
 test-inputs:
     nix flake update

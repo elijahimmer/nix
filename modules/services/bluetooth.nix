@@ -4,10 +4,10 @@
   ...
 }:
 with lib; {
-  options.mein.services.bluetooth.enable = mkEnableOption "enable bluetooth";
+  options.mein.bluetooth.enable = mkEnableOption "enable bluetooth";
 
-  config = mkIf config.mein.services.bluetooth.enable {
-    hardware.bluetooth.enable = lib.mkForce true;
+  config = mkIf config.mein.bluetooth.enable {
+    hardware.bluetooth.enable = mkForce true;
     services.blueman.enable = true;
   };
 }

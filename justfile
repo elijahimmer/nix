@@ -19,6 +19,7 @@ boot:
 switch: nix-check 
     git add .
     git diff HEAD
+    nix flake check --all-systems
     git commit 
     git push
     nh os switch
@@ -38,7 +39,7 @@ inputs:
 nix-check:
     git add .
     git diff HEAD
-    nh os test --dry
+    nix flake check --all-systems
 
 test-inputs:
     nix flake update

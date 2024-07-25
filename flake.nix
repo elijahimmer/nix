@@ -48,7 +48,7 @@
     generated = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      #      formatter = pkgs.alejandra;
+      formatter = pkgs.alejandra;
       # Helps to bootstrap a new system
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
@@ -85,20 +85,16 @@
           pkgs-stable = pkgs-stable.${system};
         };
       });
-      #selene = inputs.nixpkgs.lib.nixosSystem (let hostName = "selene"; in rec {
-      #  system = "x86_64-linux";
-      #  modules =
-      #    [
-      #      inputs.nixos-hardware.nixosModules.common-cpu-intel
-      #      #inputs.nixos-hardware.nixosModules.common-gpu-intel
-      #      inputs.nixos-hardware.nixosModules.common-pc-laptop
-      #      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-      #    ] ++ commonModules hostName;
-      #  specialArgs = {
-      #    inherit inputs stateVersion system flakeAbsoluteDir hostName;
-      #    pkgs-stable = pkgs-stable.${system};
-      #  };
-      #});
+      selene = inputs.nixpkgs.lib.nixosSystem (let
+        hostName = "selene";
+      in rec {
+        system = "x86_64-linux";
+        modules = commonModules hostName;
+        specialArgs = {
+          inherit inputs stateVersion system flakeAbsoluteDir hostName;
+          pkgs-stable = pkgs-stable.${system};
+        };
+      });
       #helios = inputs.nixpkgs.lib.nixosSystem (let hostName = "helios"; in rec {
       #  system = "x86_64-linux";
       #  modules =

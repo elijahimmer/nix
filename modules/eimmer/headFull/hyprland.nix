@@ -258,18 +258,18 @@ with lib; {
           };
 
           appLauncher = launcher "T" "launcher" ([
-            (mkCmdBindExit "A" "Alacritty" (getExe pkgs.alacritty))
-            (mkCmdBindExit "C" "Chromium" (getExe pkgs.ungoogled-chromium))
-            (mkCmdBindExit "D" "Discord" (getExe pkgs.vesktop))
-            (mkCmdBindExit "M" "B-Top" "${getExe pkgs.alacritty} --command ${getExe pkgs.btop}")
-            (mkCmdBindExit "R" "Signal" (lib.getExe pkgs.signal-desktop))
-            (mkCmdBindExit "T" "Firefox" "$BROWSER")
-            (mkCmdBindExit "W" "Nautilus" (lib.getExe pkgs.nautilus))
-            (mkCmdBindExit "Z" "Zotero" (lib.getExe pkgs.zotero))
-          ] 
-          ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
-          ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam")])
-          ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pavucontrol))]));
+              (mkCmdBindExit "A" "Alacritty" (getExe pkgs.alacritty))
+              (mkCmdBindExit "C" "Chromium" (getExe pkgs.ungoogled-chromium))
+              (mkCmdBindExit "D" "Discord" (getExe pkgs.vesktop))
+              (mkCmdBindExit "M" "B-Top" "${getExe pkgs.alacritty} --command ${getExe pkgs.btop}")
+              (mkCmdBindExit "R" "Signal" (lib.getExe pkgs.signal-desktop))
+              (mkCmdBindExit "T" "Firefox" "$BROWSER")
+              (mkCmdBindExit "W" "Nautilus" (lib.getExe pkgs.nautilus))
+              (mkCmdBindExit "Z" "Zotero" (lib.getExe pkgs.zotero))
+            ]
+            ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
+            ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam")])
+            ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pavucontrol))]));
 
           powerCenter = launcher "DELETE" "power" [
             (mkCmdBindExit "A" "Poweroff" "systemctl poweroff")

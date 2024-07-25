@@ -3,20 +3,19 @@
   inputs,
   ...
 }: {
-  imports = [
+  imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
     ./hardware.nix
 
-    inputs.nixos-hardware.nixosModules.common-cpu-amd
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    inputs.nixos-hardware.nixosModules.common-gpu-amd
-    inputs.nixos-hardware.nixosModules.common-pc
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    common-cpu-amd
+    common-cpu-amd-pstate
+    common-gpu-amd
+    common-pc
+    common-pc-ssd
   ];
 
   mein = {
     eimmer.headFull.enable = true;
-    eimmer.headFull.alacritty.enable = true;
     env.withCodingPkgs = true;
     pipewire.enable = true;
     pipewire.noisetorch.enable = true;

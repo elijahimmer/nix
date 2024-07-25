@@ -8,7 +8,8 @@
 }:
 with lib; {
   options.mein.ssot = {
-    age.enable = mkEnableOption "enable age secrets" // {default = true;};
+    enable = mkEnableOption "enable secrets and the like" // {default = true;};
+    age.enable = mkEnableOption "enable age secrets" // {default = config.mein.ssot.enable;};
 
     sshKeyFiles = mkOption {
       default = [
@@ -20,21 +21,24 @@ with lib; {
 
     sshKeys = mkOption {
       default = {
-        helios.publicSshKeyFile = ./ssh/helios.pub;
-        gaea.publicSshKeyFile = ./ssh/gaea.pub;
-        selene.publicSshKeyFile = ./ssh/selene.pub;
+        helios.publicKeyFile = ./ssh/helios.pub;
+        gaea.publicKeyFile = ./ssh/gaea.pub;
+        selene.publicKeyFile = ./ssh/selene.pub;
       };
     };
   };
 
-  config = mkIf config.mein.ssot.age.enable {
-    age = {
-      identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-      secrets = {
-        ssh.file = inputs.self + /secrets/${hostName}-ssh.age;
-        eimmer-passwd.file = inputs.self + /secrets/eimmer-passwd.age;
+  config = mkMerge [
+    (mkIf config.mein.ssot.enable {services.openssh.knownHosts = config.mein.ssot.sshKeys;})
+    (mkIf config.mein.ssot.age.enable {
+      age = {
+        identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+        secrets = {
+          ssh.file = inputs.self + /secrets/${hostName}-ssh.age;
+          eimmer-passwd.file = inputs.self + /secrets/eimmer-passwd.age;
+        };
       };
-    };
-    environment.systemPackages = [inputs.agenix.packages.${system}.default];
-  };
+      environment.systemPackages = [inputs.agenix.packages.${system}.default];
+    })
+  ];
 }

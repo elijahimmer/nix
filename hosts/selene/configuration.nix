@@ -3,23 +3,21 @@
   pkgs,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
     ./hardware.nix
 
-    #misc.music
-    #misc.bluetooth
+    common-cpu-intel
+    common-gpu-intel
+    common-pc-laptop
+    common-pc-laptop-ssd
   ];
 
   mein = {
     eimmer.headFull.enable = true;
     env.withCodingPkgs = true;
     pipewire.enable = true;
-    pipewire.noisetorch.enable = true;
-    services.music.enable = true;
     theme.enable = true;
-    games.enable = true;
-    games.starCitizen.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -32,10 +30,6 @@
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   security.polkit.enable = true;
-  # Let video group access backlight
-  #services.udev.extraRules = ''
-  #  ACTION=="add", SUBSYSTEM=="backlight", RUN+="${pkgs.toybox}/bin/chgrp video $sys$devpath/brightness", RUN+="${pkgs.toybox}/bin/chmod g+w $sys$devpath/brightness"
-  #'';
 
   # Actually takes code dumps for debugging.
   systemd.coredump.enable = true;

@@ -1,15 +1,7 @@
-{
-  config,
-  pkgs,
-  inputs,
-  mods,
-  ...
-}: {
-  imports = with inputs.self.nixosModules; [
+{pkgs, ...}: {
+  imports = [
     ./hardware-configuration.nix
     ./services.nix
-
-    misc.ssh-host
   ];
 
   services.btrfs.autoScrub.enable = true;

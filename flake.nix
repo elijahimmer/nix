@@ -66,117 +66,53 @@
     nixosConfigurations = let
       stateVersion = "24.11";
       flakeAbsoluteDir = "/home/eimmer/src/nix";
-      pkgs-stable = nixpkgs-stable.legacyPackages; 
-      mods = inputs.self.nixosModules;
-      commonModules = [
+      pkgs-stable = nixpkgs-stable.legacyPackages;
+      commonModules = hostname: [
+        ./hosts/${hostname}/configuration.nix
+        inputs.self.nixosModules
         inputs.home-manager.nixosModules.home-manager
-        mods.common.default
-        mods.env.default
-        mods.eimmer.user
-        mods.misc.networkmanager
-        mods.ssot.age
-
         inputs.flake-utils-plus.nixosModules.autoGenFromInputs
         inputs.agenix.nixosModules.default
-
-        mods.env.coding
-        mods.misc.tailscale
-      ];
-      headFullModules = with mods; [
-        inputs.stylix.nixosModules.stylix
-        theme.default
-        misc.pipewire
       ];
     in {
-      selene = inputs.nixpkgs.lib.nixosSystem rec {
+      gaea = inputs.nixpkgs.lib.nixosSystem (let
+        hostName = "gaea";
+      in rec {
         system = "x86_64-linux";
-        modules =
-          [
-            ./hosts/selene/configuration.nix
-
-            mods.misc.syncthing
-            inputs.nixos-hardware.nixosModules.common-cpu-intel
-            #inputs.nixos-hardware.nixosModules.common-gpu-intel
-            inputs.nixos-hardware.nixosModules.common-pc-laptop
-            inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-          ]
-          ++ commonModules
-          ++ headFullModules;
+        modules = commonModules hostName;
         specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir mods;
+          inherit inputs stateVersion system flakeAbsoluteDir hostName;
           pkgs-stable = pkgs-stable.${system};
-          headFull = true;
-          hostName = "selene";
         };
-      };
-      gaea = inputs.nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules =
-          [
-            ./hosts/gaea/configuration.nix
-
-            mods.misc.syncthing
-            inputs.nixos-hardware.nixosModules.common-cpu-amd
-            inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-            inputs.nixos-hardware.nixosModules.common-gpu-amd
-            inputs.nixos-hardware.nixosModules.common-pc
-            inputs.nixos-hardware.nixosModules.common-pc-ssd
-          ]
-          ++ commonModules
-          ++ headFullModules;
-        specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir mods;
-          pkgs-stable = pkgs-stable.${system};
-          headFull = true;
-          hostName = "gaea";
-        };
-      };
-      helios = inputs.nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        modules =
-          [
-            ./hosts/helios/configuration.nix
-
-            mods.misc.syncthing
-            inputs.nixos-hardware.nixosModules.common-cpu-intel
-            inputs.nixos-hardware.nixosModules.common-gpu-amd
-            inputs.nixos-hardware.nixosModules.common-pc
-            inputs.nixos-hardware.nixosModules.common-pc-ssd
-          ]
-          ++ commonModules;
-        specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir mods;
-          pkgs-stable = pkgs-stable.${system};
-          headFull = false;
-          hostName = "helios";
-        };
-      };
-      /*
-        myPi = nixosSystem {
-        hostName = "myPi";
-        modules = [
-          inputs.nixos-hardware.nixosModules.raspberry-pi-4
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
-            # ... extra configs as above
-          }
- No       ];
-      };
-      */
-      # I don't want it to be checked unless I am going to use it because
-      # It would be invalid, since it as no hardware config.
-      /*
-        minimal = nixosSystem {
-        hostName = "minimal";
-        headFull = false;
-        useCommonExtendedModules = false;
-      };
-      */
+      });
+      #selene = inputs.nixpkgs.lib.nixosSystem (let hostName = "selene"; in rec {
+      #  system = "x86_64-linux";
+      #  modules =
+      #    [
+      #      inputs.nixos-hardware.nixosModules.common-cpu-intel
+      #      #inputs.nixos-hardware.nixosModules.common-gpu-intel
+      #      inputs.nixos-hardware.nixosModules.common-pc-laptop
+      #      inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+      #    ] ++ commonModules hostName;
+      #  specialArgs = {
+      #    inherit inputs stateVersion system flakeAbsoluteDir hostName;
+      #    pkgs-stable = pkgs-stable.${system};
+      #  };
+      #});
+      #helios = inputs.nixpkgs.lib.nixosSystem (let hostName = "helios"; in rec {
+      #  system = "x86_64-linux";
+      #  modules =
+      #    [
+      #      inputs.nixos-hardware.nixosModules.common-cpu-intel
+      #      inputs.nixos-hardware.nixosModules.common-gpu-amd
+      #      inputs.nixos-hardware.nixosModules.common-pc
+      #      inputs.nixos-hardware.nixosModules.common-pc-ssd
+      #    ] ++ commonModules hostName;
+      #  specialArgs = {
+      #    inherit inputs stateVersion system flakeAbsoluteDir hostName;
+      #    pkgs-stable = pkgs-stable.${system};
+      #  };
+      #});
     };
-
-    #images.myPi = self.nixosConfigurations.myPi.config.system.build.sdImage;
   };
 }

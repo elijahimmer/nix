@@ -1,11 +1,12 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
-  cfg = config.services.parrot;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.parrot;
+in {
   options = {
     services.parrot = {
       enable = mkEnableOption (lib.mdDoc "Parrot Discord Music Bot");
@@ -16,7 +17,7 @@ in
         description = lib.mdDoc "User account under which Parrot runs.";
       };
 
-      package = mkPackageOption pkgs "parrot" { };
+      package = mkPackageOption pkgs "parrot" {};
 
       group = mkOption {
         type = types.str;
@@ -29,9 +30,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.parrot = {
       description = "Parrot Discord Music Bot";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -58,5 +59,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

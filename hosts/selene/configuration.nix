@@ -7,13 +7,25 @@
     ./hardware-configuration.nix
     ./hardware.nix
 
-    misc.music
-    misc.bluetooth
+    #misc.music
+    #misc.bluetooth
   ];
+
+  mein = {
+    eimmer.headFull.enable = true;
+    env.withCodingPkgs = true;
+    pipewire.enable = true;
+    pipewire.noisetorch.enable = true;
+    services.music.enable = true;
+    theme.enable = true;
+    games.enable = true;
+    games.starCitizen.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
-    acpi];
+    acpi
+  ];
 
   services.btrfs.autoScrub.enable = true;
 

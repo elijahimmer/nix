@@ -1,15 +1,25 @@
-{pkgs, ...}: {
-  imports = [
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
     ./services.nix
+
+    common-cpu-intel
+    common-gpu-amd
+    common-pc
+    common-pc-ssd
   ];
+
+  mein.sshHost.enable = true;
 
   services.btrfs.autoScrub.enable = true;
 
   security = {
     tpm2.enable = true;
     protectKernelImage = true;
-    polkit.enable = true;
   };
 
   hardware = {

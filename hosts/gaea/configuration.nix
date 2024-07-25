@@ -5,7 +5,6 @@
 }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
-    ./hardware.nix
 
     common-cpu-amd
     common-cpu-amd-pstate
@@ -13,6 +12,8 @@
     common-pc
     common-pc-ssd
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   mein = {
     eimmer.headFull.enable = true;
@@ -32,8 +33,6 @@
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
-  security.polkit.enable = true;
-
   systemd.coredump.enable = true;
 
   boot = {
@@ -52,5 +51,33 @@
         canTouchEfiVariables = true;
       };
     };
+  };
+
+  services.btrfs.autoScrub.enable = true;
+
+  security.tpm2.enable = true;
+
+  hardware = {
+    enableAllFirmware = true;
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vulkan-validation-layers
+        vulkan-extension-layer
+        vulkan-loader
+        vulkan-tools
+      ];
+    };
+
+    cpu.amd.updateMicrocode = true;
+  };
+
+  services = {
+    logind = {
+      killUserProcesses = true;
+      powerKey = "suspend";
+      powerKeyLongPress = "poweroff";
+    };
+    thermald.enable = true;
   };
 }

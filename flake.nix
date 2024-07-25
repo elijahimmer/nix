@@ -61,54 +61,29 @@
       };
     });
   in {
-    inherit (generated) devShells;
+    inherit (generated) devShells formatter;
     nixosModules = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
-      stateVersion = "24.11";
-      flakeAbsoluteDir = "/home/eimmer/src/nix";
-      pkgs-stable = nixpkgs-stable.legacyPackages;
-      commonModules = hostname: [
-        ./hosts/${hostname}/configuration.nix
-        inputs.self.nixosModules
-        inputs.home-manager.nixosModules.home-manager
-        inputs.flake-utils-plus.nixosModules.autoGenFromInputs
-        inputs.agenix.nixosModules.default
-      ];
+      host = system: hostName:
+        inputs.nixpkgs.lib.nixosSystem rec {
+          inherit system;
+          modules = [
+            ./hosts/${hostName}/configuration.nix
+            inputs.self.nixosModules
+            inputs.home-manager.nixosModules.home-manager
+            inputs.flake-utils-plus.nixosModules.autoGenFromInputs
+          ];
+          specialArgs = {
+            inherit inputs system hostName;
+            pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+            flakeAbsoluteDir = "/home/eimmer/src/nix";
+            stateVersion = "24.11";
+          };
+        };
     in {
-      gaea = inputs.nixpkgs.lib.nixosSystem (let
-        hostName = "gaea";
-      in rec {
-        system = "x86_64-linux";
-        modules = commonModules hostName;
-        specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir hostName;
-          pkgs-stable = pkgs-stable.${system};
-        };
-      });
-      selene = inputs.nixpkgs.lib.nixosSystem (let
-        hostName = "selene";
-      in rec {
-        system = "x86_64-linux";
-        modules = commonModules hostName;
-        specialArgs = {
-          inherit inputs stateVersion system flakeAbsoluteDir hostName;
-          pkgs-stable = pkgs-stable.${system};
-        };
-      });
-      #helios = inputs.nixpkgs.lib.nixosSystem (let hostName = "helios"; in rec {
-      #  system = "x86_64-linux";
-      #  modules =
-      #    [
-      #      inputs.nixos-hardware.nixosModules.common-cpu-intel
-      #      inputs.nixos-hardware.nixosModules.common-gpu-amd
-      #      inputs.nixos-hardware.nixosModules.common-pc
-      #      inputs.nixos-hardware.nixosModules.common-pc-ssd
-      #    ] ++ commonModules hostName;
-      #  specialArgs = {
-      #    inherit inputs stateVersion system flakeAbsoluteDir hostName;
-      #    pkgs-stable = pkgs-stable.${system};
-      #  };
-      #});
+      gaea = host "x86_64-linux" "gaea";
+      selene = host "x86_64-linux" "selene";
+      helios = host "x86_64-linux" "helios";
     };
   };
 }

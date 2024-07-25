@@ -1,4 +1,13 @@
 _: {
+  mein = {
+    ssot.enable = false;
+    env = {
+      withPkgs = false;
+      withTailscale = false;
+    };
+    sshAccess = false;
+  };
+
   boot = {
     tmp.useTmpfs = true;
     loader = {

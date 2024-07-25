@@ -58,17 +58,19 @@
             rose-pine
           ];
 
-          extraPackages = with pkgs; [
-            tree-sitter
-
-            zls
-            nil
-            elixir-ls
-            typst-lsp
-            rust-analyzer
-            jdt-language-server
-            lua-language-server
-          ];
+          extraPackages = with pkgs;
+            [
+              tree-sitter
+            ]
+            ++ lib.optionals config.mein.env.withCodingPkgs [
+              zls
+              nil
+              elixir-ls
+              typst-lsp
+              rust-analyzer
+              jdt-language-server
+              lua-language-server
+            ];
 
           extraLuaConfig = builtins.readFile ./init.lua;
         };

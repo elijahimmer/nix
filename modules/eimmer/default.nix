@@ -15,8 +15,8 @@ in
 
     options.mein.eimmer = {
       enable = (mkEnableOption "default user config") // {default = true;};
-      sshAccess = (mkEnableOption "install authorized SSH keyfiles") // {default = true;};
-      withEnv = mkEnableOption "use default environment" // {default = true;};
+      sshAccess = (mkEnableOption "install authorized SSH keyfiles") // {default = config.mein.eimmer.enable;};
+      withEnv = mkEnableOption "use default environment" // {default = config.mein.eimmer.enable;};
     };
 
     config = mkMerge [

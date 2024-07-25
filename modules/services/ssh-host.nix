@@ -2,10 +2,11 @@
   lib,
   config,
   ...
-}: {
+}:
+with lib; {
   options.mein.sshHost.enable = lib.mkEnableOption "enable the ssh daemon";
 
-  config = lib.mkIf config.mein.sshHost.enable {
+  config = mkIf config.mein.sshHost.enable {
     services.openssh = {
       enable = true;
       settings = {

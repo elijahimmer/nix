@@ -7,6 +7,7 @@
   ...
 }:
 with lib; {
+  imports = [inputs.agenix.nixosModules.default];
   options.mein.ssot = {
     enable = mkEnableOption "enable secrets and the like" // {default = true;};
     age.enable = mkEnableOption "enable age secrets" // {default = config.mein.ssot.enable;};

@@ -29,6 +29,7 @@ in
     };
 
     config = mkIf cfg.enable {
+
       services.syncthing = {
         inherit (cfg) dataDir user;
         enable = true;
@@ -40,6 +41,9 @@ in
 
         settings = {
           id = devices.${hostName};
+
+          localAnnounceEnabled = false;
+          relaysEnabled = false;
 
           folders = foldr (id: acc:
             acc

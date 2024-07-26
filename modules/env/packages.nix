@@ -35,7 +35,7 @@ in
         man-pages-posix
 
         (writeScriptBin "n" "nix-shell -p $@")
-        (writeScriptBin "nr" ''NIX_SHELL_RUN_COMMAND=$@ nix-shell -p "$1" --command "$NIX_SHELL_RUN_COMMAND"'')
+        (writeScriptBin "nr" ''NIX_SHELL_RUN_COMMAND=$@ nix-shell -p "$1" --command ${pkgs.writeScript "nix_shell_run" "$NIX_SHELL_RUN_COMMAND"}'')
       ]
       ++ optionals (cfg.enable && cfg.withCodingPkgs) [
         typst

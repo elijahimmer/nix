@@ -3,13 +3,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
-    # For testing:
-    #nixpkgs.url = "/home/eimmer/src/nixpkgs/";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -65,7 +63,7 @@
     nixosModules = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
       host = system: hostName:
-        inputs.nixpkgs.lib.nixosSystem rec {
+        inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             ./hosts/${hostName}/configuration.nix

@@ -11,19 +11,7 @@ in
   with lib; {
     options.mein.eimmer.headFull.services = {
       enable = mkEnableOption "enable default services" // {default = config.mein.eimmer.headFull.enable;};
-      target = mkOption {
-        type = types.listOf types.str;
-      };
-      wlrs-bar = {
-        enable = mkEnableOption "enable wlrs-bar" // {default = config.mein.eimmer.headFull.enable;};
-        updatedLast = {
-          enable = mkEnableOption "enable updated last widget" // {default = true;};
-          timestamp = mkOption {
-            type = types.str;
-            default = builtins.readFile (inputs.self + /updated_last);
-          };
-        };
-      };
+      target = mkOption {type = types.listOf types.str;};
     };
 
     config = mkMerge [
@@ -52,12 +40,6 @@ in
             margin = "0";
             defaultTimeout = 10000; # 10 seconds
           };
-        };
-      })
-      (mkIf cfg.wlrs-bar.enable {
-        systemd.user.services.wlrs-bar = {
-          wantedBy = cfg.target;
-          script = "${getExe inputs.wlrs-bar.packages.${system}.default} --updated-last ${cfg.wlrs-bar.updatedLast.timestamp}";
         };
       })
     ];

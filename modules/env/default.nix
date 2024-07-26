@@ -8,82 +8,63 @@
   cfg = config.mein.env;
 in
   with lib; {
-    #imports = [./packages.nix];
+    imports = [./packages.nix];
 
     options.mein.env = {
       enable = mkEnableOption "default environment config" // {default = true;};
-      withPkgs = mkEnableOption "include all default packages" // {default = config.mein.env;};
+      withPkgs = mkEnableOption "include all default packages" // {default = true;};
       withCodingPkgs = mkEnableOption "include coding packages";
-      withTailscale = mkEnableOption "enable tailscale" // {default = config.mein.env;};
     };
 
-    #config = mkMerge [
-    #  (mkIf cfg.enable {
-    #    environment = {
-    #      shellAliases = let
-    #        eza = getExe pkgs.eza;
-    #      in {
-    #        l = "${eza} -al";
-    #        ls = eza;
-    #        la = "${eza} -a";
-    #        rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
-    #      };
+    config = mkIf cfg.enable {
+      environment = {
+        shellAliases = let
+          eza = getExe pkgs.eza;
+        in {
+          l = eza + " -al";
+          ls = eza;
+          la = eza + " -a";
+          rm = ''echo "do you really wanna rm? use cnc! (or use \rm)"'';
+        };
 
-    #      variables.EDITOR = "nvim";
-    #      variables.FLAKE = flakeAbsoluteDir;
-    #    };
+        variables.EDITOR = "nvim";
+        variables.FLAKE = flakeAbsoluteDir;
+      };
 
-    #    programs = {
-    #      skim = {
-    #        fuzzyCompletion = true;
-    #        keybindings = true;
-    #      };
+      programs = {
+        skim = {
+          fuzzyCompletion = true;
+          keybindings = true;
+        };
 
-    #      tmux = {
-    #        enable = true;
-    #        shortcut = "a";
-    #        newSession = true;
-    #        keyMode = "vi";
-    #        baseIndex = 1;
-    #        clock24 = true;
-    #        terminal = "alacritty";
-    #      };
+        tmux = {
+          enable = true;
+          shortcut = "a";
+          newSession = true;
+          keyMode = "vi";
+          baseIndex = 1;
+          clock24 = true;
+          terminal = "alacritty";
+        };
 
-    #      starship = {
-    #        enable = true;
-    #        settings = {
-    #          continuation_prompt = " $character";
-    #          # I know there is a better way to write this,
-    #          # I cannot find a way for some reason though.
-    #          format =
-    #            "$directory$git_branch$git_state$nix_shell$cmd_duration\n"
-    #            + "$username$hostname $status$character ";
-    #          directory.format = "[$path ]($style)";
-    #          git_branch.format = "[$branch(:$remote_branch) ]($style)";
-    #          git_state.format = ''[\($state \($progress_current/$progress_total\)\)]($style) '';
-    #          nix_shell.format = ''[$state \($name\)]($style) '';
-    #          username.format = "[$user]($style)";
-    #          hostname.format = "[@$hostname]($style)";
-    #          cmd_duration.show_notifications = true;
-    #        };
-    #      };
-    #    };
-    #  })
-    #  (mkIf cfg.withTailscale {
-    #    networking.firewall = {
-    #      # Note from https://github.com/MatthewCroughan/nixcfg/blob/master/modules/profiles/tailscale.nix 10/21/2023
-    #      # trace: warning: Strict reverse path filtering breaks Tailscale exit node
-    #      # use and some subnet routing setups. Consider setting
-    #      # `networking.firewall.checkReversePath` = 'loose'
-
-    #      # Checked July 6th 2024: still needed.
-    #      checkReversePath = "loose";
-    #      trustedInterfaces = ["tailscale0"];
-    #    };
-    #    services.tailscale = {
-    #      enable = true;
-    #      extraUpFlags = ["--ssh"];
-    #    };
-    #  })
-    #];
+        starship = {
+          enable = true;
+          settings = {
+            continuation_prompt = " $character";
+            # I know there is a better way to write this,
+            # I cannot find a way for some reason though.
+            format =
+              "$directory$git_branch$git_state$nix_shell$cmd_duration\n"
+              + "$username$hostname $status$character ";
+            directory.format = "[$path ]($style)";
+            git_branch.format = "[$branch(:$remote_branch) ]($style)";
+            git_state.format = ''[\($state \($progress_current/$progress_total\)\)]($style) '';
+            nix_shell.format = ''[$state \($name\)]($style) '';
+            username.format = "[$user]($style)";
+            hostname.format = "[@$hostname]($style)";
+            cmd_duration.show_notifications = true;
+          };
+        };
+      };
+    };
   }

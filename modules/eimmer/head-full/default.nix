@@ -10,6 +10,7 @@
     ./hyprland.nix
     ./services.nix
     ./theme.nix
+    ./wlrs-bar.nix
     ./xdg.nix
   ];
 

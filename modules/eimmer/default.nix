@@ -10,7 +10,7 @@ in
   with lib; {
     imports = [
       ./env.nix
-      ./headFull
+      ./head-full
     ];
 
     options.mein.eimmer = {

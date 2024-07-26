@@ -7,5 +7,6 @@ _: {
     ./theme
     ./services
     ./games
+    ./custom
   ];
 }

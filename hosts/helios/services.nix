@@ -13,7 +13,7 @@
   in {
     jellyfin = enable;
     prowlarr = enable;
-    #qbittorrent = enable // {port = 8181;};
+    qbittorrent = enable // {port = 8181;};
     sonarr = enable;
     radarr = enable;
     readarr = enable;

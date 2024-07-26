@@ -14,6 +14,7 @@
   ];
 
   mein.sshHost.enable = true;
+  mein.syncthing.enable = true;
 
   services.btrfs.autoScrub.enable = true;
 

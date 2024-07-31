@@ -13,8 +13,6 @@
     common-pc-ssd
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   mein = {
     eimmer.headFull.enable = true;
     env.withCodingPkgs = true;

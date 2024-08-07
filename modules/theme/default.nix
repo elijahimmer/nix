@@ -30,7 +30,6 @@ in {
           logo = ./background-small.png;
           logoAnimated = false;
         };
-        nixvim.enable = false;
         fish.enable = false;
       };
       fonts = {

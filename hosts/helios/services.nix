@@ -111,8 +111,9 @@
             Services = [
               {
                 Sonarr = {
+                  icon = "http://helios/sonarr/Content/Images/logo.svg";
                   href = "/sonarr";
-                  siteMonitor = "http://helios/sonarr";
+                  siteMonitor = "http://helios/sonarr/";
                   widget = {
                     type = "sonarr";
                     url = "http://helios/sonarr";
@@ -123,6 +124,7 @@
               }
               {
                 Radarr = {
+                  icon = "http://helios/radarr/Content/Images/logo.svg";
                   href = "/radarr";
                   siteMonitor = "http://helios/radarr";
                   widget = {
@@ -135,6 +137,7 @@
               }
               {
                 Readarr = {
+                  icon = "http://helios/readarr/Content/Images/logo.svg";
                   href = "/readarr";
                   siteMonitor = "http://helios/readarr";
                   widget = {
@@ -147,6 +150,7 @@
               }
               {
                 Prowlarr = {
+                  icon = "http://helios/prowlarr/Content/Images/logo.svg";
                   href = "/prowlarr";
                   siteMonitor = "http://helios/prowlarr";
                   widget = {
@@ -163,6 +167,7 @@
             Misc = [
               {
                 Jellyfin = {
+                  icon = "http://helios/jellyfin/web/39209dd2362c0db7c673.png";
                   href = "/jellyfin/web/";
                   siteMonitor = "http://helios/jellyfin/web/";
                   widget = {
@@ -178,6 +183,7 @@
               }
               {
                 Scrutiny = {
+                  icon = "http://helios/scrutiny/web/assets/images/logo/scrutiny-logo-dark.png";
                   href = "/scrutiny/";
                   siteMonitor = "http://helios/scrutiny/";
                   widget = {
@@ -188,6 +194,7 @@
               }
               {
                 qBittorrent = {
+                  icon = "http://helios/qbit/images/qbittorrent-tray.svg";
                   href = "/qbit/";
                   siteMonitor = "http://helios/qbit/";
                   widget = {
@@ -200,8 +207,9 @@
               }
               {
                 Ombi = {
+                  icon = "http://helios:5050/images/favicon/favicon.ico";
                   href = "/ombi/";
-                  siteMonitor = "http://helios/ombi/";
+                  siteMonitor = "http://helios:5050/";
                   widget = {
                     type = "ombi";
                     url = "http://helios:5050";

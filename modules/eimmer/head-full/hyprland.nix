@@ -274,7 +274,7 @@ with lib; {
           powerCenter = launcher "DELETE" "power" [
             (mkCmdBindExit "A" "Poweroff" "systemctl poweroff")
             (mkCmdBindExit "H" "Hibernate" "systemctl hibernate")
-            (mkCmdBindExit "L" "Lock" "loginctl lock-session")
+            (mkCmdBindExit "L" "Lock" "swaylock") # TODO: Make loginctl lock-session work here.
             (mkCmdBindExit "Q" "Exit" "hyprctl dispatch exit")
             (mkCmdBindExit "S" "Suspend" "systemctl suspend-then-hibernate")
             (mkCmdBindExit "R" "Restart" "systemctl restart")

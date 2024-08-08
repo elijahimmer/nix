@@ -27,7 +27,7 @@
         };
       };
 
-    ombi = enable // {port = 5050;};
+    #ombi = enable // {port = 5050;};
 
     nginx = let
       proxy = port: {
@@ -51,7 +51,7 @@
 
       virtualHosts."127.0.0.1".locations = {
           "/" = {return = "301 /jellyfin/web/";};
-          "/jellyfin" = proxyRewrite "jellyfin" "8096";
+          "/jellyfin" = proxy "8096";
           #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
       };
 
@@ -62,7 +62,7 @@
       };
       virtualHosts."helios" = {
         locations = {
-          "/jellyfin" = proxyRewrite "jellyfin" "8096";
+          "/jellyfin" = proxy "8096";
           #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
           "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
           "/sonarr" = proxy "8989";
@@ -204,19 +204,19 @@
                   };
                 };
               }
-              {
-                Ombi = {
-                  icon = "http://helios:5050/images/favicon/favicon.ico";
-                  href = "/ombi/";
-                  siteMonitor = "http://helios:5050/";
-                  widget = {
-                    type = "ombi";
-                    url = "http://helios:5050";
-                    key = "{{HOMEPAGE_VAR_OMBI_API_KEY}}";
-                    enableQueue = true;
-                  };
-                };
-              }
+              #{
+              #  Ombi = {
+              #    icon = "http://helios:5050/images/favicon/favicon.ico";
+              #    href = "/ombi/";
+              #    siteMonitor = "http://helios:5050/";
+              #    widget = {
+              #      type = "ombi";
+              #      url = "http://helios:5050";
+              #      key = "{{HOMEPAGE_VAR_OMBI_API_KEY}}";
+              #      enableQueue = true;
+              #    };
+              #  };
+              #}
             ];
           }
         ];

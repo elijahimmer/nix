@@ -47,8 +47,6 @@
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      statusPage = true;
-
       clientMaxBodySize = "20M";
 
       virtualHosts."127.0.0.1".locations = {
@@ -56,6 +54,7 @@
           "/jellyfin" = proxyRewrite "jellyfin" "8096";
           #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
       };
+
       tailscaleAuth = {
         enable = true;
         expectedTailnet = "orca-pythagorean.ts.net";

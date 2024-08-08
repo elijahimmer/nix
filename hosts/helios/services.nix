@@ -1,5 +1,13 @@
-{inputs, config, pkgs, lib, ...}: {
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   users.users.jellyfin.extraGroups = ["render" "video"];
+
+  age.secrets.helios-homepage.file = inputs.self + /secrets/helios-homepage.age;
 
   services = let
     enable = {enable = true;};
@@ -10,11 +18,28 @@
     sonarr = enable;
     radarr = enable;
     readarr = enable;
-    scrutiny = enable // {settings.web.listen = {port = 7676; basepath = "/scrutiny";};};
+    scrutiny =
+      enable
+      // {
+        settings.web.listen = {
+          port = 7676;
+          basepath = "/scrutiny";
+        };
+      };
 
     ombi = enable // {port = 5050;};
 
-    nginx = {
+    nginx = let
+      proxy = port: {
+        proxyPass = "http://127.0.0.1:${port}";
+        proxyWebsockets = true;
+      };
+      proxyRewrite = service: port:
+        proxy port
+        // {
+          extraConfig = "rewrite ^/${service}/(.*) /$1 break;";
+        };
+    in {
       enable = true;
 
       recommendedGzipSettings = true;
@@ -22,67 +47,172 @@
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
 
-      clientMaxBodySize =  "20M";
+      statusPage = true;
 
-      virtualHosts."127.0.0.1" = {
-        locations = let 
-          proxy = port: {
-            proxyPass = "http://127.0.0.1:${port}";
-            proxyWebsockets = true;
-          };
-          proxyRewrite = service: port: proxy port // {
-            extraConfig = "rewrite ^/${service}/(.*) /$1 break;";
-          };
-        in {
+      clientMaxBodySize = "20M";
+
+      virtualHosts."127.0.0.1".locations = {
+          "/" = {return = "301 /jellyfin/web/";};
           "/jellyfin" = proxyRewrite "jellyfin" "8096";
-          "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
           #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
+      };
+      tailscaleAuth = {
+        enable = true;
+        expectedTailnet = "orca-pythagorean.ts.net";
+        virtualHosts = ["helios"];
+      };
+      virtualHosts."helios" = {
+        locations = {
+          "/jellyfin" = proxyRewrite "jellyfin" "8096";
+          #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
+          "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
           "/sonarr" = proxy "8989";
           "/prowlarr" = proxy "9696";
           "/radarr" = proxy "7878";
           "/readarr" = proxy "8787";
           "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
+          "/" = proxy "8082";
         };
       };
     };
 
-    homepage-dashboard = enable // {
-      widgets = [
-        {
-          resources = {
-            cpu = true;
-            memory = true;
-          };
-        }
-        {
-          resources = {
-            label = "Root";
-            disk = "/";
-          };
-        }
-        {
-          resources = {
-            label = "Media";
-            disk = "/disks/media";
-          };
-        }
-        {
-          resources = {
-            label = "qBittorrent";
-            disk = "/disks/qbit";
-          };
-        }
-      ];
-      services = [
-        {
-          sonarr = {
-            type = "sonarr";
-            url = "http://localhost:8989";
-            key = "ce838b6e37f147d3b0447f9b2422b394";
-            enableQueue = true;
-          };
-        }
-      ];
-    };
+    homepage-dashboard =
+      enable
+      // {
+        environmentFile = config.age.secrets.helios-homepage.path;
+        widgets = [
+          {
+            resources = {
+              cpu = true;
+              memory = true;
+            };
+          }
+          {
+            resources = {
+              label = "Root";
+              disk = "/";
+            };
+          }
+          {
+            resources = {
+              label = "Media";
+              disk = "/disks/media";
+            };
+          }
+          {
+            resources = {
+              label = "qBittorrent";
+              disk = "/disks/qbit";
+            };
+          }
+        ];
+        services = [
+          {
+            Services = [
+              {
+                Sonarr = {
+                  href = "/sonarr";
+                  siteMonitor = "http://helios/sonarr";
+                  widget = {
+                    type = "sonarr";
+                    url = "http://helios/sonarr";
+                    key = "{{HOMEPAGE_VAR_SONARR_API_KEY}}";
+                    enableQueue = true;
+                  };
+                };
+              }
+              {
+                Radarr = {
+                  href = "/radarr";
+                  siteMonitor = "http://helios/radarr";
+                  widget = {
+                    type = "radarr";
+                    url = "http://helios/radarr";
+                    key = "{{HOMEPAGE_VAR_RADARR_API_KEY}}";
+                    enableQueue = true;
+                  };
+                };
+              }
+              {
+                Readarr = {
+                  href = "/readarr";
+                  siteMonitor = "http://helios/readarr";
+                  widget = {
+                    type = "readarr";
+                    url = "http://helios/readarr";
+                    key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
+                    enableQueue = true;
+                  };
+                };
+              }
+              {
+                Prowlarr = {
+                  href = "/prowlarr";
+                  siteMonitor = "http://helios/prowlarr";
+                  widget = {
+                    type = "prowlarr";
+                    url = "http://helios/prowlarr";
+                    key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
+                    enableQueue = true;
+                  };
+                };
+              }
+            ];
+          }
+          {
+            Misc = [
+              {
+                Jellyfin = {
+                  href = "/jellyfin/web/";
+                  siteMonitor = "http://helios/jellyfin/web/";
+                  widget = {
+                    type = "jellyfin";
+                    url = "http://helios/jellyfin";
+                    key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
+                    enableNowPlaying = true;
+                    enableUser = true;
+                    showEpisodeNumber = true;
+                    enableBlocks = true;
+                  };
+                };
+              }
+              {
+                Scrutiny = {
+                  href = "/scrutiny/";
+                  siteMonitor = "http://helios/scrutiny/";
+                  widget = {
+                    type = "scrutiny";
+                    url = "http://helios/scrutiny";
+                  };
+                };
+              }
+              {
+                qBittorrent = {
+                  href = "/qbit/";
+                  siteMonitor = "http://helios/qbit/";
+                  widget = {
+                    type = "qbittorrent";
+                    url = "http://helios/qbit";
+                    username = "{{HOMEPAGE_VAR_QBIT_USERNAME}}";
+                    password = "{{HOMEPAGE_VAR_QBIT_PASSWORD}}";
+                  };
+                };
+              }
+              {
+                Ombi = {
+                  href = "/ombi/";
+                  siteMonitor = "http://helios/ombi/";
+                  widget = {
+                    type = "ombi";
+                    url = "http://helios:5050";
+                    key = "{{HOMEPAGE_VAR_OMBI_API_KEY}}";
+                    enableQueue = true;
+                  };
+                };
+              }
+            ];
+          }
+        ];
+      };
   };
 }

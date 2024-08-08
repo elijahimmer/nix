@@ -29,7 +29,6 @@ in
     };
 
     config = mkIf cfg.enable {
-
       services.syncthing = {
         inherit (cfg) dataDir user;
         enable = true;

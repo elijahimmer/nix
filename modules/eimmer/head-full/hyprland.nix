@@ -269,7 +269,7 @@ with lib; {
             ]
             ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
             ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam") (mkCmdBindExit "B" "Retroarch" "retroarch")])
-            ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pavucontrol))]));
+            ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pwvucontrol))]));
 
           powerCenter = launcher "DELETE" "power" [
             (mkCmdBindExit "A" "Poweroff" "systemctl poweroff")

@@ -33,14 +33,20 @@ with lib; {
       enable32Bit = true;
     };
 
-    environment.systemPackages = [
+    environment.systemPackages = with pkgs; [
       (
-        pkgs.writeShellScriptBin "steam-bigpicture" ''
-          ${lib.getExe' pkgs.gamemode "gamemoderun"} ${lib.getExe pkgs.gamescope} \
+        writeShellScriptBin "steam-bigpicture" ''
+          ${lib.getExe' gamemode "gamemoderun"} ${lib.getExe gamescope} \
             -fe --force-grab-cursor --sharpness 0 \
-            -H 1440 -W 3440 -S integer -- ${lib.getExe pkgs.steam} -tenfoot -pipewire-dmabuf
+            -H 1440 -W 3440 -S integer -- ${lib.getExe steam} -tenfoot -pipewire-dmabuf
         ''
       )
+     (retroarch.override {
+        cores = with libretro; [
+          pcsx2
+          parallel-n64
+        ];
+      })
     ];
   };
 }

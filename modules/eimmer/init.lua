@@ -16,7 +16,7 @@ require('rose-pine').setup({
     enable = {
         terminal = true,
         --legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-        migrations = true, -- Handle deprecated options automatically
+        --migrations = true, -- Handle deprecated options automatically
     },
 
     styles = {
@@ -64,7 +64,10 @@ cmp.setup.cmdline({ '/', '?' }, {
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.elixirls.setup { capabilities = capabilities }
+lspconfig.elixirls.setup {
+    capabilities = capabilities,
+    cmd = { 'elixir-ls' }
+}
 lspconfig.typst_lsp.setup { capabilities = capabilities }
 lspconfig.nil_ls.setup { capabilities = capabilities }
 lspconfig.lua_ls.setup { capabilities = capabilities }

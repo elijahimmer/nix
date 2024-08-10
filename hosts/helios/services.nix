@@ -18,14 +18,13 @@
     sonarr = enable;
     radarr = enable;
     readarr = enable;
-    scrutiny =
-      enable
-      // {
-        settings.web.listen = {
-          port = 7676;
-          basepath = "/scrutiny";
-        };
+    scrutiny ={
+      enable = true;
+      settings.web.listen = {
+        port = 7676;
+        basepath = "/scrutiny";
       };
+    };
 
     #ombi = enable // {port = 5050;};
 
@@ -70,6 +69,7 @@
           "/radarr" = proxy "7878";
           "/readarr" = proxy "8787";
           "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
+          "/influx" = proxy "8086";
           "/" = proxy "8082";
         };
       };

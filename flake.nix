@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-with-py38.url = "github:nixos/nixpkgs?rev=9a9dae8f6319600fa9aebde37f340975cab4b8c0";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -39,6 +40,7 @@
     self,
     nixpkgs,
     nixpkgs-stable,
+    nixpkgs-with-py38,
     flake-utils,
     ...
   } @ inputs: let
@@ -73,6 +75,7 @@
           specialArgs = {
             inherit inputs system hostName;
             pkgs-stable = nixpkgs-stable.legacyPackages.${system};
+            pkgs-with-py38 = nixpkgs-with-py38.legacyPackages.${system};
             flakeAbsoluteDir = "/home/eimmer/src/nix";
             stateVersion = "24.11";
           };

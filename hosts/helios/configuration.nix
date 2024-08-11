@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-with-py38,
   inputs,
   ...
 }: {
@@ -13,8 +12,6 @@
     common-pc
     common-pc-ssd
   ];
-
-  environment.systemPackages = [pkgs-with-py38];
 
   mein = {
     sshHost.enable = true;

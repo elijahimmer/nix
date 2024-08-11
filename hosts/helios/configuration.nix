@@ -13,6 +13,7 @@
     common-pc-ssd
   ];
 
+  environment.systemPackages = [pkgs.warp];
   mein = {
     sshHost.enable = true;
     syncthing.enable = true;

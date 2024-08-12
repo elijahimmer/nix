@@ -3,10 +3,13 @@
   config,
   ...
 }:
-with lib; {
-  options.mein.eimmer.headFull.hyprland.enable = mkEnableOption "enable hyprland" // {default = config.mein.eimmer.headFull.enable;};
+with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
+  options.mein.eimmer.headFull.hyprland = {
+    enable = mkEnableOption "enable hyprland" // {default = config.mein.eimmer.headFull.enable;};
+    withSwaylock = mkEnableOption "enable swaylock" // {default = config.mein.eimmer.headFull.hyprland.enable;};
+  };
 
-  config = mkIf config.mein.eimmer.headFull.hyprland.enable {
+  config = mkIf cfg.enable {
     mein.eimmer.headFull.services.target = ["hyprland-session.target"];
 
     programs = {
@@ -23,8 +26,7 @@ with lib; {
       }
     ];
 
-    # needed to get swaylock to actually unlock
-    security.pam.services.swaylock = {};
+    security.pam.services = mkIf cfg.withSwaylock {swaylock = {};};
 
     home-manager.users.eimmer = {
       pkgs,
@@ -32,6 +34,14 @@ with lib; {
       ...
     }: {
       home.packages = with pkgs; [seatd xdg-utils];
+
+      programs.swaylock = {
+        enable = cfg.withSwaylock;
+        settings = {
+          scaling = mkForce "fit";
+          show-failed-attempts = true;
+        };
+      };
 
       services.hypridle = {
         enable = true;
@@ -59,13 +69,6 @@ with lib; {
         };
       };
 
-      programs.swaylock = {
-        enable = true;
-        settings = {
-          scaling = mkForce "fit";
-          show-failed-attempts = true;
-        };
-      };
 
       wayland.windowManager.hyprland = {
         enable = true;
@@ -74,7 +77,7 @@ with lib; {
           variables = ["--all"];
         };
         settings = {
-          exec-once = [(getExe pkgs.swaylock)];
+          exec-once = optional cfg.withSwaylock (getExe pkgs.swaylock);
 
           monitor = [
             "eDP-1, 1920x1080,0x0,1"
@@ -262,14 +265,14 @@ with lib; {
               (mkCmdBindExit "C" "Chromium" (getExe pkgs.ungoogled-chromium))
               (mkCmdBindExit "D" "Discord" (getExe pkgs.vesktop))
               (mkCmdBindExit "M" "B-Top" "${getExe pkgs.alacritty} --command ${getExe pkgs.btop}")
-              (mkCmdBindExit "R" "Signal" (lib.getExe pkgs.signal-desktop))
+              (mkCmdBindExit "R" "Signal" (getExe pkgs.signal-desktop))
               (mkCmdBindExit "T" "Firefox" "$BROWSER")
-              (mkCmdBindExit "W" "Nautilus" (lib.getExe pkgs.nautilus))
-              (mkCmdBindExit "Z" "Zotero" (lib.getExe pkgs.zotero))
+              (mkCmdBindExit "W" "Nautilus" (getExe pkgs.nautilus))
+              (mkCmdBindExit "Z" "Zotero" (getExe pkgs.zotero))
             ]
             ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
             ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam") (mkCmdBindExit "B" "Retroarch" "retroarch")])
-            ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (lib.getExe pkgs.pwvucontrol))]));
+            ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (getExe pkgs.pwvucontrol))]));
 
           powerCenter = launcher "DELETE" "power" [
             (mkCmdBindExit "A" "Poweroff" "systemctl poweroff")
@@ -280,8 +283,8 @@ with lib; {
             (mkCmdBindExit "R" "Restart" "systemctl restart")
           ];
 
-          mpc = lib.getExe pkgs.mpc-cli;
-          mpc-cmd = cmd: ''${lib.getExe pkgs.notify-desktop} "$(${mpc} ${cmd} | head --lines 2 -)" -u low'';
+          mpc = getExe pkgs.mpc-cli;
+          mpc-cmd = cmd: ''${getExe pkgs.notify-desktop} "$(${mpc} ${cmd} | head --lines 2 -)" -u low'';
           musicCenter = launcher "M" "music" [
             (mkCmdBindExit "A" "Play" (mpc-cmd "play"))
             (mkCmdBindExit "H" "Toggle Pause" (mpc-cmd "toggle"))

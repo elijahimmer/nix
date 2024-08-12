@@ -81,6 +81,7 @@
       gaea = host "x86_64-linux" "gaea";
       selene = host "x86_64-linux" "selene";
       helios = host "x86_64-linux" "helios";
+      portable = host "x86_64-linux" "portable";
     };
   };
 }

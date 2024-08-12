@@ -11,3 +11,8 @@ All the non-stylix themes are from `https://github.com/rose-pine`
 Firefox Theme: https://github.com/rose-pine/firefox
 Alacritty Theme: https://github.com/rose-pine/alacritty
 
+## Make Portable ISO
+
+```sh
+nix build .#nixosConfigurations.portable.config.system.build.isoImage
+```

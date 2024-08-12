@@ -7,8 +7,11 @@
   imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
 
   mein = {
-    eimmer.headFull.enable = true;
-    eimmer.sshAccess = false;
+    eimmer = {
+      headFull.enable = true;
+      headFull.hyprland.withSwaylock = false;
+      sshAccess = false;
+    };
 
     networkManager.enable = false;
     syncthing.enable = false;

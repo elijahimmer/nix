@@ -3,6 +3,8 @@
   config,
   system,
   inputs,
+  pkgs,
+  pkgs-stable,
   ...
 }: {
   config = lib.mkIf config.mein.eimmer.withEnv {
@@ -16,10 +18,7 @@
         };
       };
     };
-    home-manager.users.eimmer = {
-      pkgs,
-      ...
-    }: {
+    home-manager.users.eimmer = {...}: {
       programs = {
         bash.enable = true;
 
@@ -56,17 +55,17 @@
             cmp-spell
             cmp-rg
 
-            pkgs.nil
           ];
 
           extraPackages = with pkgs;
             [
               tree-sitter
+              nil
             ]
             ++ lib.optionals config.mein.env.withCodingPkgs [
               zls
               elixir-ls
-              typst-lsp
+              pkgs-stable.typst-lsp
               rust-analyzer
               jdt-language-server
               lua-language-server

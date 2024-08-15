@@ -17,7 +17,6 @@
   mein = {
     sshHost.enable = true;
     syncthing.enable = true;
-    env.withCodingPkgs = true;
   };
 
   services.btrfs.autoScrub.enable = true;

@@ -1,64 +1,116 @@
-vim.opt.spell = true
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.smarttab = true
-vim.opt.smartcase = true
-vim.opt.smartindent = true
-vim.opt.mouse = ""
-vim.opt.clipboard = "unnamedplus"
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 4
+-- this comment is to prevent conflicts
+--
+
+local opt = vim.opt
+local g = vim.g
+local keymap = vim.keymap
+
+g.mapleader = ' '
+g.maplocalleader = ' '
+
+g.have_nerd_font = true 
+
+-- [[ Setting options ]]
+-- See `:help vim.opt`
+--  For more options, you can see `:help option-list`
+
+opt.spell = true
+opt.mouse = ""
+opt.expandtab = true
+opt.shiftwidth = 2
+
+opt.number = true
+opt.relativenumber = true
+
+-- Don't show the mode, since it's already in the status line
+opt.showmode = false
+
+vim.schedule(function()
+  opt.clipboard = 'unnamedplus'
+end)
+
+-- Enable break indent
+opt.breakindent = true
+
+-- Save undo history
+opt.undofile = true
+
+-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+opt.ignorecase = true
+opt.smartcase = true
+opt.smartindent = true
+
+-- Keep signcolumn on by default
+opt.signcolumn = 'yes'
+
+-- Decrease update time
+opt.updatetime = 250
+
+-- Decrease mapped sequence wait time
+-- Displays which-key popup sooner
+opt.timeoutlen = 300
+
+-- Configure how new splits should be opened
+opt.splitright = true
+opt.splitbelow = true
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- Preview substitutions live, as you type!
+opt.inccommand = 'split'
+
+-- Show which line your cursor is on
+opt.cursorline = true
+
+-- Minimal number of screen lines to keep above and below the cursor.
+opt.scrolloff = 10
+
+-- [[ Basic Keymaps ]]
+--  See `:help vim.keymap.set()`
+
+-- Clear highlights on search when pressing <Esc> in normal mode
+--  See `:help hlsearch`
+keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- Diagnostic keymaps
+keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- Keybinds to make split navigation easier.
+--  Use CTRL+<hjkl> to switch between windows
+--
+--  See `:help wincmd` for a list of all window commands
+keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 
 require('rose-pine').setup({
-    variant = "main",
+  variant = "main",
+  enable = {terminal = true},
 
-    enable = {
-        terminal = true,
-        --legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-        --migrations = true, -- Handle deprecated options automatically
-    },
-
-    styles = {
-        bold = true,
-        italic = true,
-        transparency = true,
-    },
+  styles = {
+    bold = true,
+    italic = true,
+    transparency = true,
+  },
 })
-
 vim.cmd('colorscheme rose-pine')
 
-local cmp = require('cmp')
+require("lz.n").load {
+  "cmp",
+  event = "InsertEnter",
+}
 
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      require('luasnip').lsp_expand(args.body)
-    end,
-  },
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-  }, {
-    { name = 'buffer' },
-  })
-})
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
+require('cmp').setup({
   sources = {
-    { name = 'buffer' }
-  }
+    { name = 'buffer' },
+    { name = 'nvim_lsp' },
+  },
 })
 
 local lspconfig = require('lspconfig')
@@ -76,4 +128,9 @@ lspconfig.jdtls.setup {
   cmd = { 'jdtls' }
 }
 lspconfig.rust_analyzer.setup {	capabilities = capabilities }
+
+require("lz.n").load {
+  "telescope.nvim",
+  cmd = "Telescope",
+}
 

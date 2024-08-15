@@ -1,6 +1,8 @@
 {
   lib,
   config,
+  system,
+  inputs,
   ...
 }: {
   config = lib.mkIf config.mein.eimmer.withEnv {
@@ -15,7 +17,6 @@
       };
     };
     home-manager.users.eimmer = {
-      inputs,
       pkgs,
       ...
     }: {
@@ -38,24 +39,24 @@
           withPython3 = false;
 
           plugins = with pkgs.vimPlugins; [
-            # Highlighting
-            nvim-treesitter.withAllGrammars
+            nvim-treesitter.withAllGrammars # Highlighting
 
-            # nvim cmp
-            nvim-cmp
-            cmp-nvim-lsp
-
-            # Lsp + language stuff
-            nvim-lspconfig
-            vim-nix
-            statix
-            luasnip
-            vim-just
-            typst-vim
-            zig-vim
-
-            # theme
             rose-pine
+
+            inputs.lz-n.packages.${system}.default
+
+            telescope-nvim
+
+            nvim-lspconfig
+
+            nvim-cmp
+            cmp-buffer
+            cmp-nvim-lsp
+            cmp-calc
+            cmp-spell
+            cmp-rg
+
+            pkgs.nil
           ];
 
           extraPackages = with pkgs;
@@ -64,7 +65,6 @@
             ]
             ++ lib.optionals config.mein.env.withCodingPkgs [
               zls
-              nil
               elixir-ls
               typst-lsp
               rust-analyzer

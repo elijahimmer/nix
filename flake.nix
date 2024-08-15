@@ -34,6 +34,12 @@
       inputs.nix-gaming.follows = "nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # neovim
+    lz-n = {
+      url = "github:nvim-neorocks/lz.n";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = {
     self,

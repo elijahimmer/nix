@@ -34,6 +34,8 @@ in
         man-pages
         man-pages-posix
 
+        whois
+
         (writeScriptBin "n" "nix-shell -p $@")
         (writeScriptBin "nr" ''NIX_SHELL_RUN_COMMAND=$@ nix-shell -p "$1" --command ${pkgs.writeScript "nix_shell_run" "$NIX_SHELL_RUN_COMMAND"}'')
       ]

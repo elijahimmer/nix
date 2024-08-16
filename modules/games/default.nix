@@ -41,7 +41,8 @@ with lib; {
             -H 1440 -W 3440 -S integer -- ${lib.getExe steam} -tenfoot -pipewire-dmabuf
         ''
       )
-     (retroarch.override {
+      rpcs3
+      (retroarch.override {
         cores = with libretro; [
           pcsx2
           parallel-n64

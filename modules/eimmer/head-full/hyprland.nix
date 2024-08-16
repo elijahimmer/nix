@@ -54,7 +54,7 @@ with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
           listener = [
             {
               timeout = 600;
-              on-timeout = "loginctl lock-session";
+              on-timeout = "swaylock";
             }
             {
               timeout = 630;
@@ -167,7 +167,7 @@ with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
             "SUPER CONTROL, G, exec, ${screenshot}"
             "SUPER SHIFT,   G, exec, ${screenshotRegion}"
             "SUPER SHIFT, code:35, fullscreen"
-            "SUPER SHIFT, code:34, fakefullscreen"
+            "SUPER SHIFT, code:34, fullscreenstate -1 2"
             "SUPER SHIFT, F, togglefloating"
             "SUPER SHIFT, F, pin"
             "SUPER SHIFT, P, pin"

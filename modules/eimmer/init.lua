@@ -102,16 +102,27 @@ require('rose-pine').setup({
 vim.cmd('colorscheme rose-pine')
 
 require("lz.n").load {
-  "cmp",
-  event = "InsertEnter",
+  {
+    "cmp",
+    after = function ()
+      require('cmp').setup({
+        sources = {
+          { name = 'buffer' },
+          { name = 'nvim_lsp' },
+        },
+      })
+    end;
+    event = "InsertEnter",
+  },
+  {
+    "which-key",
+    after = function ()
+      require("which-key").show({ global = false })
+    end,
+    event = "<leader>?",
+  },
 }
 
-require('cmp').setup({
-  sources = {
-    { name = 'buffer' },
-    { name = 'nvim_lsp' },
-  },
-})
 
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

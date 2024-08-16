@@ -71,7 +71,20 @@
               lua-language-server
             ];
 
-          extraLuaConfig = builtins.readFile ./init.lua;
+          extraLuaConfig = (builtins.readFile ./init.lua)
+          + lib.optionalString config.mein.env.withCodingPkgs ''
+              lspconfig.elixirls.setup {
+                  capabilities = capabilities,
+                  cmd = { 'elixir-ls' }
+              }
+              lspconfig.typst_lsp.setup { capabilities = capabilities }
+              lspconfig.lua_ls.setup { capabilities = capabilities }
+              lspconfig.jdtls.setup {
+                capabilities = capabilities,
+                cmd = { 'jdtls' }
+              }
+              lspconfig.rust_analyzer.setup { capabilities = capabilities }
+          '';
         };
       };
     };

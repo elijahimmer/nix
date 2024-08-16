@@ -115,11 +115,15 @@ require("lz.n").load {
     event = "InsertEnter",
   },
   {
-    "which-key",
+    "folke/which-key.nvim",
     after = function ()
-      require("which-key").show({ global = false })
+      require("which-key").add({
+        { "<leader>f", group = "file" },
+      })
     end,
-    event = "<leader>?",
+    keys = {
+      { "<leader>f"}
+    },
   },
 }
 
@@ -127,18 +131,7 @@ require("lz.n").load {
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lspconfig.elixirls.setup {
-    capabilities = capabilities,
-    cmd = { 'elixir-ls' }
-}
-lspconfig.typst_lsp.setup { capabilities = capabilities }
 lspconfig.nil_ls.setup { capabilities = capabilities }
-lspconfig.lua_ls.setup { capabilities = capabilities }
-lspconfig.jdtls.setup {
-  capabilities = capabilities,
-  cmd = { 'jdtls' }
-}
-lspconfig.rust_analyzer.setup {	capabilities = capabilities }
 
 require("lz.n").load {
   "telescope.nvim",

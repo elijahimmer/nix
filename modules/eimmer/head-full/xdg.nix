@@ -6,7 +6,7 @@
 with lib; {
   config = mkIf config.mein.eimmer.headFull.enable {
     environment.shellAliases.open = "xdg-open";
-    home-manager.users.eimmer = _: {
+    home-manager.users.eimmer = {
       xdg = {
         enable = true;
         mimeApps.enable = true;

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
@@ -29,10 +30,6 @@ with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
     security.pam.services = mkIf cfg.withSwaylock {swaylock = {};};
 
     home-manager.users.eimmer = {
-      pkgs,
-      inputs,
-      ...
-    }: {
       home.packages = with pkgs; [seatd xdg-utils];
 
       programs.swaylock = {

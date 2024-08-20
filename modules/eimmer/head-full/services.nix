@@ -26,7 +26,7 @@ in
           };
         };
 
-        home-manager.users.eimmer = _: {
+        home-manager.users.eimmer = {
           services.wlsunset = {
             enable = true;
             latitude = "46";

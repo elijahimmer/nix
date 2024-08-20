@@ -29,7 +29,7 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
+    home-manager.users.eimmer.home.packages = with pkgs; [
       wl-clipboard
       openjdk11
       google-java-format

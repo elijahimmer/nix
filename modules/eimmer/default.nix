@@ -27,9 +27,7 @@ in
           extraSpecialArgs = {inherit inputs stateVersion;};
         };
 
-        home-manager.users.eimmer = {stateVersion, ...}: {
-          home = {inherit stateVersion;};
-        };
+        home-manager.users.eimmer.home = {inherit stateVersion;};
 
         users.users.eimmer = {
           isNormalUser = true;

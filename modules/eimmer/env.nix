@@ -18,7 +18,7 @@
         };
       };
     };
-    home-manager.users.eimmer = {...}: {
+    home-manager.users.eimmer = {
       programs = {
         bash.enable = true;
 

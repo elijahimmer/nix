@@ -8,24 +8,16 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     # My Packages
-    wlrs-bar = {
-      url = "github:elijahimmer/wlrs-bar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    wlrs-bar.url = "github:elijahimmer/wlrs-bar";
+    wlrs-bar.inputs.nixpkgs.follows = "nixpkgs";
 
     # starcitizen
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -37,10 +29,8 @@
     };
 
     # neovim
-    lz-n = {
-      url = "github:nvim-neorocks/lz.n";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    lz-n.url = "github:nvim-neorocks/lz.n";
+    lz-n.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {

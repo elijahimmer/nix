@@ -44,3 +44,4 @@ nix-check:
 test-inputs:
     nix flake update
     @just test 
+

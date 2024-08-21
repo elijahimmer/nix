@@ -29,6 +29,13 @@ in
     };
 
     config = mkIf cfg.enable {
+      assertions = [
+        {
+          assertion = builtins.hasAttr config.networking.hostName devices;
+          message = "host `${config.networking.hostName}` doesn't have a device ID.";
+        }
+      ];
+
       services.syncthing = {
         inherit (cfg) dataDir user;
         enable = true;

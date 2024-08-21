@@ -4,7 +4,9 @@
   pkgs,
   ...
 }:
-with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
+with lib; let
+  cfg = config.mein.eimmer.headFull.hyprland;
+in {
   options.mein.eimmer.headFull.hyprland = {
     enable = mkEnableOption "enable hyprland" // {default = config.mein.eimmer.headFull.enable;};
     withSwaylock = mkEnableOption "enable swaylock" // {default = config.mein.eimmer.headFull.hyprland.enable;};
@@ -65,7 +67,6 @@ with lib; let cfg = config.mein.eimmer.headFull.hyprland; in {
           ];
         };
       };
-
 
       wayland.windowManager.hyprland = {
         enable = true;

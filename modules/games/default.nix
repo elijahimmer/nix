@@ -20,18 +20,20 @@ with lib; {
         protontricks.enable = true;
         extest.enable = true;
         gamescopeSession.enable = true;
-        platformOptimizations.enable = true;
+        #platformOptimizations.enable = true;
       };
       gamescope = {
         enable = true;
         capSysNice = true;
       };
     };
-    services.pipewire.lowLatency.enable = true;
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
     };
+
+    security.rtkit.enable = true;
+    services.pipewire.lowLatency.enable = config.mein.pipewire.enable;
 
     environment.systemPackages = with pkgs; [
       (

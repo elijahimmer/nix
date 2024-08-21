@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  pkgs-stable,
   ...
 }: {
   imports = with inputs.nixos-hardware.nixosModules; [
@@ -60,7 +59,7 @@
     enableAllFirmware = true;
     graphics = {
       enable = true;
-      extraPackages = with pkgs-stable; [
+      extraPackages = with pkgs.stable; [
         vulkan-validation-layers
         vulkan-extension-layer
         vulkan-loader

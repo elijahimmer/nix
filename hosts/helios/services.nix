@@ -18,7 +18,7 @@
     sonarr = enable;
     radarr = enable;
     readarr = enable;
-    scrutiny ={
+    scrutiny = {
       enable = true;
       settings.web.listen = {
         port = 7676;
@@ -49,9 +49,9 @@
       clientMaxBodySize = "20M";
 
       virtualHosts."127.0.0.1".locations = {
-          "/" = {return = "301 /jellyfin/web/";};
-          "/jellyfin" = proxy "8096";
-          #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
+        "/" = {return = "301 /jellyfin/web/";};
+        "/jellyfin" = proxy "8096";
+        #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
       };
 
       tailscaleAuth = {

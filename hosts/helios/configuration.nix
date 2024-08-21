@@ -1,6 +1,5 @@
 {
   pkgs,
-  pkgs-stable,
   inputs,
   ...
 }: {
@@ -31,7 +30,7 @@
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs-stable; [
+      extraPackages = with pkgs.stable; [
         vulkan-validation-layers
         vulkan-extension-layer
         vulkan-loader

@@ -4,7 +4,6 @@
   system,
   inputs,
   pkgs,
-  pkgs-stable,
   ...
 }: {
   config = lib.mkIf config.mein.eimmer.withEnv {
@@ -54,7 +53,6 @@
             cmp-calc
             cmp-spell
             cmp-rg
-
           ];
 
           extraPackages = with pkgs;
@@ -65,14 +63,15 @@
             ++ lib.optionals config.mein.env.withCodingPkgs [
               zls
               elixir-ls
-              pkgs-stable.typst-lsp
+              pkgs.stable.typst-lsp
               rust-analyzer
               jdt-language-server
               lua-language-server
             ];
 
-          extraLuaConfig = (builtins.readFile ./init.lua)
-          + lib.optionalString config.mein.env.withCodingPkgs ''
+          extraLuaConfig =
+            (builtins.readFile ./init.lua)
+            + lib.optionalString config.mein.env.withCodingPkgs ''
               lspconfig.elixirls.setup {
                   capabilities = capabilities,
                   cmd = { 'elixir-ls' }
@@ -84,7 +83,7 @@
                 cmd = { 'jdtls' }
               }
               lspconfig.rust_analyzer.setup { capabilities = capabilities }
-          '';
+            '';
         };
       };
     };

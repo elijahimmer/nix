@@ -1,7 +1,6 @@
 {
   pkgs,
   hostName,
-  pkgs-stable,
   stateVersion,
   lib,
   config,
@@ -31,7 +30,7 @@ in {
       # I shouldn't need this, but that's the point of having it
       #   It's to prevent the senario that you need it.
       clamav = {
-        package = pkgs-stable.clamav;
+        package = pkgs.stable.clamav;
         daemon.enable = true;
         updater.enable = true;
       };

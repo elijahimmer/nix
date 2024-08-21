@@ -8,6 +8,15 @@
 
   config = lib.mkIf config.mein.common.nix.enable {
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.overlays = [
+      (final: prev: {
+        stable = import inputs.nixpkgs-stable {
+          inherit (prev) system;
+          config.allowUnfree = true;
+        };
+      })
+    ];
+
     nix = {
       nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 

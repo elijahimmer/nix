@@ -70,7 +70,6 @@
           ];
           specialArgs = {
             inherit inputs system hostName;
-            pkgs-stable = nixpkgs-stable.legacyPackages.${system};
             flakeAbsoluteDir = "/home/eimmer/src/nix";
             stateVersion = "24.11";
           };

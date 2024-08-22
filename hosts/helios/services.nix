@@ -17,7 +17,7 @@
     qbittorrent = enable // {port = 8181;};
     sonarr = enable;
     radarr = enable;
-    readarr = enable;
+    #readarr = enable; # Disabled because I don't use it
     scrutiny = {
       enable = true;
       settings.web.listen = {
@@ -67,7 +67,7 @@
           "/sonarr" = proxy "8989";
           "/prowlarr" = proxy "9696";
           "/radarr" = proxy "7878";
-          "/readarr" = proxy "8787";
+          #"/readarr" = proxy "8787";
           "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
           "/influx" = proxy "8086";
           "/" = proxy "8082";
@@ -134,19 +134,19 @@
                   };
                 };
               }
-              {
-                Readarr = {
-                  icon = "http://helios/readarr/Content/Images/logo.svg";
-                  href = "/readarr";
-                  siteMonitor = "http://helios/readarr";
-                  widget = {
-                    type = "readarr";
-                    url = "http://helios/readarr";
-                    key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
-                    enableQueue = true;
-                  };
-                };
-              }
+              #{
+              #  Readarr = {
+              #    icon = "http://helios/readarr/Content/Images/logo.svg";
+              #    href = "/readarr";
+              #    siteMonitor = "http://helios/readarr";
+              #    widget = {
+              #      type = "readarr";
+              #      url = "http://helios/readarr";
+              #      key = "{{HOMEPAGE_VAR_READARR_API_KEY}}";
+              #      enableQueue = true;
+              #    };
+              #  };
+              #}
               {
                 Prowlarr = {
                   icon = "http://helios/prowlarr/Content/Images/logo.svg";

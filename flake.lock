@@ -10,7 +10,7 @@
           "nixpkgs"
         ],
         "systems": [
-          "nix-systems"
+          "systems"
         ]
       },
       "locked": {
@@ -202,7 +202,7 @@
     "flake-utils": {
       "inputs": {
         "systems": [
-          "nix-systems"
+          "systems"
         ]
       },
       "locked": {
@@ -323,7 +323,7 @@
           "nixpkgs"
         ],
         "systems": [
-          "nix-systems"
+          "systems"
         ],
         "treefmt-nix": "treefmt-nix"
       },
@@ -386,19 +386,6 @@
         "type": "github"
       }
     },
-    "nix-systems": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-zklqYResGOhx59bPMTdCzf7qSwNnwP4I/mYLV/C48iI=",
-        "path": "./nix-systems.nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "./nix-systems.nix",
-        "type": "path"
-      }
-    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1724067415,
@@ -455,11 +442,11 @@
         "home-manager": "home-manager",
         "nix-citizen": "nix-citizen",
         "nix-gaming": "nix-gaming",
-        "nix-systems": "nix-systems",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "stylix": "stylix",
+        "systems": "systems",
         "wlrs-bar": "wlrs-bar"
       }
     },
@@ -493,6 +480,19 @@
         "owner": "danth",
         "repo": "stylix",
         "type": "github"
+      }
+    },
+    "systems": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-zklqYResGOhx59bPMTdCzf7qSwNnwP4I/mYLV/C48iI=",
+        "path": "./systems.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "./systems.nix",
+        "type": "path"
       }
     },
     "treefmt-nix": {

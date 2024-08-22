@@ -5,32 +5,48 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    # Flake helpers
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.systems.follows = "systems";
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    flake-utils-plus.inputs.flake-utils.follows = "flake-utils";
 
+    # Common transitive dependencies
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+    systems.url = "path:./systems.nix";
+    systems.flake = false;
+
+    # Secrets en/decryption
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.systems.follows = "systems";
+    agenix.inputs.home-manager.follows = "home-manager";
+
+    # User-level nix configuration
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Styling the nix way
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.home-manager.follows = "home-manager";
 
     # My Packages
     wlrs-bar.url = "github:elijahimmer/wlrs-bar";
     wlrs-bar.inputs.nixpkgs.follows = "nixpkgs";
+    wlrs-bar.inputs.flake-utils.follows = "flake-utils";
 
-    # starcitizen
+    # Games
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
-    nix-citizen = {
-      url = "github:LovingMelody/nix-citizen";
-      inputs.nix-gaming.follows = "nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-gaming.inputs.flake-parts.follows = "flake-parts";
 
-    # neovim
-    lz-n.url = "github:nvim-neorocks/lz.n";
-    lz-n.inputs.nixpkgs.follows = "nixpkgs";
+    # Star Citizen
+    nix-citizen.url = "github:LovingMelody/nix-citizen";
+    nix-citizen.inputs.nixpkgs.follows = "nixpkgs";
+    nix-citizen.inputs.systems.follows = "systems";
+    nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
   };
 
   outputs = {
@@ -42,11 +58,11 @@
   } @ inputs: let
     generated = flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.alejandra;
+    in with pkgs; {
+      formatter = alejandra;
       # Helps to bootstrap a new system
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
+      devShells.default = mkShell {
+        nativeBuildInputs = [
           git
           neovim
           ripgrep

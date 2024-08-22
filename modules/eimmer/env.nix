@@ -41,7 +41,7 @@
 
             rose-pine
 
-            inputs.lz-n.packages.${system}.default
+            lz-n
 
             telescope-nvim
 

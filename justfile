@@ -2,20 +2,26 @@ alias t := test
 alias s := switch
 alias b := boot
 alias u := update
+alias uh := update-host
 alias i := inputs
 alias c := nix-check
-alias ti := test-inputs
 
+default:
+  @just --list
+
+[group('nix')]
 test:
     git add .
     git diff HEAD
     nh os test
 
+[group('nix')]
 boot:
     git add .
     git diff HEAD
     nh os boot
 
+[group('nix')]
 switch: nix-check 
     git add .
     git diff HEAD
@@ -24,11 +30,17 @@ switch: nix-check
     git push
     nh os switch
 
+[group('nix-update')]
 update:
     git pull
     git diff HEAD
     nh os switch
 
+[group('nix-update')]
+update-host HOST:
+  nixos-rebuild switch --flake .#{{HOST}} --target-host {{HOST}} --build-host {{HOST}} --use-remote-sudo
+
+[group('nix-update')]
 inputs:
     git pull
     git diff HEAD
@@ -36,12 +48,9 @@ inputs:
     date +"%s" > updated_last
     @just switch
 
+[group('nix')]
 nix-check:
     git add .
     git diff HEAD
     nix flake check --all-systems
-
-test-inputs:
-    nix flake update
-    @just test 
 

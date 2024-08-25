@@ -30,6 +30,7 @@
     # Styling the nix way
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.flake-utils.follows = "flake-utils";
     stylix.inputs.home-manager.follows = "home-manager";
 
     # My Packages

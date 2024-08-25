@@ -74,14 +74,14 @@
     });
   in {
     inherit (generated) devShells formatter;
-    nixosModules = import ./modules {inherit (nixpkgs) lib;};
+    nixosModules.default = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
       host = system: hostName:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             ./hosts/${hostName}/configuration.nix
-            inputs.self.nixosModules
+            inputs.self.nixosModules.default
             inputs.home-manager.nixosModules.home-manager
             inputs.flake-utils-plus.nixosModules.autoGenFromInputs
           ];

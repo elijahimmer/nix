@@ -320,7 +320,7 @@
         ],
         "nix-github-actions": "nix-github-actions",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-stable"
         ],
         "systems": [
           "systems"
@@ -347,7 +347,7 @@
           "flake-parts"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-stable"
         ],
         "umu": "umu"
       },

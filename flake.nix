@@ -30,6 +30,7 @@
     # Styling the nix way
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    stylix.inputs.systems.follows = "systems";
     stylix.inputs.flake-utils.follows = "flake-utils";
     stylix.inputs.home-manager.follows = "home-manager";
 
@@ -77,7 +78,7 @@
     nixosModules.default = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
       host = system: hostName:
-        inputs.nixpkgs.lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             ./hosts/${hostName}/configuration.nix

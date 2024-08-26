@@ -4,6 +4,7 @@
   stateVersion,
   lib,
   config,
+  headFull,
   ...
 }: let
   cfg = config.mein.common;
@@ -13,12 +14,12 @@ in {
   options.mein.common.enable = lib.mkEnableOption "enable common configuration" // {default = true;};
 
   config = lib.mkIf cfg.enable {
-    mein.common.nix.enable = lib.mkDefault true;
     users.mutableUsers = false;
 
     security.sudo.execWheelOnly = true;
     # needed to get flakes to work
     environment.systemPackages = with pkgs; [git];
+    documentation.enable = config.mein.eimmer.headFull.enable;
     documentation.dev.enable = true;
     hardware.enableAllFirmware = true;
 

@@ -2,6 +2,7 @@
   lib,
   inputs,
   config,
+  flakeAbsoluteDir,
   ...
 }: {
   options.mein.common.nix.enable = lib.mkEnableOption "enable default nix package config" // {default = true;};
@@ -36,6 +37,18 @@
       };
       daemonIOSchedClass = "best-effort";
       daemonCPUSchedPolicy = "batch";
+    };
+
+    system.autoUpgrade = {
+      enable = true;
+      dates = "daily";
+      flake = "github:elijahimmer/nix";
+      fixedRandomDelay = true;
+      allowReboot = true;
+      rebootWindow = {
+        lower = "01:00";
+        upper = "05:00";
+      };
     };
   };
 }

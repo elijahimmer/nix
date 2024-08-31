@@ -14,14 +14,13 @@
 
   mein = {
     eimmer.headFull.enable = true;
-    env.withCodingPkgs = true;
-    bluetooth.enable = true;
-    pipewire.enable = true;
+    env.withCodingPkgs = true; bluetooth.enable = true; pipewire.enable = true;
     theme.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
+    brightnessctl
     acpi
   ];
 

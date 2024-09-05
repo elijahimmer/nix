@@ -1,13 +1,17 @@
 {
   inputs,
   config,
-  pkgs,
-  lib,
   ...
 }: {
   users.users.jellyfin.extraGroups = ["render" "video"];
 
   age.secrets.helios-homepage.file = inputs.self + /secrets/helios-homepage.age;
+  age.secrets.nginx-passwords = {
+    file = inputs.self + /secrets/nginx-passwords.age;
+    mode = "770";
+    owner = "nginx";
+    group = "nginx";
+  };
 
   services = let
     enable = {enable = true;};
@@ -51,6 +55,15 @@
       virtualHosts."127.0.0.1".locations = {
         "/" = {return = "301 /jellyfin/web/";};
         "/jellyfin" = proxy "8096";
+        "/media" = {
+          root = "/disks";
+          basicAuthFile = config.age.secrets.nginx-passwords.path;
+          extraConfig = "
+            autoindex on;
+            autoindex_format html;
+            autoindex_localtime on;
+          ";
+          };
         #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
       };
 
@@ -59,19 +72,17 @@
         expectedTailnet = "orca-pythagorean.ts.net";
         virtualHosts = ["helios"];
       };
-      virtualHosts."helios" = {
-        locations = {
-          "/jellyfin" = proxy "8096";
-          #"/ombi" = proxyRewrite "ombi" (toString config.services.ombi.port); # Get this to work
-          "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
-          "/sonarr" = proxy "8989";
-          "/prowlarr" = proxy "9696";
-          "/radarr" = proxy "7878";
-          #"/readarr" = proxy "8787";
-          "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
-          "/influx" = proxy "8086";
-          "/" = proxy "8082";
-        };
+      virtualHosts."helios".locations = 
+        config.services.nginx.virtualHosts."127.0.0.1".locations
+      // {
+        "/" = proxy "8082";
+        "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
+        "/sonarr" = proxy "8989";
+        "/prowlarr" = proxy "9696";
+        "/radarr" = proxy "7878";
+        #"/readarr" = proxy "8787";
+        "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
+        "/influx" = proxy "8086";
       };
     };
 

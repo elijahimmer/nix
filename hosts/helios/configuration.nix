@@ -18,6 +18,8 @@
     syncthing.enable = true;
   };
 
+  environment.systemPackages = with pkgs; [radeontop];
+
   services.btrfs.autoScrub.enable = true;
 
   security = {

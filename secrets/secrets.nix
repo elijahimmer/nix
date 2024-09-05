@@ -5,9 +5,12 @@ let
   themAll = helios ++ gaea ++ selene;
 in {
   "selene-ssh.age".publicKeys = selene;
+
   "gaea-ssh.age".publicKeys = gaea;
+
   "helios-ssh.age".publicKeys = helios;
   "helios-homepage.age".publicKeys = helios;
+  "nginx-passwords.age".publicKeys = helios;
 
   "eimmer-passwd.age".publicKeys = themAll;
 }

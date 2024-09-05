@@ -61,6 +61,7 @@
           extraConfig = "
             autoindex on;
             autoindex_format html;
+            autoindex_exact_size off;
             autoindex_localtime on;
           ";
           };

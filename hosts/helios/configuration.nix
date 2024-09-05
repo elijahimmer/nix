@@ -18,7 +18,10 @@
     syncthing.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [radeontop];
+  environment.systemPackages = with pkgs; [
+    radeontop
+    ffmpeg-headless
+  ];
 
   services.btrfs.autoScrub.enable = true;
 

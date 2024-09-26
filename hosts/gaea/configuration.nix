@@ -21,7 +21,7 @@
     music.enable = true;
     theme.enable = true;
     games.enable = true;
-    games.starCitizen.enable = true;
+    #games.starCitizen.enable = true;
   };
 
   hardware.opentabletdriver = {

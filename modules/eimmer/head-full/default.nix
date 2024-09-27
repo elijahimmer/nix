@@ -31,7 +31,7 @@
 
     home-manager.users.eimmer.home.packages = with pkgs; [
       wl-clipboard
-      openjdk11
+      openjdk21
       google-java-format
       imv
       xdg-utils

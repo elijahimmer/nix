@@ -73,7 +73,7 @@
         ];
       };
     });
-  in {
+  in rec {
     inherit (generated) devShells formatter;
     nixosModules.default = import ./modules {inherit (nixpkgs) lib;};
     nixosConfigurations = let
@@ -97,6 +97,8 @@
       selene = host "x86_64-linux" "selene";
       helios = host "x86_64-linux" "helios";
       portable = host "x86_64-linux" "portable";
+      pikvm = host "aarch64-linux" "pikvm";
     };
+    images.pikvm = nixosConfigurations.pikvm.config.system.build.sdImage;
   };
 }

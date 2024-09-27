@@ -2,7 +2,6 @@
   lib,
   inputs,
   config,
-  flakeAbsoluteDir,
   ...
 }: {
   options.mein.common.nix.enable = lib.mkEnableOption "enable default nix package config" // {default = true;};

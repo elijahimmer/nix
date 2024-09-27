@@ -113,6 +113,7 @@ in {
             disable_splash_rendering = true;
             enable_swallow = true;
             swallow_regex = "^(Alacritty)$";
+            allow_session_lock_restore = true;
 
             focus_on_activate = true;
             vfr = true;

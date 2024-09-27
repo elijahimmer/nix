@@ -13,7 +13,6 @@ in
         alejandra
         bat
         btop
-        calc
         conceal
         eza
         fd

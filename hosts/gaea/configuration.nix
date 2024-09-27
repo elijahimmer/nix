@@ -29,6 +29,7 @@
     daemon.enable = true;
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   systemd.coredump.enable = true;

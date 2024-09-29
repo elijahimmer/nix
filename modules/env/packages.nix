@@ -41,6 +41,8 @@ in
         (writeScriptBin "nr" ''NIX_SHELL_RUN_COMMAND=$@ nix-shell -p "$1" --command ${pkgs.writeScript "nix_shell_run" "$NIX_SHELL_RUN_COMMAND"}'')
       ]
       ++ optionals (cfg.enable && cfg.withCodingPkgs) [
+        cloc
+
         typst
         typstfmt
 

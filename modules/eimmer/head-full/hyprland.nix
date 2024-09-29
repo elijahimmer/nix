@@ -2,6 +2,8 @@
   lib,
   config,
   pkgs,
+  inputs,
+  system,
   ...
 }:
 with lib; let
@@ -196,44 +198,24 @@ in {
         };
         extraConfig = let
           exit = key: ''
-            bind=SUPER, ${key}, exec,   killall wlr-which-key
+            bind=SUPER, ${key}, exec,   killall zig-prompt
             bind=SUPER, ${key}, submap, reset
-            bind=,      ${key}, exec,   killall wlr-which-key
+            bind=,      ${key}, exec,   killall zig-prompt
             bind=,      ${key}, submap, reset
           '';
 
-          launch-wlr-wk = name: menu: "${getExe pkgs.wlr-which-key} ${
-            pkgs.writeText "launch-wlr-wk-${name}.yaml"
-            (builtins.toJSON {
-              menu = attrsets.mapAttrs' (name: attrsets.nameValuePair (strings.toLower name)) menu;
-              background = "#1f1d2e";
-              separator = " ➜ ";
-              corner_r = 10;
-              color = "#e0def4";
-              anchor = "center";
-              padding = 15;
-              border = "#ebbcba";
-              border_width = 2;
-              margin_right = 0;
-              margin_left = 0;
-              margin_top = 0;
-              margin_bottom = 0;
-            })
-          }";
+          run-zig-prompt = name: binds: 
+          let 
+            zig-prompt = inputs.zig-prompt.packages.${system}.default;
+            args = ''--separator="  " --font-size=12 --border-size=2'';
+            options = builtins.map (bind: ''"${bind.key}=${bind.name}"'') binds;
 
-          wlr-wk-cfg = binds:
-            lists.foldl (acc: bind:
-              acc
-              // {
-                ${bind.key} = {
-                  desc = bind.name;
-                  cmd = "";
-                };
-              }) {}
-            binds;
+            opt_str = builtins.concatStringsSep " " options;
+          in
+            "${getExe zig-prompt} ${args} ${opt_str}";
 
           launcher = key: name: binds: ''
-            bind=SUPER, ${key}, exec,   ${launch-wlr-wk name (wlr-wk-cfg binds)}
+            bind=SUPER, ${key}, exec,   ${run-zig-prompt name binds}
             bind=SUPER, ${key}, submap, ${name}
             submap=${name}
             ${builtins.foldl' (str: bind: str + bind.bind) "" binds}

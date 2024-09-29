@@ -39,6 +39,11 @@
     wlrs-bar.inputs.nixpkgs.follows = "nixpkgs";
     wlrs-bar.inputs.flake-utils.follows = "flake-utils";
 
+    zig-prompt.url = "github:elijahimmer/zig-prompt";
+    zig-prompt.inputs.nixpkgs.follows = "nixpkgs";
+    zig-prompt.inputs.flake-utils.follows = "flake-utils";
+    zig-prompt.inputs.systems.follows = "systems";
+
     # Games
     nix-gaming.url = "github:fufexan/nix-gaming";
     nix-gaming.inputs.nixpkgs.follows = "nixpkgs";

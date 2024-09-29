@@ -399,7 +399,8 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "stylix": "stylix",
         "systems": "systems",
-        "wlrs-bar": "wlrs-bar"
+        "wlrs-bar": "wlrs-bar",
+        "zig-prompt": "zig-prompt"
       }
     },
     "stylix": {
@@ -568,6 +569,32 @@
       "original": {
         "owner": "elijahimmer",
         "repo": "wlrs-bar",
+        "type": "github"
+      }
+    },
+    "zig-prompt": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727640155,
+        "narHash": "sha256-YGkvaW/cA4AR6sd/5ounKLCMFfohAykk6WivnhV03MY=",
+        "owner": "elijahimmer",
+        "repo": "zig-prompt",
+        "rev": "1ccfc971cb6235a5ec120109235146f1d8bc2f71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elijahimmer",
+        "repo": "zig-prompt",
         "type": "github"
       }
     }

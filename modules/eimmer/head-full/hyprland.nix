@@ -209,15 +209,15 @@ in {
               background = "#1f1d2e";
               separator = " ➜ ";
               corner_r = 10;
-              margin_bottom = 0;
               color = "#e0def4";
               anchor = "center";
               padding = 15;
-              margin_left = 0;
               border = "#ebbcba";
               border_width = 2;
               margin_right = 0;
+              margin_left = 0;
               margin_top = 0;
+              margin_bottom = 0;
             })
           }";
 

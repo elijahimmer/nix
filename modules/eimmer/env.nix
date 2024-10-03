@@ -2,8 +2,7 @@
   lib,
   config,
   pkgs,
-  ...
-}: {
+  ... }: {
   config = lib.mkIf config.mein.eimmer.withEnv {
     programs.git = {
       enable = true;
@@ -39,8 +38,6 @@
 
             rose-pine
 
-            lz-n
-
             telescope-nvim
 
             nvim-lspconfig
@@ -51,6 +48,8 @@
             cmp-calc
             cmp-spell
             cmp-rg
+
+            which-key-nvim
           ];
 
           extraPackages = with pkgs;

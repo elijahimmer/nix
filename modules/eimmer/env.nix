@@ -64,7 +64,7 @@
               pkgs.stable.typst-lsp
               rust-analyzer
               jdt-language-server
-              #lua-language-server
+              lua-language-server
             ];
 
           extraLuaConfig =

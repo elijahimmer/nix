@@ -49,7 +49,7 @@
             cmp-spell
             cmp-rg
 
-            which-key-nvim
+            #which-key-nvim
           ];
 
           extraPackages = with pkgs;

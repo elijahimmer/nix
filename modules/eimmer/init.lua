@@ -112,9 +112,10 @@ require('cmp').setup({
     { name = 'nvim_lsp' },
   },
 })
-require("which-key").add({
-  { "<leader>f", group = "file" },
-})
+
+--require("which-key").add({
+--  { "<leader>f", group = "file" },
+--})
 
 
 local lspconfig = require('lspconfig')

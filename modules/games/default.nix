@@ -19,13 +19,13 @@ with lib; {
         enable = true;
         protontricks.enable = true;
         extest.enable = true;
-        gamescopeSession.enable = true;
+        #gamescopeSession.enable = true;
         #platformOptimizations.enable = true;
       };
-      gamescope = {
-        enable = true;
-        capSysNice = true;
-      };
+      #gamescope = {
+      #  enable = true;
+      #  capSysNice = true;
+      #};
     };
     hardware.graphics = {
       enable = true;

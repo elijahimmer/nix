@@ -194,6 +194,11 @@ in {
             "SUPER SHIFT, 8, movetoworkspace, 8"
             "SUPER SHIFT, 9, movetoworkspace, 9"
             "SUPER SHIFT, 0, movetoworkspace, 10"
+
+          ];
+
+          bindl = [
+              "SUPER SHIFT CONTROL, l, exec, swaylock"
           ];
         };
         extraConfig = let

@@ -24,6 +24,12 @@
     #games.starCitizen.enable = true;
   };
 
+  programs.obs-studio = {
+    enable = true;
+    package = pkgs.stable.obs-studio;
+    enableVirtualCamera = true;
+  };
+
   hardware.opentabletdriver = {
     enable = true;
     daemon.enable = true;

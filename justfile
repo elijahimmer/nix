@@ -46,7 +46,13 @@ inputs:
     git diff HEAD
     nix flake update
     date +"%s" > updated_last
-    @just switch
+    git add .
+    git diff HEAD
+    nix flake check --all-systems
+    nh os test
+    git commit 
+    git push
+    nh os switch
 
 [group('nix')]
 nix-check:

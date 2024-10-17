@@ -228,11 +228,11 @@ in {
             submap=reset
           '';
 
-          mkCmdBind = key: name: cmd: {
+          mkCmdBindRepeating = key: name: cmd: {
             inherit key name cmd;
             bind = ''
-              bind=SUPER, ${key}, exec, ${cmd}
-              bind=,      ${key}, exec, ${cmd}
+              binde=SUPER, ${key}, exec, ${cmd}
+              binde=,      ${key}, exec, ${cmd}
             '';
           };
 
@@ -277,8 +277,8 @@ in {
             (mkCmdBindExit "T" "Next Song" (mpc-cmd "next"))
             (mkCmdBindExit "S" "Status" (mpc-cmd "status"))
             (mkCmdBindExit "R" "Reset Volume" (mpc-cmd "vol 30"))
-            (mkCmdBind "W" "Volume +2%" (mpc-cmd "vol +2"))
-            (mkCmdBind "D" "Volume -2%" (mpc-cmd "vol -2"))
+            (mkCmdBindRepeating "W" "Volume +2%" (mpc-cmd "vol +2"))
+            (mkCmdBindRepeating "D" "Volume -2%" (mpc-cmd "vol -2"))
           ];
         in
           appLauncher

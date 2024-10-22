@@ -14,7 +14,7 @@
         powerline-fonts
         nerdfonts
         noto-fonts
-        noto-fonts-cjk
+        noto-fonts-cjk-sans
         source-code-pro
         ttf_bitstream_vera
         terminus_font_ttf

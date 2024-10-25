@@ -30,10 +30,11 @@
     enableVirtualCamera = true;
   };
 
-  hardware.opentabletdriver = {
-    enable = true;
-    daemon.enable = true;
-  };
+  # # Re-enable when I use a drawing tablet again
+  #hardware.opentabletdriver = {
+  #  enable = true;
+  #  daemon.enable = true;
+  #};
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;

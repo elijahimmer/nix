@@ -244,27 +244,6 @@
         "type": "github"
       }
     },
-    "naersk": {
-      "inputs": {
-        "nixpkgs": [
-          "wlrs-bar",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1721727458,
-        "narHash": "sha256-r/xppY958gmZ4oTfLiHN0ZGuQ+RSTijDblVgVLFi1mw=",
-        "owner": "nmattia",
-        "repo": "naersk",
-        "rev": "3fb418eaf352498f6b6c30592e3beb63df42ef11",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nmattia",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "nix-citizen": {
       "inputs": {
         "nix-gaming": [
@@ -416,7 +395,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "stylix": "stylix",
         "systems": "systems",
-        "wlrs-bar": "wlrs-bar",
+        "walrus-bar": "walrus-bar",
         "zig-prompt": "zig-prompt"
       }
     },
@@ -566,27 +545,29 @@
         "url": "https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging/nix"
       }
     },
-    "wlrs-bar": {
+    "walrus-bar": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
         ],
-        "naersk": "naersk",
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1727411603,
-        "narHash": "sha256-etVLRMHCAL6flJ8cdWWpjftMh5nPUwb5DRc9MXmMs3E=",
+        "lastModified": 1730352194,
+        "narHash": "sha256-4mEhws13Js+X9KlO9Nh7nmBMkR66QBY17NHvbpzer1A=",
         "owner": "elijahimmer",
-        "repo": "wlrs-bar",
-        "rev": "cf34a8b78062996ab22f69b8eac9132f1763e993",
+        "repo": "walrus-bar",
+        "rev": "0d119df4d655fa0cc32567bfb5928559bf07b758",
         "type": "github"
       },
       "original": {
         "owner": "elijahimmer",
-        "repo": "wlrs-bar",
+        "repo": "walrus-bar",
         "type": "github"
       }
     },

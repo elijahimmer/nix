@@ -35,9 +35,10 @@
     stylix.inputs.home-manager.follows = "home-manager";
 
     # My Packages
-    wlrs-bar.url = "github:elijahimmer/wlrs-bar";
-    wlrs-bar.inputs.nixpkgs.follows = "nixpkgs";
-    wlrs-bar.inputs.flake-utils.follows = "flake-utils";
+    walrus-bar.url = "github:elijahimmer/walrus-bar";
+    walrus-bar.inputs.nixpkgs.follows = "nixpkgs";
+    walrus-bar.inputs.flake-utils.follows = "flake-utils";
+    walrus-bar.inputs.systems.follows = "systems";
 
     zig-prompt.url = "github:elijahimmer/zig-prompt";
     zig-prompt.inputs.nixpkgs.follows = "nixpkgs";

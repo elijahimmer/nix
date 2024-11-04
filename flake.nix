@@ -35,7 +35,7 @@
     stylix.inputs.home-manager.follows = "home-manager";
 
     # My Packages
-    walrus-bar.url = "github:elijahimmer/walrus-bar";
+    walrus-bar.url = "github:elijahimmer/walrus-bar/v0.1.2";
     walrus-bar.inputs.nixpkgs.follows = "nixpkgs";
     walrus-bar.inputs.flake-utils.follows = "flake-utils";
     walrus-bar.inputs.systems.follows = "systems";

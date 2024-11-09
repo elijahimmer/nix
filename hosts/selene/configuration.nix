@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = with inputs.nixos-hardware.nixosModules; [
@@ -25,6 +26,11 @@
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM="backlight", RUN+="${lib.getExe' pkgs.toybox "chgrp"} video $sys$devpath/brightness" RUN+="${lib.getExe' pkgs.toybox "chmod"} a+w $sys$devpath/brightness"
+
+  '';
 
   # Actually takes code dumps for debugging.
   systemd.coredump.enable = true;

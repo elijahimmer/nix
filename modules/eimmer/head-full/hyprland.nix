@@ -195,6 +195,7 @@ in {
             "SUPER SHIFT, 9, movetoworkspace, 9"
             "SUPER SHIFT, 0, movetoworkspace, 10"
 
+            "SUPER CONTROL, p, exec, ${getExe pkgs.hyprpicker}"
           ];
 
           bindl = [
@@ -238,8 +239,7 @@ in {
 
           mkCmdBindExit = key: name: cmd: {
             inherit key name cmd;
-            bind =
-              ''
+            bind = ''
                 bind=SUPER, ${key}, exec, ${cmd}
                 bind=,      ${key}, exec, ${cmd}
               ''

@@ -54,5 +54,7 @@ in
 
         elixir
         ghc
+
+        R
       ];
   }

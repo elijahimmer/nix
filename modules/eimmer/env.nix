@@ -2,7 +2,8 @@
   lib,
   config,
   pkgs,
-  ... }: {
+  ...
+}: {
   config = lib.mkIf config.mein.eimmer.withEnv {
     programs.git = {
       enable = true;

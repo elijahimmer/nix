@@ -21,15 +21,13 @@
 
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
-    brightnessctl
     acpi
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   services.udev.extraRules = ''
-    ACTION=="add", SUBSYSTEM="backlight", RUN+="${lib.getExe' pkgs.toybox "chgrp"} video $sys$devpath/brightness" RUN+="${lib.getExe' pkgs.toybox "chmod"} a+w $sys$devpath/brightness"
-
+    ACTION=="add", SUBSYSTEM=="backlight", RUN+="${lib.getExe' pkgs.toybox "chgrp"} video $sys$devpath/brightness" RUN+="${lib.getExe' pkgs.toybox "chmod"} g+w $sys$devpath/brightness"
   '';
 
   # Actually takes code dumps for debugging.
@@ -72,11 +70,25 @@
     tlp = {
       enable = true;
       settings = {
-        CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        SOUND_POWER_SAVE_ON_AC = 1;
+        SOUND_POWER_SAVE_ON_BAT = 1;
+        SOUND_POWER_SAVE_CONTROLLER = "Y";
 
-        PLATFORM_PROFILE_ON_AC = "balanced";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
+        NATACPI_ENABLE = 1;
+
+        STOP_CHARGE_THRESH_BAT0 = "95";
+
+        NMI_WATCHDOG=0;
+
+        WIFI_PWR_ON_AC="off";
+        WIFI_PWR_ON_BAT="on";
+
+        # CPU settings 
+        CPU_ENERGY_PERF_POLICY_ON_AC="performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT="power";
+
+        PLATFORM_PROFILE_ON_AC="performance";
+        PLATFORM_PROFILE_ON_BAT="low-power";
 
         CPU_BOOST_ON_AC = "1";
         CPU_BOOST_ON_BAT = "0";
@@ -84,16 +96,12 @@
         CPU_HWP_DYN_BOOST_ON_AC = "1";
         CPU_HWP_DYN_BOOST_ON_BAT = "0";
 
-        RUNTIME_PM_ON_AC = "auto";
-        RUNTIME_PM_ON_BAT = "auto";
+        CPU_SCALING_GOVERNOR_ON_AC="performance";
+        CPU_SCALING_GOVERNOR_ON_BAT="powersave";
 
-        SOUND_POWER_SAVE_ON_AC = 1;
-        SOUND_POWER_SAVE_ON_BAT = 1;
-
-        NATACPI_ENABLE = 1;
-
-        STOP_CHARGE_THRESH_BAT0 = "95";
-      };
+        MEM_SLEEP_ON_AC="s2idle";
+        MEM_SLEEP_ON_BAT="deep";
+     };
     };
   };
 }

@@ -24,6 +24,15 @@
     acpi
   ];
 
+  hardware.intelgpu = {
+    driver = "xe";
+    vaapiDriver = "intel-media-driver";
+  };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = [pkgs.vpl-gpu-rt];
+  };
+
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   services.udev.extraRules = ''

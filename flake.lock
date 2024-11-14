@@ -559,16 +559,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1731353138,
-        "narHash": "sha256-WrBa2sgzmELZDQDFmzYfgImvOyZeJ9RMYwwIa90Yaq0=",
+        "lastModified": 1731559566,
+        "narHash": "sha256-g/jysH65EGyRTsXq9lSIlxh3EPxUkckhxLs8PH3ameI=",
         "owner": "elijahimmer",
         "repo": "walrus-bar",
-        "rev": "c3e92c8dd4fd1df6b7b1847b354c67fb294d9e38",
+        "rev": "2818bfc15eecb580f0e15782fce4e63ccd8e34d3",
         "type": "github"
       },
       "original": {
         "owner": "elijahimmer",
-        "ref": "v0.1.5",
+        "ref": "v0.1.6",
         "repo": "walrus-bar",
         "type": "github"
       }

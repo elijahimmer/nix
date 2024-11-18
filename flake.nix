@@ -2,18 +2,22 @@
   description = "Elijah's Nixos Configs";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Flake helpers
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils.inputs.systems.follows = "systems";
+
     flake-utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
     flake-utils-plus.inputs.flake-utils.follows = "flake-utils";
 
     # Common transitive dependencies
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
     systems.url = "path:./systems.nix";
     systems.flake = false;
 

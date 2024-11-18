@@ -84,7 +84,6 @@ in {
           ];
           master = {
             mfact = 0.5;
-            no_gaps_when_only = true;
             orientation = "right";
           };
           general = {

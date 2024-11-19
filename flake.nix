@@ -32,7 +32,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Styling the nix way
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/5ab1207b2fdeb5a022f2dd7cccf6be760f1b150f";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.systems.follows = "systems";
     stylix.inputs.flake-utils.follows = "flake-utils";

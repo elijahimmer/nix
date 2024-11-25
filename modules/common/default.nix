@@ -19,8 +19,14 @@ in {
     security.sudo.execWheelOnly = true;
     # needed to get flakes to work
     environment.systemPackages = with pkgs; [git];
-    documentation.enable = config.mein.eimmer.headFull.enable;
-    documentation.dev.enable = true;
+
+    documentation = {
+      enable = config.mein.eimmer.headFull.enable;
+
+      dev.enable = true;
+      man.generateCaches = true;
+    };
+
     hardware.enableAllFirmware = true;
 
     i18n.defaultLocale = "en_US.UTF-8";

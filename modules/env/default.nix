@@ -28,6 +28,8 @@ in
         };
 
         variables.EDITOR = "nvim";
+        variables.MANPAGER = "nvim +Man!";
+
         variables.FLAKE = flakeAbsoluteDir;
       };
 

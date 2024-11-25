@@ -16,3 +16,13 @@ Alacritty Theme: https://github.com/rose-pine/alacritty
 ```sh
 nix build .#nixosConfigurations.portable.config.system.build.isoImage
 ```
+
+## Hooks
+
+You should be using the following `pre-commit` hook to update the date correctly.
+
+```bash
+date +"%s" > ./updated_last
+git add ./updated_last
+```
+

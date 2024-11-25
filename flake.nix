@@ -32,14 +32,14 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # Styling the nix way
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/5ab1207b2fdeb5a022f2dd7cccf6be760f1b150f";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
     stylix.inputs.systems.follows = "systems";
     stylix.inputs.flake-utils.follows = "flake-utils";
     stylix.inputs.home-manager.follows = "home-manager";
 
     # My Packages
-    walrus-bar.url = "github:elijahimmer/walrus-bar/v0.1.6";
+    walrus-bar.url = "github:elijahimmer/walrus-bar/v0.1.7";
     walrus-bar.inputs.nixpkgs.follows = "nixpkgs";
     walrus-bar.inputs.flake-utils.follows = "flake-utils";
     walrus-bar.inputs.systems.follows = "systems";

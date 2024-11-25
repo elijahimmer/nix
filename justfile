@@ -45,11 +45,9 @@ inputs:
     git pull
     git diff HEAD
     nix flake update --commit-lock-file
-    git add .
-    git diff HEAD
+    git diff HEAD~1
     nix flake check --all-systems
     nh os test
-    git commit 
     git push
     nh os switch
 

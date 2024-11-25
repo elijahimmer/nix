@@ -44,7 +44,6 @@ update-host HOST:
 inputs:
     git pull
     git diff HEAD
-    date +"%s" > updated_last
     nix flake update --commit-lock-file
     git add .
     git diff HEAD

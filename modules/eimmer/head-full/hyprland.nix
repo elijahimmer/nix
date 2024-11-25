@@ -94,7 +94,7 @@ in {
             border_size = 2;
           };
           decoration = {
-            drop_shadow = false;
+            shadow.enabled = false;
             blur.enabled = false;
           };
           input = {

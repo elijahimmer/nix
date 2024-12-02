@@ -59,6 +59,7 @@
     nix-citizen.inputs.nixpkgs.follows = "nixpkgs";
     nix-citizen.inputs.systems.follows = "systems";
     nix-citizen.inputs.nix-gaming.follows = "nix-gaming";
+    nix-citizen.inputs.umu.follows = "nix-gaming/umu";
   };
 
   outputs = {

@@ -34,15 +34,15 @@ in {
       };
       fonts = {
         serif = {
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.fira-mono;
           name = "Fira Go";
         };
         sansSerif = {
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.fira-mono;
           name = "Fira Go";
         };
         monospace = {
-          package = pkgs.nerdfonts;
+          package = pkgs.nerd-fonts.fira-code;
           name = "FiraCode Nerd Font";
         };
         emoji = {

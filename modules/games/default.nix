@@ -44,8 +44,8 @@ with lib; {
         ''
       )
       rpcs3
-      (retroarch.override {
-        cores = with libretro; [
+      (retroarch-bare.override {
+        libretro = pkgs.mkLibretroCore [
           pcsx2
           parallel-n64
         ];

@@ -122,7 +122,15 @@ local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local telescope_builtin = require('telescope.builtin')
 
-lspconfig.nil_ls.setup { capabilities = capabilities }
+lspconfig.util.default_config = vim.tbl_deep_extend(
+	"force",
+	lspconfig.util.default_config,
+	{
+	  capabilities = capabilities,
+	}
+)
+
+lspconfig.nil_ls.setup { }
 
 local map = function(keys, func, desc)
   vim.keymap.set('n', keys, func, { desc = 'LSP: ' .. desc })

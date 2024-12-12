@@ -61,7 +61,8 @@
             ++ lib.optionals config.mein.env.withCodingPkgs [
               zls
               elixir-ls
-              pkgs.stable.typst-lsp
+              tinymist
+              typstyle
               rust-analyzer
               jdt-language-server
               lua-language-server
@@ -70,17 +71,20 @@
           extraLuaConfig =
             (builtins.readFile ./init.lua)
             + lib.optionalString config.mein.env.withCodingPkgs ''
-              lspconfig.elixirls.setup {
-                  capabilities = capabilities,
-                  cmd = { 'elixir-ls' }
+              lspconfig.elixirls.setup { cmd = { 'elixir-ls' } }
+
+              lspconfig.tinymist.setup { 
+                root_dir = "-",
+                settings = {
+                  outputPath = "$dir/$name";
+                  exportPdf = "onDocumentHasTitle",
+                  formatterMode = "typstyle",
+                }
               }
-              lspconfig.typst_lsp.setup { capabilities = capabilities }
-              lspconfig.lua_ls.setup { capabilities = capabilities }
-              lspconfig.jdtls.setup {
-                capabilities = capabilities,
-                cmd = { 'jdtls' }
-              }
-              lspconfig.rust_analyzer.setup { capabilities = capabilities }
+
+              lspconfig.lua_ls.setup { }
+              lspconfig.jdtls.setup { cmd = { 'jdtls' } }
+              lspconfig.rust_analyzer.setup { }
             '';
         };
       };

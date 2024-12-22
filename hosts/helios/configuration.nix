@@ -6,6 +6,7 @@
   imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
     ./services.nix
+    ./nginx.nix
 
     common-cpu-intel
     common-gpu-amd

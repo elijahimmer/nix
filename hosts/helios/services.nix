@@ -22,14 +22,13 @@
   ];
   ##
 
-  services = let
-    enable = {enable = true;};
-  in {
-    jellyfin = enable;
-    prowlarr = enable;
-    qbittorrent = enable // {port = 8181;};
-    sonarr = enable;
-    radarr = enable;
+  services = {
+    jellyfin.enable = true;
+    prowlarr.enable = true;
+    qbittorrent.enable = true;
+    qbittorrent.port = 8181;
+    sonarr.enable = true;
+    radarr.enable = true;
     #readarr = enable; # Disabled because I don't use it
     scrutiny = {
       enable = true;
@@ -43,7 +42,7 @@
 
     nginx = let
       proxy = port: {
-        proxyPass = "http://127.0.0.1:${port}";
+        proxyPass = "http://127.0.0.1:${toString port}";
         proxyWebsockets = true;
       };
       proxyRewrite = service: port:
@@ -63,7 +62,7 @@
 
       virtualHosts."127.0.0.1".locations = {
         "/" = {return = "301 /jellyfin/web/";};
-        "/jellyfin" = proxy "8096";
+        "/jellyfin" = proxy 8096;
         "/media" = {
           root = "/disks";
           basicAuthFile = config.age.secrets.nginx-passwords.path;
@@ -82,23 +81,23 @@
         expectedTailnet = "orca-pythagorean.ts.net";
         virtualHosts = ["helios"];
       };
+
       virtualHosts."helios".locations = 
         config.services.nginx.virtualHosts."127.0.0.1".locations
       // {
-        "/" = proxy "8082";
-        "/qbit" = proxyRewrite "qbit" (toString config.services.qbittorrent.port);
-        "/sonarr" = proxy "8989";
-        "/prowlarr" = proxy "9696";
-        "/radarr" = proxy "7878";
+        "/" = proxy config.services.homepage-dashboard.listenPort;
+        "/qbit" = proxyRewrite "qbit" config.services.qbittorrent.port;
+        "/sonarr" = proxy 8989;
+        "/prowlarr" = proxy 9696;
+        "/radarr" = proxy 7878;
         #"/readarr" = proxy "8787";
-        "/scrutiny" = proxy (toString config.services.scrutiny.settings.web.listen.port);
-        "/influx" = proxy "8086";
+        "/scrutiny" = proxy config.services.scrutiny.settings.web.listen.port;
+        "/influx" = proxy 8086;
       };
     };
 
-    homepage-dashboard =
-      enable
-      // {
+    homepage-dashboard = {
+        enable = true;
         environmentFile = config.age.secrets.helios-homepage.path;
         widgets = [
           {

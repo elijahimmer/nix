@@ -23,7 +23,7 @@
     qbittorrent.port = 8181;
     sonarr.enable = true;
     radarr.enable = true;
-    #readarr = enable; # Disabled because I don't use it
+    readarr.enable = true;
     scrutiny = {
       enable = true;
       settings.web.listen = {

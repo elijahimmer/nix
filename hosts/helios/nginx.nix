@@ -6,7 +6,7 @@
     group = "nginx";
   };
 
-  nginx = let
+  services.nginx = let
     proxy = port: {
       proxyPass = "http://127.0.0.1:${toString port}";
       proxyWebsockets = true;
@@ -56,7 +56,7 @@
       "/sonarr" = proxy 8989;
       "/prowlarr" = proxy 9696;
       "/radarr" = proxy 7878;
-      #"/readarr" = proxy "8787";
+      "/readarr" = proxy 8787;
       "/scrutiny" = proxy config.services.scrutiny.settings.web.listen.port;
       "/grafana" = proxy config.services.grafana.settings.server.http_port;
       "/influx" = proxy 8086;

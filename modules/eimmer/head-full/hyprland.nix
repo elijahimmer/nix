@@ -268,7 +268,11 @@ in {
               (mkCmdBindExit "Z" "Zotero" (getExe pkgs.zotero))
             ]
             ++ (optionals config.mein.bluetooth.enable [(mkCmdBindExit "Q" "Blueman" "blueman-manager")])
-            ++ (optionals config.mein.games.enable [(mkCmdBindExit "S" "Steam" "steam") (mkCmdBindExit "B" "Retroarch" "retroarch")])
+            ++ (optionals config.mein.games.enable [
+              (mkCmdBindExit "S" "Steam" "steam")
+              (mkCmdBindExit "B" "Retroarch" "retroarch")
+              (mkCmdBindExit "L" "Lutris" "lutris")
+            ])
             ++ (optionals config.mein.pipewire.enable [(mkCmdBindExit "V" "Volume" (getExe pkgs.pwvucontrol))]));
 
           powerCenter = launcher "DELETE" "power" [

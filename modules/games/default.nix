@@ -19,13 +19,13 @@ with lib; {
         enable = true;
         protontricks.enable = true;
         extest.enable = true;
-        #gamescopeSession.enable = true;
-        #platformOptimizations.enable = true;
+        gamescopeSession.enable = true;
+        platformOptimizations.enable = true;
       };
-      #gamescope = {
-      #  enable = true;
-      #  capSysNice = true;
-      #};
+      gamescope = {
+        enable = true;
+        capSysNice = true;
+      };
     };
     hardware.graphics = {
       enable = true;
@@ -43,6 +43,7 @@ with lib; {
             -H 1440 -W 3440 -S integer -- ${lib.getExe steam} -tenfoot -pipewire-dmabuf
         ''
       )
+      lutris # universal (-ish) game runner
       rpcs3
       (retroarch-bare.override {
         libretro = pkgs.mkLibretroCore [

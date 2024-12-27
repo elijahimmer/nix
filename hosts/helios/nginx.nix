@@ -58,7 +58,7 @@
       "/radarr" = proxy 7878;
       "/readarr" = proxy 8787;
       "/scrutiny" = proxy config.services.scrutiny.settings.web.listen.port;
-      "/grafana" = proxy config.services.grafana.settings.server.http_port;
+      #"/grafana" = proxy config.services.grafana.settings.server.http_port;
       "/influx" = proxy 8086;
     };
   };

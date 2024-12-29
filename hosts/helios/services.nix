@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  pkgs,
   ...
 }: {
   users.users.jellyfin.extraGroups = ["render" "video"];
@@ -31,6 +32,14 @@
         basepath = "/scrutiny";
       };
     };
+
+    ### remove when https://github.com/NixOS/nixpkgs/pull/369221 is merged to unstable
+    scrutiny.collector.settings.api.endpoint = let 
+      scrutiny = config.services.scrutiny.settings.web.listen; in "http://${scrutiny.host}:${toString scrutiny.port}${scrutiny.basepath}";
+    ###
+
+    influxdb2.package = pkgs.stable.influxdb2;
+
     #grafana = {
     #  enable = true;
     #  settings = {

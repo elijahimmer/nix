@@ -18,6 +18,7 @@ in {
   "helios-influxdb2-telegraf-token.age".publicKeys = helios;
 
   "helios-telegraf-environment.age".publicKeys = helios;
+  "helios-ntfy-key.age".publicKeys = helios;
 
   "helios-grafana-password.age".publicKeys = helios;
 

@@ -31,10 +31,10 @@
       device = "/dev/disk/by-uuid/1f1d6760-69fa-4156-815c-efa7462d1ada";
       fsType = "btrfs";
     };
-    "/disks/extra" = {
-      device = "/dev/disk/by-uuid/289ee36a-7dc9-4977-b290-32ccb1a43aba";
-      fsType = "btrfs";
-    };
+    #"/disks/extra" = {
+    #  device = "/dev/disk/by-uuid/289ee36a-7dc9-4977-b290-32ccb1a43aba";
+    #  fsType = "btrfs";
+    #};
     #"/disks/ssd" = {
     #  device = "/dev/disk/by-uuid/4ca4b75f-e204-467f-a6f7-a42d4bf8fcfb";
     #  fsType = "btrfs";

@@ -1,8 +1,10 @@
 {
   inputs,
   config,
-  pkgs, lib,
-  ... }: { users.users.jellyfin.extraGroups = ["render" "video"];
+  pkgs,
+  lib,
+  ... 
+}: { users.users.jellyfin.extraGroups = ["render" "video"];
 
   age.secrets.helios-grafana-password = {
     file = inputs.self + /secrets/helios-grafana-password.age;
@@ -40,10 +42,17 @@
 
   age.secrets.helios-influxdb2-grafana-token = {
     file = inputs.self + /secrets/helios-influxdb2-grafana-token.age;
-    mode = "555";
+    mode = "550";
     owner = "influxdb2";
     group = "grafana";
   };
+
+  #age.secrets.helios-ntfy-key = {
+  #  file = inputs.self + /secrets/helios-ntfy-key.age;
+  #  mode = "550";
+  #  owner = "ntfy-sh";
+  #  group = "ntfy-sh";
+  #};
 
   ## TODO: REMOVE THIS ONCE SONARR IS UPDATED
   nixpkgs.config.permittedInsecurePackages = [
@@ -59,8 +68,9 @@
       enable = true;
       settings.base-url = "http://127.0.0.1:4906/";
       settings.listen-http = ":4906";
-      # Remove once I get away from IOS
-      settings.upstream-base-url = "https://ntfy.sh";
+      # TODO: Set up push notifications on IOS with upstream server.
+      # # Remove once I get away from IOS
+      # settings.upstream-base-url = "https://ntfy.sh";
     };
 
     jellyfin.enable = true;
@@ -110,9 +120,9 @@
       environmentFiles = [ config.age.secrets.helios-telegraf-environment.path ];
       extraConfig = {
         agent = {
-          interval = "10m";
-          flush_interval = "10m";
-          flush_jitter = "1m";
+          interval = "5m";
+          flush_interval = "5m";
+          flush_jitter = "30s";
         };
 
         inputs = {

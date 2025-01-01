@@ -5,6 +5,7 @@
 }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     ./hardware-configuration.nix
+    ./monitoring.nix
     ./services.nix
     ./nginx.nix
 

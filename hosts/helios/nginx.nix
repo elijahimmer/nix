@@ -1,7 +1,7 @@
 {config, inputs, ...}: {
-  age.secrets.nginx-passwords = {
-    file = inputs.self + /secrets/nginx-passwords.age;
-    mode = "770";
+  age.secrets.helios-nginx-passwords = {
+    file = inputs.self + /secrets/helios-nginx-passwords.age;
+    mode = "550";
     owner = "nginx";
     group = "nginx";
   };
@@ -14,7 +14,10 @@
     proxyRewrite = service: port:
       proxy port
       // {
-        extraConfig = "rewrite ^/${service}/(.*) /$1 break;";
+        extraConfig = ''
+          rewrite ^/${service}/(.*) /$1 break;
+          rewrite ^/${service}$ / break;
+        '';
       };
   in {
     enable = true;
@@ -31,7 +34,7 @@
       "/jellyfin" = proxy 8096;
       "/media" = {
         root = "/disks";
-        basicAuthFile = config.age.secrets.nginx-passwords.path;
+        basicAuthFile = config.age.secrets.helios-nginx-passwords.path;
         extraConfig = "
           autoindex on;
           autoindex_format html;
@@ -51,15 +54,18 @@
     virtualHosts."helios".locations = 
       config.services.nginx.virtualHosts."127.0.0.1".locations
     // {
-      "/" = proxy config.services.homepage-dashboard.listenPort;
       "/qbit" = proxyRewrite "qbit" config.services.qbittorrent.port;
       "/sonarr" = proxy 8989;
       "/prowlarr" = proxy 9696;
       "/radarr" = proxy 7878;
       "/readarr" = proxy 8787;
       "/scrutiny" = proxy config.services.scrutiny.settings.web.listen.port;
-      #"/grafana" = proxy config.services.grafana.settings.server.http_port;
-      "/influx" = proxy 8086;
+      "/grafana" = proxy config.services.grafana.settings.server.http_port;
+      "/loki" = proxy config.services.loki.configuration.server.http_listen_port;
+      "/promtail" = proxy config.services.promtail.configuration.server.http_listen_port;
+      "/prometheus" = proxy config.services.prometheus.port;
+      "/influx" = proxyRewrite "influx" 8086;
+      "/ntfy" = proxyRewrite "ntfy" 4906;
     };
   };
 }

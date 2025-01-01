@@ -9,8 +9,17 @@ in {
   "gaea-ssh.age".publicKeys = gaea;
 
   "helios-ssh.age".publicKeys = helios;
-  "helios-homepage.age".publicKeys = helios;
-  "nginx-passwords.age".publicKeys = helios;
+  "helios-nginx-passwords.age".publicKeys = helios;
+
+  "helios-influxdb2-password.age".publicKeys = helios;
+  "helios-influxdb2-admin-token.age".publicKeys = helios;
+
+  "helios-influxdb2-grafana-token.age".publicKeys = helios;
+  "helios-influxdb2-telegraf-token.age".publicKeys = helios;
+
+  "helios-telegraf-environment.age".publicKeys = helios;
+
+  "helios-grafana-password.age".publicKeys = helios;
 
   "eimmer-passwd.age".publicKeys = themAll;
 }

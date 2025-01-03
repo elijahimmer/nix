@@ -31,8 +31,8 @@
 
     virtualHosts."127.0.0.1".locations = {
       "/" = {return = "301 /jellyfin/web/";};
-      "/jellyfin" = proxy 8096;
-      "/media" = {
+      "/jellyfin/" = proxy 8096;
+      "/media/" = {
         root = "/disks";
         basicAuthFile = config.age.secrets.helios-nginx-passwords.path;
         extraConfig = "
@@ -54,18 +54,14 @@
     virtualHosts."helios".locations = 
       config.services.nginx.virtualHosts."127.0.0.1".locations
     // {
-      "/qbit" = proxyRewrite "qbit" config.services.qbittorrent.port;
-      "/sonarr" = proxy 8989;
-      "/prowlarr" = proxy 9696;
-      "/radarr" = proxy 7878;
-      "/readarr" = proxy 8787;
-      "/scrutiny" = proxy config.services.scrutiny.settings.web.listen.port;
-      "/grafana" = proxy config.services.grafana.settings.server.http_port;
-      "/loki" = proxy config.services.loki.configuration.server.http_listen_port;
-      "/promtail" = proxy config.services.promtail.configuration.server.http_listen_port;
-      "/prometheus" = proxy config.services.prometheus.port;
-      "/influx" = proxyRewrite "influx" 8086;
-      "/ntfy" = proxyRewrite "ntfy" 4906;
+      "/qbit/" = proxyRewrite "qbit" config.services.qbittorrent.port;
+      "/sonarr/" = proxy 8989;
+      "/prowlarr/" = proxy 9696;
+      "/radarr/" = proxy 7878;
+      "/readarr/" = proxy 8787;
+      "/grafana/" = proxy config.services.grafana.settings.server.http_port;
+      "/prometheus/" = proxyRewrite "prometheus" config.services.prometheus.port;
+      "/ntfy/" = proxyRewrite "ntfy" 4906;
     };
   };
 }

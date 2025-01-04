@@ -1,12 +1,13 @@
 _: {
   imports = [
     ./common
-    ./env
+    ./custom
     ./eimmer
+    ./env
+    ./games
+    ./monitoring
+    ./services
     ./ssot
     ./theme
-    ./services
-    ./games
-    ./custom
   ];
 }

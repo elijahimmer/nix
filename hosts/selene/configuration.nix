@@ -15,8 +15,15 @@
 
   mein = {
     eimmer.headFull.enable = true;
-    env.withCodingPkgs = true; bluetooth.enable = true; pipewire.enable = true;
+    env.withCodingPkgs = true;
+    bluetooth.enable = true;
+    pipewire.enable = true;
     theme.enable = true;
+    monitoring = {
+      enable = true;
+      listenAddress = "100.65.0.0";
+      openFirewall = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -28,6 +35,7 @@
     driver = "xe";
     vaapiDriver = "intel-media-driver";
   };
+
   hardware.graphics = {
     enable = true;
     extraPackages = [pkgs.vpl-gpu-rt];

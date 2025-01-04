@@ -10,6 +10,8 @@ _: {
   ];
   ##
 
+  users.groups.media = {};
+
   services = {
     ntfy-sh = {
       enable = true;
@@ -20,11 +22,26 @@ _: {
       # settings.upstream-base-url = "https://ntfy.sh";
     };
 
-    jellyfin.enable = true;
+    jellyfin = {
+      enable = true;
+      group = "media";
+    };
+
     prowlarr.enable = true;
-    sonarr.enable = true;
-    radarr.enable = true;
-    readarr.enable = true;
+
+    sonarr = {
+      enable = true;
+      group = "media";
+    };
+    radarr = {
+      enable = true;
+      group = "media";
+    };
+    readarr = {
+      enable = true;
+      group = "media";
+    };
+
 
     qbittorrent.enable = true;
     qbittorrent.port = 8181;

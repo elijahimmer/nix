@@ -156,7 +156,7 @@
           static_configs = [
             {
               targets = [
-                "127.0.0.1:${port}" "gaea:${port}" "selene:${port}"
+                "helios:${port}" "gaea:${port}" "selene:${port}"
               ];
             }
         ];
@@ -181,16 +181,6 @@
     ];
 
     exporters = {
-      node.enable = true;
-      systemd.enable = true;
-
-      smartctl = {
-        enable = true;
-        group = "disk";
-
-        maxInterval = "5m";
-      };
-
       ## TODO: Fix exportarr to accept the API keys.
       #exportarr-sonarr = {
       #  enable = true;

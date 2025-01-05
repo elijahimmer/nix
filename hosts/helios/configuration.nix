@@ -18,6 +18,10 @@
   mein = {
     sshHost.enable = true;
     syncthing.enable = true;
+    monitoring = {
+      enable = true;
+      listenAddress = "100.64.0.1";
+    };
   };
 
   environment.systemPackages = with pkgs; [

@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 11,
+  "id": 12,
   "links": [],
   "panels": [
     {
@@ -106,7 +106,6 @@
         "wideLayout": true
       },
       "pluginVersion": "11.4.0",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -204,11 +203,11 @@
               },
               {
                 "color": "orange",
-                "value": 50
+                "value": 60
               },
               {
                 "color": "red",
-                "value": 60
+                "value": 70
               }
             ]
           }
@@ -308,7 +307,6 @@
         "type": "query"
       },
       {
-        "allValue": "",
         "current": {
           "text": [
             "All"

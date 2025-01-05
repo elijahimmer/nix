@@ -23,14 +23,12 @@ in with lib; {
   };
 
   config = mkIf cfg.enable {
-
     services.prometheus.exporters = let 
       enable = {
         enable = true;
         listenAddress = cfg.listenAddress;
         openFirewall = cfg.openFirewall;
       };
-
     in {
       node = enable;
       systemd = enable;
@@ -40,5 +38,9 @@ in with lib; {
         maxInterval = "5m";
       };
     };
+
+    services.udev.extraRules = ''
+      SUBSYSTEM=="nvme", KERNEL=="nvme[0-9]*", GROUP="disk"
+    '';
   };
 }

@@ -193,8 +193,4 @@
       #exportarr-prowlarr.enable = true;
     };
   };
-
-  services.udev.extraRules = ''
-    SUBSYSTEM=="nvme", KERNEL=="nvme[0-9]*", GROUP="disk"
-  '';
 }

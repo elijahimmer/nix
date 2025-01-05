@@ -20,7 +20,7 @@
     syncthing.enable = true;
     monitoring = {
       enable = true;
-      listenAddress = "100.64.0.1";
+      listenAddress = "127.0.0.1";
     };
   };
 

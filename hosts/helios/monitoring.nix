@@ -156,7 +156,7 @@
           static_configs = [
             {
               targets = [
-                "helios:${port}" "gaea:${port}" "selene:${port}"
+                "127.0.0.1:${port}" "gaea:${port}" "selene:${port}"
               ];
             }
         ];

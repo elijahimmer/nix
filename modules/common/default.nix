@@ -4,7 +4,6 @@
   stateVersion,
   lib,
   config,
-  headFull,
   ...
 }: let
   cfg = config.mein.common;
@@ -20,8 +19,8 @@ in {
     # needed to get flakes to work
     environment.systemPackages = with pkgs; [git];
 
-    documentation = {
-      enable = config.mein.eimmer.headFull.enable;
+    documentation = lib.mkIf config.mein.eimmer.headFull.enable {
+      enable = true;
 
       dev.enable = true;
       man.generateCaches = true;

@@ -13,7 +13,7 @@
       sshAccess = false;
     };
 
-    networkManager.enable = false;
+    networkManager.enable = true;
     syncthing.enable = false;
     tailscale.enable = false;
 
@@ -21,6 +21,8 @@
     theme.enable = true;
     ssot.enable = false;
   };
+
+  networking.wireless.enable = false;
 
   environment.systemPackages = with pkgs; [acpi];
 

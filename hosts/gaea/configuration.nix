@@ -24,7 +24,7 @@
     #games.starCitizen.enable = true;
     monitoring = {
       enable = true;
-      listenAddress = "100.64.0.1";
+      listenAddress = "100.64.0.0";
       openFirewall = true;
     };
   };

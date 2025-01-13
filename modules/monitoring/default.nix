@@ -42,5 +42,12 @@ in with lib; {
     services.udev.extraRules = ''
       SUBSYSTEM=="nvme", KERNEL=="nvme[0-9]*", GROUP="disk"
     '';
+
+    systemd.services = {
+      prometheus-node-exporter.after = [ "tailscaled.service" ];
+      prometheus-smartctl-exporter.after = [ "tailscaled.service" ];
+      prometheus-systemd-exporter.after = [ "tailscaled.service" ];
+    };
   };
+
 }

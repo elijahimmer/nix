@@ -19,11 +19,7 @@
     bluetooth.enable = true;
     pipewire.enable = true;
     theme.enable = true;
-    monitoring = {
-      enable = true;
-      listenAddress = "100.65.0.0";
-      openFirewall = true;
-    };
+    monitoring.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

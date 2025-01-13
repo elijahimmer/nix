@@ -22,11 +22,7 @@
     theme.enable = true;
     games.enable = true;
     #games.starCitizen.enable = true;
-    monitoring = {
-      enable = true;
-      listenAddress = "100.64.0.0";
-      openFirewall = true;
-    };
+    monitoring.enable = true;
   };
 
   programs.obs-studio = {

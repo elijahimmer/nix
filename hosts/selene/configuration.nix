@@ -20,6 +20,7 @@
     pipewire.enable = true;
     theme.enable = true;
     monitoring.enable = true;
+    games.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

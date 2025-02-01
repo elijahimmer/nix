@@ -52,6 +52,9 @@ in
         zig
         zig-shell-completions
 
+        gleam
+        erlang_nox
+
         elixir
         ghc
 

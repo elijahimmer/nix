@@ -72,6 +72,7 @@
             (builtins.readFile ./init.lua)
             + lib.optionalString config.mein.env.withCodingPkgs ''
               lspconfig.elixirls.setup { cmd = { 'elixir-ls' } }
+              lspconfig.gleam.setup { }
 
               lspconfig.tinymist.setup { 
                 root_dir = "-",

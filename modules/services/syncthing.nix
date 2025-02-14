@@ -8,6 +8,7 @@
     helios = "PVNDSAB-HQOHR66-TC33BUM-SKJKQUB-BQF72YE-SYY5IW2-OHBCY4C-DP5X4Q4";
     gaea = "H4RMB5K-XW2FISQ-MYUHCSD-WTEXEII-IHBX7AB-NH4I32H-TWJUZKR-YTRBLAS";
     selene = "7TYNNXG-TSZHVWS-KEKAVKS-NZMPOOF-2RSX7AP-U4PIENU-4WKCWO6-5GPHZAA";
+    aphrodite = "DFITYAW-YYXEFS6-Y56FMLT-K2LZL76-V6CSJRA-OC342ER-5P5B6N6-S2347A7";
   };
   cfg = config.mein.syncthing;
 in
@@ -57,7 +58,7 @@ in
               ${id} = {
                 inherit id;
                 path = "/home/${cfg.user}/${id}";
-                devices = ["helios" "gaea" "selene"];
+                devices = ["helios" "gaea" "selene" "aphrodite"];
               };
             }) {}
           cfg.folders;
@@ -70,6 +71,7 @@ in
             helios = dev "helios";
             gaea = dev "gaea";
             selene = dev "selene";
+            aphrodite = dev "aphrodite";
           };
           options.urAccepted = -1;
         };

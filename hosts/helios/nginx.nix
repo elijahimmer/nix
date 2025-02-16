@@ -62,6 +62,7 @@
       "/grafana/" = proxy config.services.grafana.settings.server.http_port;
       "/prometheus/" = proxyRewrite "prometheus" config.services.prometheus.port;
       "/ntfy/" = proxyRewrite "ntfy" 4906;
+      "/syncthing/" = proxyRewrite "syncthing" 8384;
     };
   };
 }

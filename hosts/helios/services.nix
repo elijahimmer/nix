@@ -1,26 +1,5 @@
 {inputs, config, ...}: {
 
-  ## Remarkable device sync
-  services.rmfakecloud = {
-    enable = true;
-    port = 8909;
-    environmentFile = config.age.secrets.helios-rmfakecloud-keys.path;
-    storageUrl = "https://helios:${toString config.services.rmfakecloud.port}";
-    extraSettings = {
-      #DATADIR = "/disks/media/remarkable";
-    };
-  };
-
-  age.secrets = {
-    helios-rmfakecloud-keys = {
-      file = inputs.self + /secrets/helios-rmfakecloud.age;
-      mode = "400";
-      owner = "root";
-      group = "root";
-    };
-  };
-  ##
-
   users.users.jellyfin.extraGroups = ["render" "video"];
 
   ## TODO: REMOVE THIS ONCE SONARR IS UPDATED

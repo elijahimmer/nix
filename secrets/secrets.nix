@@ -12,7 +12,6 @@ in {
   "helios-sonarr-token.age".publicKeys = helios;
   "helios-nginx-passwords.age".publicKeys = helios;
 
-  "helios-rmfakecloud.age".publicKeys = helios;
   "helios-ntfy-key.age".publicKeys = helios;
   "helios-grafana-password.age".publicKeys = helios;
 

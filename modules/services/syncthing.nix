@@ -60,13 +60,11 @@ in
                 path = "/home/${cfg.user}/${id}";
                 devices = ["helios" "gaea" "selene" "aphrodite"];
                 versioning = {
-                  cleanupIntervalS = "3600";
-                  fsPath = "";
-                  fsType = "basic";
                   type = "staggered";
-                  params = [
-                    {cleanoutDays = "365";}
-                  ];
+                  params = {
+                    cleanInterval = "3600";
+                    maxAge = "31536000";
+                  };
                 };
               };
             }) {}

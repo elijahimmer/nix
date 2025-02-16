@@ -21,7 +21,8 @@ in
         just
         killall
         #nvimpager
-        p7zip
+        zip
+        unzip
         page
         pciutils
         ripgrep

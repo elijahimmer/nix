@@ -17,7 +17,10 @@
 
   mein = {
     sshHost.enable = true;
-    syncthing.enable = true;
+    syncthing = {
+      enable = true;
+      guiAddress = "100.64.0.1";
+    };
     monitoring = {
       enable = true;
       listenAddress = "127.0.0.1";

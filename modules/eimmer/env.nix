@@ -50,6 +50,8 @@
             cmp-spell
             cmp-rg
 
+            nvim-treesitter
+
             #which-key-nvim
           ];
 

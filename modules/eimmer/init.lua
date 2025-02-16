@@ -8,7 +8,7 @@ local keymap = vim.keymap
 g.mapleader = ' '
 g.maplocalleader = ' '
 
-g.have_nerd_font = true 
+g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -94,6 +94,7 @@ keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window'
 keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 
+-- Theme
 require('rose-pine').setup({
   variant = "main",
   enable = {terminal = true},
@@ -104,12 +105,17 @@ require('rose-pine').setup({
     transparency = true,
   },
 })
+
+-- Set colorscheme to the theme
 vim.cmd('colorscheme rose-pine')
 
+
+-- Set up the autocomplete
+-- TODO: Make this work properly
 require('cmp').setup({
   sources = {
-    { name = 'buffer' },
     { name = 'nvim_lsp' },
+    { name = 'buffer' },
   },
 })
 
@@ -117,6 +123,15 @@ require('cmp').setup({
 --  { "<leader>f", group = "file" },
 --})
 
+-- Enable TS highlighting
+require('nvim-treesitter').setup {
+  ensure_installed = "all",
+
+  highlight = {
+    enable = true,
+    disable = { "zig" },
+  }
+}
 
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

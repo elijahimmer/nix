@@ -14,7 +14,7 @@
 in
   with lib; {
     options.mein.syncthing = {
-      enable = mkEnableOption "enable syncthing" // {default = config.mein.env.enable;};
+      enable = mkEnableOption "enable syncthing";
       user = mkOption {
         type = types.str;
         default = "eimmer";
@@ -26,6 +26,10 @@ in
       folders = mkOption {
         type = types.listOf types.str;
         default = ["Documents"];
+      };
+      guiEnabled = mkOption {
+        type = types.bool;
+        default = false;
       };
     };
 
@@ -80,6 +84,7 @@ in
             selene = dev "selene";
             aphrodite = dev "aphrodite";
           };
+          gui.enabled = cfg.guiEnabled;
           options.urAccepted = -1;
         };
       };

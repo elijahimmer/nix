@@ -16,6 +16,8 @@
   mein = {
     eimmer.headFull.enable = true;
     env.withCodingPkgs = true;
+    syncthing.enable = true;
+
     bluetooth.enable = true;
     pipewire.enable = true;
     theme.enable = true;

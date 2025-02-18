@@ -15,12 +15,19 @@
 
   mein = {
     eimmer.headFull.enable = true;
+
     env.withCodingPkgs = true;
+
+    syncthing.enable = true;
+    syncthing.guiEnabled = true;
+
     pipewire.enable = true;
     pipewire.noisetorch.enable = true;
+
     music.enable = true;
     theme.enable = true;
     games.enable = true;
+
     #games.starCitizen.enable = true;
     monitoring.enable = true;
   };

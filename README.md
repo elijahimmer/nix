@@ -1,3 +1,5 @@
+Moved to codeberg https://codeberg.org/Elijah-Immer/nix
+
 # My NixOS configs.
 
 Just my own personal repo for my systems.
